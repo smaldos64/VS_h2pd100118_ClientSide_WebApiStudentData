@@ -64,9 +64,20 @@ namespace WebApiStudentData.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public int Get(string UserName)
         {
-            return "value";
+            object jSonnObject = new object();
+            UserInfo UserInfo_Object = db.UserInfos.FirstOrDefault(u => u.UserName.ToLower() == UserName.ToLower());
+
+            if (null != UserInfo_Object)
+            {
+                return (UserInfo_Object.UserInfoID);
+            }
+            else
+            {
+                return (0);
+            }
+
         }
 
         // POST api/values
