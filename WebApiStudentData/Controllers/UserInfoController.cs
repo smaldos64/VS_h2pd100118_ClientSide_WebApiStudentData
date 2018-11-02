@@ -1,8 +1,4 @@
-﻿#define LocalServer
-#undef SchoolServer
-#undef UnoEuroServer
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,17 +12,7 @@ using WebApiStudentData.Tools;
 
 namespace WebApiStudentData.Controllers
 {
-#if (LocalServer)
-    [EnableCors(origins: "http://localhost:54285", headers: "*", methods: "*")]
-#endif
-
-#if (SchoolServer)
-    [EnableCors(origins: "*.*", headers: "*", methods: "*")]
-#endif
-
-#if (UnoEuroServer)
-    [EnableCors(origins: "http://webapisimpleclient.buchwaldshave34.dk", headers: "*", methods: "*")]
-#endif
+    [EnableCors(origins: "*", headers: "Content-Type", methods: "GET,POST,PUT,DELETE,OPTIONS")]
 
     public class UserInfoController : ApiController
     {

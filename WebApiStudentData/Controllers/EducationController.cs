@@ -26,7 +26,6 @@ namespace WebApiStudentData.Controllers
                 {
                     EducationID = Education_Object.EducationID,
                     EducationPlace = Education_Object.EducationName,
-                    EducationLine = Education_Object.EducationLine
                 };
 
                 jSonList.Add(ListItem);
@@ -47,8 +46,7 @@ namespace WebApiStudentData.Controllers
             int NumberOfUsersSaved;
 
             Education_Object.EducationName = json_Object.EducationPlace;
-            Education_Object.EducationLine = json_Object.EducationLine;
-
+           
             db.Educations.Add(Education_Object);
             NumberOfUsersSaved = db.SaveChanges();
 

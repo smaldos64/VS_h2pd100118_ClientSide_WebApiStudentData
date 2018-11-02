@@ -13,54 +13,66 @@ namespace WebApiStudentData.Controllers
         private DatabaseContext db = new DatabaseContext();
 
         // GET api/<controller>
-        public List<Object> Get()
+        public List<Object> Get(string UserName, string Password)
         {
             List<object> jSonList = new List<object>();
             List<User_Education_Time_Collection> User_Education_Time_List = new List<User_Education_Time_Collection>();
+            int UserID = 0;
 
-            User_Education_Time_List = db.User_Education_Time_Collections.ToList();
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
 
-            foreach (User_Education_Time_Collection User_Education_Time_Object in User_Education_Time_List)
+            if (0 < UserID)
             {
-                var ListItem = new
-                {
-                    EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
-                    UserInfoID = User_Education_Time_Object.UserInfoID,
-                    UserName = User_Education_Time_Object.UserInfo.UserName,
-                    EducationPlace = User_Education_Time_Object.Education.EducationName,
-                    EducationLine = User_Education_Time_Object.Education.EducationLine,
-                    EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
-                    EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
-                };
+                User_Education_Time_List = db.User_Education_Time_Collections.Where(u => u.UserInfoID == UserID).ToList();
 
-                jSonList.Add(ListItem);
+                foreach (User_Education_Time_Collection User_Education_Time_Object in User_Education_Time_List)
+                {
+                    var ListItem = new
+                    {
+                        EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
+                        UserInfoID = User_Education_Time_Object.UserInfoID,
+                        UserName = User_Education_Time_Object.UserInfo.UserName,
+                        EducationPlace = User_Education_Time_Object.Education.EducationName,
+                        EducationLine = User_Education_Time_Object.EducationLine.EducationLineName,
+                        EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
+                        EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
+                    };
+
+                    jSonList.Add(ListItem);
+                }
             }
             return (jSonList);
         }
 
 
         // GET api/<controller>/5
-        public List<object> Get(int id)
+        public List<object> Get(int id, string UserName, string Password)
         {
             List<object> jSonList = new List<object>();
             List<User_Education_Time_Collection> User_Education_Time_List = new List<User_Education_Time_Collection>();
+            User_Education_Time_Collection User_Education_Time_Object = new User_Education_Time_Collection();
+            int UserID = 0;
 
-            User_Education_Time_List = db.User_Education_Time_Collections.Where(u => u.UserInfoID == id).ToList();
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
 
-            foreach (User_Education_Time_Collection User_Education_Time_Object in User_Education_Time_List)
+            if (0 < UserID)
             {
-                var ListItem = new
+                if (null != db.User_Education_Time_Collections.FirstOrDefault(u => u.UserInfoID == UserID && u.User_Education_Time_CollectionID == id))
                 {
-                    EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
-                    UserInfoID = User_Education_Time_Object.UserInfoID,
-                    UserName = User_Education_Time_Object.UserInfo.UserName,
-                    EducationPlace = User_Education_Time_Object.Education.EducationName,
-                    EducationLine = User_Education_Time_Object.Education.EducationLine,
-                    EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
-                    EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
-                };
+                    User_Education_Time_Object = db.User_Education_Time_Collections.First(u => u.UserInfoID == UserID && u.User_Education_Time_CollectionID == id);
 
-                jSonList.Add(ListItem);
+                    var ListItem = new
+                    {
+                        EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
+                        UserInfoID = User_Education_Time_Object.UserInfoID,
+                        UserName = User_Education_Time_Object.UserInfo.UserName,
+                        EducationPlace = User_Education_Time_Object.Education.EducationName,
+                        EducationLine = User_Education_Time_Object.EducationLine.EducationLineName,
+                        EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
+                        EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
+                    };
+                    jSonList.Add(ListItem);
+                }
             }
             return (jSonList);
         }

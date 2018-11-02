@@ -20,6 +20,10 @@ namespace WebApiStudentData.Models
         public virtual Education Education { get; set; }
 
         [Required]
+        public int EducationLineID { get; set; }
+        public virtual EducationLine EducationLine { get; set; }
+
+        [Required]
         [Column(TypeName = "Date")]
         public DateTime StartDate { get; set; }
 

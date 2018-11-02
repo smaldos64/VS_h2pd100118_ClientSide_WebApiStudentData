@@ -31,9 +31,9 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;LocalServer</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -196,6 +196,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="ConstDeclarations\Const.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentEducationTimeController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\Education.cs" />
+    <Compile Include="Models\EducationLine.cs" />
     <Compile Include="Models\UserFile.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\User_Education_Character_Course_Collection.cs" />
