@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebApiStudentData.Models;
+using WebApiStudentData.Tools;
+using WebApiStudentData.ConstDeclarations;
 
 namespace WebApiStudentData.Controllers
 {
@@ -48,9 +50,9 @@ namespace WebApiStudentData.Controllers
 
             UserID = UserInfo.FindUserInDatabase(UserName, Password);
 
-            if (0 < UserID)
+            if (Const.UserNotFound < UserID)
             {
-                if (0 == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
+                if (Const.CourseNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
                 {
                     Course_Object.CourseName = json_Object.CourseName;
 
@@ -63,23 +65,62 @@ namespace WebApiStudentData.Controllers
                     }
                     else
                     {
-                        return (0);
+                        return (Const.SaveOperationFailed);
                     }
                 }
                 else
                 {
-                    return (-2);
+                    return (Const.CourseAlreadyPresent);
                 }
             }
             else
             {
-                return (-1);
+                return (Const.UserNotFound);
             }
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public int Put(dynamic json_Object, int id, string UserName, string Password)
         {
+            Course Course_Object = new Course();
+            int NumberOfCoursesSaved;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                if (Const.CourseNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
+                {
+                    Course_Object = db.Courses.Find(id);
+                    if (null != Course_Object)
+                    {
+                        Course_Object.CourseName = json_Object.CourseName;
+                        NumberOfCoursesSaved = db.SaveChanges();
+                        if (1 == NumberOfCoursesSaved)
+                        {
+                            return (Const.UpdateOperationOk);
+                        }
+                        else
+                        {
+                            return (Const.UpdateOperationFailed);
+                        }
+                    }
+                    else
+                    {
+                        return (Const.ObjectNotFound);
+                    }
+                }
+                else
+                {
+                    return (Const.CourseAlreadyPresent);
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
 
         // DELETE api/<controller>/5
