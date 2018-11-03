@@ -27,6 +27,18 @@ namespace WebApiStudentData.Controllers
 
                 foreach (User_Education_Time_Collection User_Education_Time_Object in User_Education_Time_List)
                 {
+                    string CourseNameOut = "";
+                    string WhichCharacterScaleOut = "";
+                    int CharacterValueOut = -100;
+
+                    User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object =
+                        db.User_Education_Character_Course_Collections.FirstOrDefault(u => u.User_Education_Time_CollectionID == User_Education_Time_Object.User_Education_Time_CollectionID);
+                    if (null != User_Education_Character_Course_Collection_Object)
+                    {
+                        CourseNameOut = User_Education_Character_Course_Collection_Object.Course.CourseName;
+                        WhichCharacterScaleOut = User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName;
+                        CharacterValueOut = User_Education_Character_Course_Collection_Object.CharacterValue;
+                    }
                     var ListItem = new
                     {
                         EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
@@ -34,6 +46,9 @@ namespace WebApiStudentData.Controllers
                         UserName = User_Education_Time_Object.UserInfo.UserName,
                         EducationPlace = User_Education_Time_Object.Education.EducationName,
                         EducationLine = User_Education_Time_Object.EducationLine.EducationLineName,
+                        CourseName = CourseNameOut,
+                        CharacterValue = CharacterValueOut,
+                        WhichCharecterScale = WhichCharacterScaleOut,
                         EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
                         EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
                     };
@@ -61,6 +76,18 @@ namespace WebApiStudentData.Controllers
                 {
                     User_Education_Time_Object = db.User_Education_Time_Collections.First(u => u.UserInfoID == UserID && u.User_Education_Time_CollectionID == id);
 
+                    string CourseNameOut = "";
+                    string WhichCharacterScaleOut = "";
+                    int CharacterValueOut = -100;
+
+                    User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object =
+                        db.User_Education_Character_Course_Collections.FirstOrDefault(u => u.User_Education_Time_CollectionID == User_Education_Time_Object.User_Education_Time_CollectionID);
+                    if (null != User_Education_Character_Course_Collection_Object)
+                    {
+                        CourseNameOut = User_Education_Character_Course_Collection_Object.Course.CourseName;
+                        WhichCharacterScaleOut = User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName;
+                        CharacterValueOut = User_Education_Character_Course_Collection_Object.CharacterValue;
+                    }
                     var ListItem = new
                     {
                         EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
@@ -68,6 +95,9 @@ namespace WebApiStudentData.Controllers
                         UserName = User_Education_Time_Object.UserInfo.UserName,
                         EducationPlace = User_Education_Time_Object.Education.EducationName,
                         EducationLine = User_Education_Time_Object.EducationLine.EducationLineName,
+                        CourseName = CourseNameOut,
+                        CharacterValue = CharacterValueOut,
+                        WhichCharecterScale = WhichCharacterScaleOut,
                         EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
                         EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
                     };

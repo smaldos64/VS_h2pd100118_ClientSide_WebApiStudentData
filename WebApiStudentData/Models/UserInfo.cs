@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using WebApiStudentData.Tools;
+using WebApiStudentData.ConstDeclarations;
 
 namespace WebApiStudentData.Models
 {
@@ -25,7 +26,7 @@ namespace WebApiStudentData.Models
             Password = Crypto.Encrypt(Password);
 
             int UserCounter = 0;
-            int UserID = 0;
+            int UserID = Const.UserNotFound;
                       
             while (UserCounter < UserInfo_List.Count)
             {

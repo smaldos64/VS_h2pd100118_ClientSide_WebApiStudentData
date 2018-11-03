@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Cors;
 using WebApiStudentData.Models;
+using WebApiStudentData.ConstDeclarations;
 
 namespace WebApiStudentData.Models
 {
@@ -32,7 +34,7 @@ namespace WebApiStudentData.Models
                 CourseCounter++;
             }
 
-            return (CourseID);
+            return (Const.CourseNotFound);
         }
     }
 }
