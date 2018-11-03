@@ -55,7 +55,7 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                if (Const.CourseNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
+                if (Const.ObjectNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
                 {
                     Course_Object.CourseName = json_Object.CourseName;
 
@@ -73,7 +73,7 @@ namespace WebApiStudentData.Controllers
                 }
                 else
                 {
-                    return (Const.CourseAlreadyPresent);
+                    return (Const.ObjectAlreadyPresent);
                 }
             }
             else
@@ -94,7 +94,7 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                if (Const.CourseNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
+                if (Const.ObjectNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
                 {
                     Course_Object = db.Courses.Find(id);
                     if (null != Course_Object)
@@ -117,7 +117,7 @@ namespace WebApiStudentData.Controllers
                 }
                 else
                 {
-                    return (Const.CourseAlreadyPresent);
+                    return (Const.ObjectAlreadyPresent);
                 }
             }
             else

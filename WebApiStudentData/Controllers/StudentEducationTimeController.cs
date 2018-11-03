@@ -39,6 +39,14 @@ namespace WebApiStudentData.Controllers
                         WhichCharacterScaleOut = User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName;
                         CharacterValueOut = User_Education_Character_Course_Collection_Object.CharacterValue;
                     }
+
+                    string AbsencePercentageOut = "Ikke Oplyst";
+                    Absence Absence_Object = db.Absences.FirstOrDefault(u => u.User_Education_Time_CollectionID == User_Education_Time_Object.User_Education_Time_CollectionID);
+                    if (null != Absence_Object)
+                    {
+                        AbsencePercentageOut = Absence_Object.AbsencePercentage.ToString();
+                    }
+
                     var ListItem = new
                     {
                         EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
@@ -50,7 +58,8 @@ namespace WebApiStudentData.Controllers
                         CharacterValue = CharacterValueOut,
                         WhichCharecterScale = WhichCharacterScaleOut,
                         EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
-                        EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
+                        EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString(),
+                        AbsencePercentage = AbsencePercentageOut
                     };
 
                     jSonList.Add(ListItem);
@@ -88,6 +97,13 @@ namespace WebApiStudentData.Controllers
                         WhichCharacterScaleOut = User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName;
                         CharacterValueOut = User_Education_Character_Course_Collection_Object.CharacterValue;
                     }
+
+                    string AbsencePercentageOut = "Ikke Oplyst";
+                    Absence Absence_Object = db.Absences.FirstOrDefault(u => u.User_Education_Time_CollectionID == User_Education_Time_Object.User_Education_Time_CollectionID);
+                    if (null != Absence_Object)
+                    {
+                        AbsencePercentageOut = Absence_Object.AbsencePercentage.ToString();
+                    }
                     var ListItem = new
                     {
                         EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
@@ -99,7 +115,8 @@ namespace WebApiStudentData.Controllers
                         CharacterValue = CharacterValueOut,
                         WhichCharecterScale = WhichCharacterScaleOut,
                         EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
-                        EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString()
+                        EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString(),
+                        AbsencePercentage = AbsencePercentageOut
                     };
                     jSonList.Add(ListItem);
                 }

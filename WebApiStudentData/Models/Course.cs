@@ -34,7 +34,7 @@ namespace WebApiStudentData.Models
                 CourseCounter++;
             }
 
-            return (Const.CourseNotFound);
+            return (Const.ObjectNotFound);
         }
     }
 }
