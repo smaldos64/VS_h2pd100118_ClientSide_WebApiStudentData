@@ -201,6 +201,7 @@
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentEducationTimeController.cs" />
+    <Compile Include="Controllers\UserFileController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

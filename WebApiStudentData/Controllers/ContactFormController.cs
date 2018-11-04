@@ -94,8 +94,40 @@ namespace WebApiStudentData.Controllers
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public int Delete(int id, string UserName, string Password)
         {
+            ContactForm ContactForm_Object = new ContactForm();
+            int NumberOfContactFormsDeleted;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                ContactForm_Object = db.ContactForms.Find(id);
+                if (null != ContactForm_Object)
+                {
+                    db.ContactForms.Remove(ContactForm_Object);
+                    NumberOfContactFormsDeleted = db.SaveChanges();
+                    if (1 == NumberOfContactFormsDeleted)
+                    {
+                        return (Const.DeleteOperationOk);
+                    }
+                    else
+                    {
+                        return (Const.DeleteOperationFailed);
+                    }
+                }
+                else
+                {
+                    return (Const.ObjectNotFound);
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
     }
 }
