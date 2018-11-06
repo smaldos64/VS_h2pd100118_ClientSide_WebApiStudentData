@@ -79,7 +79,7 @@ namespace WebApiStudentData.Controllers
                         var ListItem = new
                         {
                             ErrorCode = Const.ObjectNotSavedByCurrentUserOriginally,
-                            ErrorText = "UserFile Objekt er gemt af nuværende bruger oprindeligt !!!"
+                            ErrorText = "UserFile Objekt er ikke gemt af nuværende bruger oprindeligt !!!"
                         };
                         jSon_Object = ListItem;
                     }

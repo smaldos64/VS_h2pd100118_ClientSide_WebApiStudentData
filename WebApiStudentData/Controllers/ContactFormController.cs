@@ -54,6 +54,64 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
+        // GET api/<controller>/5
+        public object Get(int id, string UserName, string Password)
+        {
+            object jSon_Object = new object();
+            ContactForm ContactForm_Object = new ContactForm();
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                ContactForm_Object = db.ContactForms.Find(id);
+
+                if (null != ContactForm_Object)
+                {
+                    if (UserID == ContactForm_Object.UserInfoID)
+                    {
+                        var ListItem = new
+                        {
+                            ContactFormID = ContactForm_Object.ContactFormID,
+                            ContactNameFrom = ContactForm_Object.ContactNameFrom,
+                            ContactNameEmail = ContactForm_Object.ContactNameEmail,
+                            ContactText = ContactForm_Object.ContactText
+                        };
+                        jSon_Object = ListItem;
+                    }
+                    else
+                    {
+                        var ListItem = new
+                        {
+                            ErrorCode = Const.ObjectNotSavedByCurrentUserOriginally,
+                            ErrorText = "UserFile Objekt er ikke gemt af nuværende bruger oprindeligt !!!"
+                        };
+                        jSon_Object = ListItem;
+                    }
+                }
+                else
+                {
+                    var ListItem = new
+                    {
+                        ErrorCode = Const.ObjectNotFound,
+                        ErrorText = "UserFile Objekt er ikke fundet !!!"
+                    };
+                    jSon_Object = ListItem;
+                }
+            }
+            else
+            {
+                var ListItem = new
+                {
+                    ErrorCode = Const.UserNotFound,
+                    ErrorText = "Bruger er ikke fundet !!!"
+                };
+                jSon_Object = ListItem;
+            }
+            return (jSon_Object);
+        }
+
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {
