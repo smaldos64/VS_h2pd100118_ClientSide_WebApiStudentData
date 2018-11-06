@@ -9,7 +9,7 @@ using WebApiStudentData.ConstDeclarations;
 
 namespace WebApiStudentData.Controllers
 {
-    public class EducationController : ApiController
+    public class EducationLineController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
 
@@ -17,16 +17,17 @@ namespace WebApiStudentData.Controllers
         public List<Object> Get()
         {
             List<object> jSonList = new List<object>();
-            List<Education> Education_List = new List<Education>();
+            List<EducationLine> EducationLine_List = new List<EducationLine>();
 
-            Education_List = db.Educations.ToList();
+            EducationLine_List = db.EducationLines.ToList();
 
-            foreach (Education Education_Object in Education_List)
+            foreach (EducationLine EducationLine_Object in EducationLine_List)
             {
                 var ListItem = new
                 {
-                    EducationID = Education_Object.EducationID,
-                    EducationName = Education_Object.EducationName
+                    EducationLineID = EducationLine_Object.EducationLineID,
+                    EducationLineName = EducationLine_Object.EducationLineName,
+                    EducationPlace = EducationLine_Object.Education.EducationName
                 };
 
                 jSonList.Add(ListItem);
@@ -38,16 +39,17 @@ namespace WebApiStudentData.Controllers
         public Object Get(int id)
         {
             object jSon_Object = new object();
-            Education Education_Object  = new Education();
+            EducationLine EducationLine_Object = new EducationLine();
 
-            Education_Object = db.Educations.Find(id);
+            EducationLine_Object = db.EducationLines.Find(id);
 
-            if (null != Education_Object)
+            if (null != EducationLine_Object)
             {
                 var ListItem = new
                 {
-                    EducationID = Education_Object.EducationID,
-                    EducationName = Education_Object.EducationName
+                    EducationLineID = EducationLine_Object.EducationLineID,
+                    EducationLineName = EducationLine_Object.EducationLineName,
+                    EducationName = EducationLine_Object.Education.EducationName
                 };
                 jSon_Object = ListItem;
             }
@@ -60,15 +62,15 @@ namespace WebApiStudentData.Controllers
                 };
                 jSon_Object = ListItem;
             }
-           
+
             return (jSon_Object);
         }
 
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {
-            Education Education_Object = new Education();
-            int NumberOfEducationsSaved;
+            EducationLine EducationLine_Object = new EducationLine();
+            int NumberOfEducationLinesSaved;
 
             int UserID = 0;
 
@@ -76,14 +78,15 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                Education_Object.EducationName = json_Object.EducationPlace;
+                EducationLine_Object.EducationLineName = json_Object.EducationLineName;
+                EducationLine_Object.EducationID = json_Object.EducationID;
 
-                db.Educations.Add(Education_Object);
-                NumberOfEducationsSaved = db.SaveChanges();
+                db.EducationLines.Add(EducationLine_Object);
+                NumberOfEducationLinesSaved = db.SaveChanges();
 
-                if (1 == NumberOfEducationsSaved)
+                if (1 == NumberOfEducationLinesSaved)
                 {
-                    return (Education_Object.EducationID);
+                    return (EducationLine_Object.EducationID);
                 }
                 else
                 {
@@ -96,12 +99,11 @@ namespace WebApiStudentData.Controllers
             }
         }
 
-
         // PUT api/<controller>/5
         public int Put(int id, dynamic json_Object, string UserName, string Password)
         {
-            Education Education_Object = new Education();
-            int NumberOfEducationsSaved;
+            EducationLine EducationLine_Object = new EducationLine();
+            int NumberOfEducationLinesSaved;
 
             int UserID = 0;
 
@@ -109,17 +111,25 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                Education_Object = db.Educations.Find(id);
-                Education_Object.EducationName = json_Object.EducationName;
-
-                NumberOfEducationsSaved = db.SaveChanges();
-                if (1 == NumberOfEducationsSaved)
+                EducationLine_Object = db.EducationLines.Find(id);
+                if (null != EducationLine_Object)
                 {
-                    return (Const.UpdateOperationOk);
+                    EducationLine_Object.EducationLineName = json_Object.EducationName;
+                    EducationLine_Object.EducationID = json_Object.EducationID;
+
+                    NumberOfEducationLinesSaved = db.SaveChanges();
+                    if (1 == NumberOfEducationLinesSaved)
+                    {
+                        return (Const.UpdateOperationOk);
+                    }
+                    else
+                    {
+                        return (Const.UpdateOperationFailed);
+                    }
                 }
                 else
                 {
-                    return (Const.UpdateOperationFailed);
+                    return (Const.ObjectNotFound);
                 }
             }
             else
@@ -131,8 +141,8 @@ namespace WebApiStudentData.Controllers
         // DELETE api/<controller>/5
         public int Delete(int id, string UserName, string Password)
         {
-            Education Education_Object = new Education();
-            int NumberOfEducationsDeleted;
+            EducationLine EducationLine_Object = new EducationLine();
+            int NumberOfEducationLinesDeleted;
 
             int UserID = 0;
 
@@ -140,12 +150,12 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                Education_Object = db.Educations.Find(id);
-                if (null != Education_Object)
+                EducationLine_Object = db.EducationLines.Find(id);
+                if (null != EducationLine_Object)
                 {
-                    db.Educations.Remove(Education_Object);
-                    NumberOfEducationsDeleted = db.SaveChanges();
-                    if (1 == NumberOfEducationsDeleted)
+                    db.EducationLines.Remove(EducationLine_Object);
+                    NumberOfEducationLinesDeleted = db.SaveChanges();
+                    if (1 == NumberOfEducationLinesDeleted)
                     {
                         return (Const.DeleteOperationOk);
                     }

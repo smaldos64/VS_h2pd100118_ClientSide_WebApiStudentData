@@ -41,5 +41,21 @@ namespace WebApiStudentData.Models
 
             return (UserID);
         }
+
+        public static int CheckForUserInDatabase(int UserID, string UserName)
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            List<UserInfo> UserInfo_List = db.UserInfos.Where(u => u.UserName.ToLower() == UserName.ToLower()).ToList();
+
+            if ( (UserInfo_List.Count > 1) || (1 == UserInfo_List.Count && UserInfo_List[0].UserInfoID != UserID) )
+            {
+                return (Const.UserNameAlreadyPresent);
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
+        }
     }
 }

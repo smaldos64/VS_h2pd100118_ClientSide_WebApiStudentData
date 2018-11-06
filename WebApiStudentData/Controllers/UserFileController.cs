@@ -31,7 +31,7 @@ namespace WebApiStudentData.Controllers
                 {
                     var ListItem = new
                     {
-                        USerFileID = UserFile_Object.UserFileID,
+                        UserFileID = UserFile_Object.UserFileID,
                         UserFileUrl = UserFile_Object.UserFileUrl,
                         UserFileAtt = UserFile_Object.userFileAlt
                     };
@@ -47,6 +47,63 @@ namespace WebApiStudentData.Controllers
                 jSonList.Add(ListItem);
             }
             return (jSonList);
+        }
+
+        // GET api/<controller>/5
+        public object Get(int id, string UserName, string Password)
+        {
+            object jSon_Object = new object();
+            UserFile UserFile_Object = new UserFile();
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                UserFile_Object = db.UserFiles.Find(id);
+
+                if (null != UserFile_Object)
+                {
+                    if (UserID == UserFile_Object.UserInfoID)
+                    {
+                        var ListItem = new
+                        {
+                            UserFileID = UserFile_Object.UserFileID,
+                            UserFileUrl = UserFile_Object.UserFileUrl,
+                            UserFileAtt = UserFile_Object.userFileAlt
+                        };
+                        jSon_Object = ListItem;
+                    }
+                    else
+                    {
+                        var ListItem = new
+                        {
+                            ErrorCode = Const.ObjectNotSavedByCurrentUserOriginally,
+                            ErrorText = "UserFile Objekt er gemt af nuværende bruger oprindeligt !!!"
+                        };
+                        jSon_Object = ListItem;
+                    }
+                }
+                else
+                {
+                    var ListItem = new
+                    {
+                        ErrorCode = Const.ObjectNotFound,
+                        ErrorText = "UserFile Objekt er ikke fundet !!!"
+                    };
+                    jSon_Object = ListItem;
+                }
+            }
+            else
+            {
+                var ListItem = new
+                {
+                    ErrorCode = Const.UserNotFound,
+                    ErrorText = "Bruger er ikke fundet !!!"
+                };
+                jSon_Object = ListItem;
+            }
+            return (jSon_Object);
         }
 
         // POST api/<controller>

@@ -38,9 +38,33 @@ namespace WebApiStudentData.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public object Get(int id)
         {
-            return "value";
+            object jSon_Object = new object();
+            Course Course_Object = new Course();
+
+            Course_Object = db.Courses.Find(id);
+
+            if (null != Course_Object)
+            {
+                var ListItem = new
+                {
+                    CourseID = Course_Object.CourseID,
+                    CourseName = Course_Object.CourseName
+                };
+                jSon_Object = ListItem;
+            }
+            else
+            {
+                var ListItem = new
+                {
+                    ErrorCode = Const.ObjectNotFound,
+                    ErrorText = "Uddannelsessted er ikke fundet !!!"
+                };
+                jSon_Object = ListItem;
+            }
+
+            return (jSon_Object);
         }
 
         // POST api/<controller>

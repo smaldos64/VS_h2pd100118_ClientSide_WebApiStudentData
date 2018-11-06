@@ -63,7 +63,7 @@ namespace WebApiStudentData.Tests.Controllers
             UserInfoController controller = new UserInfoController();
 
             // Act
-            controller.Put(5, "value");
+            //controller.Put(5, "value");
 
             // Assert
         }
@@ -75,7 +75,7 @@ namespace WebApiStudentData.Tests.Controllers
             UserInfoController controller = new UserInfoController();
 
             // Act
-            controller.Delete(5);
+            //controller.Delete(5);
 
             // Assert
         }

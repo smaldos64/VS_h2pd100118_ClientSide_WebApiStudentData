@@ -199,6 +199,8 @@
     <Compile Include="Controllers\ContactFormController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
+    <Compile Include="Controllers\EducationLineController.cs" />
+    <Compile Include="Controllers\ErrorCodeAndStringController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentEducationTimeController.cs" />
     <Compile Include="Controllers\UserFileController.cs" />

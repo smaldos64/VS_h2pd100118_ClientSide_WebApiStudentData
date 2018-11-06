@@ -69,6 +69,7 @@ namespace WebApiStudentData.Controllers
                 ContactForm_Object.ContactNameFrom = json_Object.ContactNameFrom;
                 ContactForm_Object.ContactNameEmail = json_Object.ContactNameEmail;
                 ContactForm_Object.ContactText = json_Object.ContactText;
+                ContactForm_Object.UserInfoID = UserID;
 
                 db.ContactForms.Add(ContactForm_Object);
                 NumberOfContactFormsSaved = db.SaveChanges();
@@ -89,8 +90,50 @@ namespace WebApiStudentData.Controllers
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public int Put(int id, dynamic json_Object, string UserName, string Password)
         {
+            ContactForm ContactForm_Object = new ContactForm();
+            int NumberOfContactFormsSaved;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                ContactForm_Object = db.ContactForms.Find(id);
+                if (null != ContactForm_Object)
+                {
+                    if (UserID == ContactForm_Object.UserInfoID)
+                    {
+                        ContactForm_Object.ContactNameFrom = json_Object.ContactNameFrom;
+                        ContactForm_Object.ContactNameEmail = json_Object.ContactNameEmail;
+                        ContactForm_Object.ContactText = json_Object.ContactText;
+
+                        NumberOfContactFormsSaved = db.SaveChanges();
+                        if (1 == NumberOfContactFormsSaved)
+                        {
+                            return (Const.UpdateOperationOk);
+                        }
+                        else
+                        {
+                            return (Const.UpdateOperationFailed);
+                        }
+                    }
+                    else
+                    {
+                        return (Const.ObjectNotSavedByCurrentUserOriginally);
+                    }
+                }
+                else
+                {
+                    return (Const.ObjectNotFound);
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
 
         // DELETE api/<controller>/5

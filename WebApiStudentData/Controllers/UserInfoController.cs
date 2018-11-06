@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define DEBUG
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using WebApiStudentData.Models;
 using WebApiStudentData.Tools;
+using WebApiStudentData.ConstDeclarations;
 
 namespace WebApiStudentData.Controllers
 {
@@ -28,14 +31,16 @@ namespace WebApiStudentData.Controllers
 
             foreach (UserInfo UserInfo_Object in UserInfo_List)
             {
+#if (DEBUG)
                 var ListItem = new
                 {
                     UserInfoID = UserInfo_Object.UserInfoID,
                     UserName = UserInfo_Object.UserName,
                     UserPassword = Crypto.Decrypt(UserInfo_Object.UserPassword)
                 };
-               
+
                 jSonList.Add(ListItem);
+#endif
 
                 var ListItemCrypt = new
                 {
@@ -50,10 +55,11 @@ namespace WebApiStudentData.Controllers
         }
 
         // GET api/values/5
-        public int Get(string UserName)
+        public int Get(string UserName, string Password)
         {
-            object jSonnObject = new object();
-            UserInfo UserInfo_Object = db.UserInfos.FirstOrDefault(u => u.UserName.ToLower() == UserName.ToLower());
+            object jSon_Object = new object();
+            UserInfo UserInfo_Object = db.UserInfos.FirstOrDefault(u => u.UserName.ToLower() == UserName.ToLower() &&
+                                       u.UserPassword.ToLower() == Password.ToLower());
 
             if (null != UserInfo_Object)
             {
@@ -61,14 +67,14 @@ namespace WebApiStudentData.Controllers
             }
             else
             {
-                return (0);
+                return (Const.UserNotFound);
             }
-
         }
 
         // POST api/values
         public int Post(dynamic json_Object)
         {
+#if (DEBUG)
             UserInfo UserInfo_Object = new UserInfo();
             int NumberOfUsersSaved;
 
@@ -86,18 +92,68 @@ namespace WebApiStudentData.Controllers
             }
             else
             {
-                return (0);
+                return (Const.SaveOperationFailed);
             }
+#else
+            return (Const.FeatureNotImplemented);
+#endif
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public int Put(dynamic json_Object, string UserName, string Password)
         {
+            UserInfo UserInfo_Object = new UserInfo();
+            int NumberOfUsersSaved;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                if (Const.UserNotFound == UserInfo.CheckForUserInDatabase(UserID, json_Object.UserName))
+                {
+                    UserInfo_Object = db.UserInfos.Find(UserID);
+                    UserInfo_Object.UserName = json_Object.UserName;
+                    string PlainText = json_Object.UserPassword;
+                    UserInfo_Object.UserPassword = Crypto.Encrypt(PlainText);
+
+                    NumberOfUsersSaved = db.SaveChanges();
+                    if (1 == NumberOfUsersSaved)
+                    {
+                        return (Const.UpdateOperationOk);
+                    }
+                    else
+                    {
+                        return (Const.UpdateOperationFailed);
+                    }
+                }
+                else
+                {
+                    return (Const.ObjectAlreadyPresent);
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public int Delete(string UserName, string Password)
         {
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                return (Const.FeatureNotImplemented);
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
     }
 }

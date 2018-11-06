@@ -11,6 +11,9 @@ namespace WebApiStudentData.ConstDeclarations
         public static readonly string SaltKey = "S@LT&KEY";
         public static readonly string VIKey = "@1B2c3D4e5F6g7H8";
 
+        public const int ObjectNotSavedByCurrentUserOriginally = -9;
+        public const int UserNameAlreadyPresent = -8;
+        public const int FeatureNotImplemented = -7;
         public const int ObjectNotFound = -6;
         public const int ObjectAlreadyPresent = -5;
         public const int SaveOperationFailed = -4;
@@ -21,5 +24,11 @@ namespace WebApiStudentData.ConstDeclarations
         public const int UpdateOperationOk = 1;
         public const int SaveOperationOk = 2;
         public const int DeleteOperationOk = 3;
+    }
+
+    public class ErrorCodesAndErrorStrings
+    {
+        public int ErrorCode;
+        public string ErrorString;
     }
 }
