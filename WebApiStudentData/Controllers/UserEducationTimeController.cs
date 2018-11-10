@@ -51,34 +51,37 @@ namespace WebApiStudentData.Controllers
                                                         User_Education_Time_Object.AbsencePercentageEducation :
                                                         Const.InformationNotProvided,
                         CourseCharacterList = new List<VM_User_Education_Character_Course_Collection>()
+                        //CourseCharacterList = new List<User_Education_Character_Course_Collection>()
                     };
 
                     foreach (User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object in
                         User_Education_Time_Object.User_Education_Character_Course_Collection)
                     {
-                        var ListItemCourseCharacter = new
-                        {
-                            User_Education_Character_Course_CollectionID =
-                                User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID,
-                            CourseID = User_Education_Character_Course_Collection_Object.CourseID,
-                            CourseName = User_Education_Character_Course_Collection_Object.Course.CourseName,
-                            WhichCharacterScaleIDCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                                                    User_Education_Character_Course_Collection_Object.WhichCharacterScaleID :
-                                                    Const.InformationNotProvided,
-                            WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                                                    User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
-                                                    "Ikke Oplyst !!!",
-                            CharacterValueCourse = (null != User_Education_Time_Object.CharacterValueEducation) ?
-                                                  User_Education_Time_Object.CharacterValueEducation :
-                                                  Const.InformationNotProvided,
-                            AbsencePercentageCourse = (null != User_Education_Character_Course_Collection_Object.AbsencePercentageCourse) ?
-                                                        User_Education_Character_Course_Collection_Object.AbsencePercentageCourse :
-                                                        Const.InformationNotProvided,
+                        //var ListItemCourseCharacter = new
+                        //{
+                        //    User_Education_Character_Course_CollectionID =
+                        //        User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID,
+                        //    CourseID = User_Education_Character_Course_Collection_Object.CourseID,
+                        //    CourseName = User_Education_Character_Course_Collection_Object.Course.CourseName,
+                        //    WhichCharacterScaleIDCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
+                        //                            User_Education_Character_Course_Collection_Object.WhichCharacterScaleID :
+                        //                            Const.InformationNotProvided,
+                        //    WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
+                        //                            User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
+                        //                            "Ikke Oplyst !!!",
+                        //    CharacterValueCourse = (null != User_Education_Character_Course_Collection_Object.CharacterValueCourse) ?
+                        //                          User_Education_Character_Course_Collection_Object.CharacterValueCourse :
+                        //                          Const.InformationNotProvided,
+                        //    AbsencePercentageCourse = (null != User_Education_Character_Course_Collection_Object.AbsencePercentageCourse) ?
+                        //                                User_Education_Character_Course_Collection_Object.AbsencePercentageCourse :
+                        //                                Const.InformationNotProvided,
                             
-                        };
+                        //};
 
                         VM_User_Education_Character_Course_Collection VM_User_Education_Character_Course_Collection_Object =
                             new VM_User_Education_Character_Course_Collection();
+                        VM_User_Education_Character_Course_Collection_Object.User_Education_Character_Course_Collection_Object =
+                            new User_Education_Character_Course_Collection();
 
                         VM_User_Education_Character_Course_Collection_Object.User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID =
                           User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID;
@@ -104,7 +107,9 @@ namespace WebApiStudentData.Controllers
                                                         Const.InformationNotProvided;
 
                         ListItem.CourseCharacterList.Add(VM_User_Education_Character_Course_Collection_Object);
-                        
+                        //ListItem.CourseCharacterList.Add(User_Education_Character_Course_Collection_Object);
+                        // Hvis man bruger linjen herover, som vil det være nemmeste, får man jSon self referencing fejl !!!
+
                     }
                     jSonList.Add(ListItem);
                 }
@@ -189,6 +194,8 @@ namespace WebApiStudentData.Controllers
 
                             VM_User_Education_Character_Course_Collection VM_User_Education_Character_Course_Collection_Object =
                                 new VM_User_Education_Character_Course_Collection();
+                            VM_User_Education_Character_Course_Collection_Object.User_Education_Character_Course_Collection_Object =
+                                new User_Education_Character_Course_Collection();
 
                             VM_User_Education_Character_Course_Collection_Object.User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID =
                               User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID;
