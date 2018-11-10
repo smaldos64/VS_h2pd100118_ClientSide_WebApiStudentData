@@ -6,9 +6,12 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApiStudentData.Models;
 using WebApiStudentData.ConstDeclarations;
+using System.Web.Http.Cors;
 
 namespace WebApiStudentData.Controllers
 {
+    [EnableCors(origins: "*", headers: "Content-Type", methods: "GET,POST,PUT,DELETE,OPTIONS")]
+
     public class EducationController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();

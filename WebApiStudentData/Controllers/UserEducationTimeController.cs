@@ -7,9 +7,12 @@ using System.Web.Http;
 using WebApiStudentData.Models;
 using WebApiStudentData.ConstDeclarations;
 using WebApiStudentData.ViewModels;
+using System.Web.Http.Cors;
 
 namespace WebApiStudentData.Controllers
 {
+    [EnableCors(origins: "*", headers: "Content-Type", methods: "GET,POST,PUT,DELETE,OPTIONS")]
+
     public class UserEducationTimeController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
@@ -171,26 +174,26 @@ namespace WebApiStudentData.Controllers
                         foreach (User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object in
                             User_Education_Time_Object.User_Education_Character_Course_Collection)
                         {
-                            var ListItemCourseCharacter = new
-                            {
-                                User_Education_Character_Course_CollectionID =
-                                    User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID,
-                                CourseID = User_Education_Character_Course_Collection_Object.CourseID,
-                                CourseName = User_Education_Character_Course_Collection_Object.Course.CourseName,
-                                WhichCharacterScaleIDCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                                                        User_Education_Character_Course_Collection_Object.WhichCharacterScaleID :
-                                                        Const.InformationNotProvided,
-                                WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                                                        User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
-                                                        "Ikke Oplyst !!!",
-                                CharacterValueCourse = (null != User_Education_Time_Object.CharacterValueEducation) ?
-                                                      User_Education_Time_Object.CharacterValueEducation :
-                                                      Const.InformationNotProvided,
-                                AbsencePercentageCourse = (null != User_Education_Character_Course_Collection_Object.AbsencePercentageCourse) ?
-                                                            User_Education_Character_Course_Collection_Object.AbsencePercentageCourse :
-                                                            Const.InformationNotProvided,
+                            //var ListItemCourseCharacter = new
+                            //{
+                            //    User_Education_Character_Course_CollectionID =
+                            //        User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID,
+                            //    CourseID = User_Education_Character_Course_Collection_Object.CourseID,
+                            //    CourseName = User_Education_Character_Course_Collection_Object.Course.CourseName,
+                            //    WhichCharacterScaleIDCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
+                            //                            User_Education_Character_Course_Collection_Object.WhichCharacterScaleID :
+                            //                            Const.InformationNotProvided,
+                            //    WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
+                            //                            User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
+                            //                            "Ikke Oplyst !!!",
+                            //    CharacterValueCourse = (null != User_Education_Time_Object.CharacterValueEducation) ?
+                            //                          User_Education_Time_Object.CharacterValueEducation :
+                            //                          Const.InformationNotProvided,
+                            //    AbsencePercentageCourse = (null != User_Education_Character_Course_Collection_Object.AbsencePercentageCourse) ?
+                            //                                User_Education_Character_Course_Collection_Object.AbsencePercentageCourse :
+                            //                                Const.InformationNotProvided,
 
-                            };
+                            //};
 
                             VM_User_Education_Character_Course_Collection VM_User_Education_Character_Course_Collection_Object =
                                 new VM_User_Education_Character_Course_Collection();

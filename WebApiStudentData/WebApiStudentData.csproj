@@ -202,6 +202,7 @@
     <Compile Include="Controllers\EducationLineController.cs" />
     <Compile Include="Controllers\ErrorCodeAndStringController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserEducationCourseCharacterController.cs" />
     <Compile Include="Controllers\UserEducationTimeController.cs" />
     <Compile Include="Controllers\UserFileController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
