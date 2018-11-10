@@ -11,6 +11,7 @@ namespace WebApiStudentData.ConstDeclarations
         public static readonly string SaltKey = "S@LT&KEY";
         public static readonly string VIKey = "@1B2c3D4e5F6g7H8";
 
+        public const int InformationNotProvided = -10;
         public const int ObjectNotSavedByCurrentUserOriginally = -9;
         public const int UserNameAlreadyPresent = -8;
         public const int FeatureNotImplemented = -7;

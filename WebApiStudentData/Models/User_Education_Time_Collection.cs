@@ -15,9 +15,9 @@ namespace WebApiStudentData.Models
         public int UserInfoID { get; set; }
         public virtual UserInfo UserInfo { get; set; }
 
-        [Required]
-        public int EducationID { get; set; }
-        public virtual Education Education { get; set; }
+        //[Required]
+        //public int EducationID { get; set; }
+        //public virtual Education Education { get; set; }
 
         [Required]
         public int EducationLineID { get; set; }
@@ -31,8 +31,15 @@ namespace WebApiStudentData.Models
         [Column(TypeName = "Date")]
         public DateTime EndDate { get; set; }
 
+        public float? AbsencePercentageEducation { get; set; }
+
+        public int? WhichCharacterScaleID { get; set; }
+        public virtual WhichCharacterScale WhichCharacterScale { get; set; }
+
+        public int? CharacterValueEducation { get; set; }
+
         public virtual ICollection<User_Education_Character_Course_Collection> User_Education_Character_Course_Collection { get; set; }
 
-        public virtual ICollection<Absence> Absences { get; set; }
+        //public virtual ICollection<Absence> Absences { get; set; }
     }
 }

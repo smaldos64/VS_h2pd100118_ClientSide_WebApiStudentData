@@ -19,11 +19,13 @@ namespace WebApiStudentData.Models
         public int CourseID { get; set; }
         public virtual Course Course { get; set; }
 
-        [Required]
-        public int WhichCharacterScaleID { get; set; }
+        //[Required]
+        public int? WhichCharacterScaleID { get; set; }
         public virtual WhichCharacterScale WhichCharacterScale { get; set; }
 
-        [Required]
-        public int CharacterValue { get; set; }
+        //[Required]
+        public int? CharacterValueCourse { get; set; }
+
+        public float? AbsencePercentageCourse { get; set; }
     }
 }

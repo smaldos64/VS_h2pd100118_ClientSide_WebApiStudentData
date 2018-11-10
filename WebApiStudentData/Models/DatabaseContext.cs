@@ -19,17 +19,22 @@ namespace WebApiStudentData.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User_Education_Time_Collection>()
-            .HasRequired(e => e.EducationLine)  
-            .WithMany(u => u.User_Education_Time_Collections)  
-            .WillCascadeOnDelete(false); 
+            //modelBuilder.Entity<User_Education_Time_Collection>()
+            //.HasRequired(e => e.EducationLine)  
+            //.WithMany(u => u.User_Education_Time_Collections)  
+            //.WillCascadeOnDelete(false); 
+
+            modelBuilder.Entity<User_Education_Character_Course_Collection>()
+                .HasOptional(c => c.WhichCharacterScale)
+                .WithMany(u => u.User_Education_Character_Course_Collections)
+                .HasForeignKey(c => c.WhichCharacterScaleID);
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
-        public virtual DbSet<Absence> Absences { get; set; }
+        //public virtual DbSet<Absence> Absences { get; set; }
         public virtual DbSet<Character7Scale> Character7Scales { get; set; }
         public virtual DbSet<Character13Scale> Character13Scales { get; set; }
         public virtual DbSet<ContactForm> ContactForms { get; set; }

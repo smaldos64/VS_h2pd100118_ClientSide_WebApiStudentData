@@ -9,7 +9,7 @@ using WebApiStudentData.ConstDeclarations;
 
 namespace WebApiStudentData.Controllers
 {
-    public class StudentEducationTimeController : ApiController
+    public class UserEducationTimeController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
 
@@ -28,40 +28,56 @@ namespace WebApiStudentData.Controllers
 
                 foreach (User_Education_Time_Collection User_Education_Time_Object in User_Education_Time_List)
                 {
-                    string CourseNameOut = "";
-                    string WhichCharacterScaleOut = "";
-                    int CharacterValueOut = -100;
-
-                    User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object =
-                        db.User_Education_Character_Course_Collections.FirstOrDefault(u => u.User_Education_Time_CollectionID == User_Education_Time_Object.User_Education_Time_CollectionID);
-                    if (null != User_Education_Character_Course_Collection_Object)
-                    {
-                        CourseNameOut = User_Education_Character_Course_Collection_Object.Course.CourseName;
-                        WhichCharacterScaleOut = User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName;
-                        CharacterValueOut = User_Education_Character_Course_Collection_Object.CharacterValue;
-                    }
-
-                    string AbsencePercentageOut = "Ikke Oplyst";
-                    Absence Absence_Object = db.Absences.FirstOrDefault(u => u.User_Education_Time_CollectionID == User_Education_Time_Object.User_Education_Time_CollectionID);
-                    if (null != Absence_Object)
-                    {
-                        AbsencePercentageOut = Absence_Object.AbsencePercentage.ToString();
-                    }
-
                     var ListItem = new
                     {
                         EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
                         UserInfoID = User_Education_Time_Object.UserInfoID,
                         UserName = User_Education_Time_Object.UserInfo.UserName,
-                        EducationPlace = User_Education_Time_Object.Education.EducationName,
+                        EducationPlace = User_Education_Time_Object.EducationLine.Education.EducationName,
                         EducationLine = User_Education_Time_Object.EducationLine.EducationLineName,
-                        CourseName = CourseNameOut,
-                        CharacterValue = CharacterValueOut,
-                        WhichCharecterScale = WhichCharacterScaleOut,
+                        WhichCharacterScaleIDEducation = (null != User_Education_Time_Object.WhichCharacterScaleID) ?
+                                                    User_Education_Time_Object.WhichCharacterScaleID :
+                                                    Const.InformationNotProvided,
+                        WhichCharacterScaleNameEducation = (null != User_Education_Time_Object.WhichCharacterScaleID) ?
+                                                    User_Education_Time_Object.WhichCharacterScale.WhichCharacterScaleName :
+                                                    "Ikke Oplyst !!!",
+                        CharacterValueEducation = (null != User_Education_Time_Object.CharacterValueEducation) ?
+                                                  User_Education_Time_Object.CharacterValueEducation :
+                                                  Const.InformationNotProvided,
                         EducationStartTime = User_Education_Time_Object.StartDate.ToShortDateString(),
                         EducationStopTime = User_Education_Time_Object.EndDate.ToShortDateString(),
-                        AbsencePercentage = AbsencePercentageOut
+                        AbsencePercentageForEducation = (null != User_Education_Time_Object.AbsencePercentageEducation) ?
+                                                        User_Education_Time_Object.AbsencePercentageEducation :
+                                                        Const.InformationNotProvided,
+                        CourseCharacterList = new List<User_Education_Character_Course_Collection>
                     };
+
+                    foreach (User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object in
+                        User_Education_Time_Object.User_Education_Character_Course_Collection)
+                    {
+                        var ListItemCourseCharacter = new
+                        {
+                            User_Education_Character_Course_CollectionID =
+                                User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID,
+                            CourseID = User_Education_Character_Course_Collection_Object.CourseID,
+                            CourseName = User_Education_Character_Course_Collection_Object.Course.CourseName,
+                            WhichCharacterScaleIDCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
+                                                    User_Education_Character_Course_Collection_Object.WhichCharacterScaleID :
+                                                    Const.InformationNotProvided,
+                            WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
+                                                    User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
+                                                    "Ikke Oplyst !!!",
+                            CharacterValueCourse = (null != User_Education_Time_Object.CharacterValueEducation) ?
+                                                  User_Education_Time_Object.CharacterValueEducation :
+                                                  Const.InformationNotProvided,
+                            AbsencePercentageCourse = (null != User_Education_Character_Course_Collection_Object.AbsencePercentageCourse) ?
+                                                        User_Education_Character_Course_Collection_Object.AbsencePercentageCourse :
+                                                        Const.InformationNotProvided,
+                            
+                        };
+                        ListItem.CourseCharacterList.Add(ListItemCourseCharacter);
+                        
+                    }
 
                     jSonList.Add(ListItem);
                 }
@@ -182,17 +198,18 @@ namespace WebApiStudentData.Controllers
                 User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
                 User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
 
-                db.ContactForms.Add(ContactForm_Object);
-                NumberOfContactFormsSaved = db.SaveChanges();
+                //db.ContactForms.Add(ContactForm_Object);
+                //NumberOfContactFormsSaved = db.SaveChanges();
 
-                if (1 == NumberOfContactFormsSaved)
-                {
-                    return (ContactForm_Object.ContactFormID);
-                }
-                else
-                {
-                    return (Const.SaveOperationFailed);
-                }
+                //if (1 == NumberOfContactFormsSaved)
+                //{
+                //    return (ContactForm_Object.ContactFormID);
+                //}
+                //else
+                //{
+                //    return (Const.SaveOperationFailed);
+                //}
+                return (Const.SaveOperationFailed);
             }
             else
             {
