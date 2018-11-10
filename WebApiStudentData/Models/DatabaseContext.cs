@@ -28,6 +28,11 @@ namespace WebApiStudentData.Models
                 .HasOptional(c => c.WhichCharacterScale)
                 .WithMany(u => u.User_Education_Character_Course_Collections)
                 .HasForeignKey(c => c.WhichCharacterScaleID);
+
+            modelBuilder.Entity<User_Education_Time_Collection>()
+                .HasOptional(c => c.WhichCharacterScale)
+                .WithMany(u => u.User_Education_Time_Collections)
+                .HasForeignKey(c => c.WhichCharacterScaleID);
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 

@@ -110,16 +110,24 @@ namespace WebApiStudentData.Controllers
             if (Const.UserNotFound < UserID)
             {
                 Education_Object = db.Educations.Find(id);
-                Education_Object.EducationName = json_Object.EducationName;
 
-                NumberOfEducationsSaved = db.SaveChanges();
-                if (1 == NumberOfEducationsSaved)
+                if (null != Education_Object)
                 {
-                    return (Const.UpdateOperationOk);
+                    Education_Object.EducationName = json_Object.EducationName;
+
+                    NumberOfEducationsSaved = db.SaveChanges();
+                    if (1 == NumberOfEducationsSaved)
+                    {
+                        return (Const.UpdateOperationOk);
+                    }
+                    else
+                    {
+                        return (Const.UpdateOperationFailed);
+                    }
                 }
                 else
                 {
-                    return (Const.UpdateOperationFailed);
+                    return (Const.ObjectNotFound);
                 }
             }
             else
