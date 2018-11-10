@@ -59,7 +59,7 @@ namespace WebApiStudentData.Controllers
                 var ListItem = new
                 {
                     ErrorCode = Const.ObjectNotFound,
-                    ErrorText = "Uddannelsessted er ikke fundet !!!"
+                    ErrorText = Const.FindReturnString(Const.ObjectNotFound)
                 };
                 jSon_Object = ListItem;
             }

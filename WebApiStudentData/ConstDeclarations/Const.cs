@@ -25,11 +25,54 @@ namespace WebApiStudentData.ConstDeclarations
         public const int UpdateOperationOk = 1;
         public const int SaveOperationOk = 2;
         public const int DeleteOperationOk = 3;
+
+        public static readonly ReturnCodeAndReturnString[] ReturnCodesAndReturnStrings =
+        {
+            new ReturnCodeAndReturnString(ReturnCode : InformationNotProvided, ReturnString : "Information er ikke gemt"),
+            new ReturnCodeAndReturnString(ReturnCode : ObjectNotSavedByCurrentUserOriginally, ReturnString : "Objekt er ikke gemt af nuværende bruger oprindeligt !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : UserNameAlreadyPresent, ReturnString : "Brugernavn eksisterer allerede !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : FeatureNotImplemented, ReturnString : "Feature er ikke implementeret/er ikke enabled !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : ObjectNotFound, ReturnString : "objekt er ikke fundet !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : ObjectAlreadyPresent, ReturnString : "objekt er allerede tilgængelig !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : SaveOperationFailed, ReturnString : "Fejl under lagring af objekt !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : UpdateOperationFailed, ReturnString : "Fejl under opdatering af objekt !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : DeleteOperationFailed, ReturnString : "Fejl under sletning af objekt !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : UserNotFound, ReturnString : "Bruger ikke fundet !!!"),
+            new ReturnCodeAndReturnString(ReturnCode : OperationOkHigherValueThanHere, ReturnString : "Returværdier større end denne værdi er ok returværdier"),
+            new ReturnCodeAndReturnString(ReturnCode : UpdateOperationOk, ReturnString : "Objekt er opdateret korrekt"),
+            new ReturnCodeAndReturnString(ReturnCode : SaveOperationOk, ReturnString : "Objekt er gemt korrekt"),
+            new ReturnCodeAndReturnString(ReturnCode : DeleteOperationOk, ReturnString : "Objekt er slettet korrekt")
+        };
+
+        public static string FindReturnString(int ReturnCode)
+        {
+            int ReturnStringCounter = 0;
+
+            do
+            {
+                if (ReturnCodesAndReturnStrings[ReturnStringCounter].ReturnCode == ReturnCode)
+                {
+                    return (ReturnCodesAndReturnStrings[ReturnStringCounter].ReturnString);
+                }
+                else
+                {
+                    ReturnStringCounter++;
+                }
+            } while (ReturnStringCounter < ReturnCodesAndReturnStrings.Length);
+
+            return ("Ingen string fundet der hører til søgt nummer !!!");
+        }
     }
 
-    public class ErrorCodesAndErrorStrings
+    public class ReturnCodeAndReturnString
     {
-        public int ErrorCode;
-        public string ErrorString;
+        public int ReturnCode;
+        public string ReturnString;
+
+        public ReturnCodeAndReturnString(int ReturnCode, string ReturnString)
+        {
+            this.ReturnCode = ReturnCode;
+            this.ReturnString = ReturnString;
+        }
     }
 }

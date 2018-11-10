@@ -70,7 +70,7 @@ namespace WebApiStudentData.Controllers
                 var ListItem = new
                 {
                     ErrorCode = Const.UserNotFound,
-                    ErrorText = "Bruger er ikke fundet !!!"
+                    ErrorText = Const.FindReturnString(Const.UserNotFound)
                 };
                 jSonList.Add(ListItem);
             }
@@ -131,7 +131,7 @@ namespace WebApiStudentData.Controllers
                         var ListItem = new
                         {
                             ErrorCode = Const.ObjectNotSavedByCurrentUserOriginally,
-                            ErrorText = "UserFile Objekt er ikke gemt af nuværende bruger oprindeligt !!!"
+                            ErrorText = Const.FindReturnString(Const.ObjectNotSavedByCurrentUserOriginally)
                         };
                         jSon_Object = ListItem;
                     }
@@ -141,7 +141,7 @@ namespace WebApiStudentData.Controllers
                     var ListItem = new
                     {
                         ErrorCode = Const.ObjectNotFound,
-                        ErrorText = "UserFile Objekt er ikke fundet !!!"
+                        ErrorText = Const.FindReturnString(Const.ObjectNotFound)
                     };
                     jSon_Object = ListItem;
                 }
@@ -151,7 +151,7 @@ namespace WebApiStudentData.Controllers
                 var ListItem = new
                 {
                     ErrorCode = Const.UserNotFound,
-                    ErrorText = "Bruger er ikke fundet !!!"
+                    ErrorText = Const.FindReturnString(Const.UserNotFound)
                 };
                 jSon_Object = ListItem;
             }
