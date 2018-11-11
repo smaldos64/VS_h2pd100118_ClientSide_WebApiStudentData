@@ -10,6 +10,7 @@ using System.Web.Http.Cors;
 
 namespace WebApiStudentData.Controllers
 {
+
     [EnableCors(origins: "*", headers: "Content-Type", methods: "GET,POST,PUT,DELETE,OPTIONS")]
 
     public class UserEducationCourseCharacterController : ApiController
