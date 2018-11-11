@@ -11,7 +11,6 @@ namespace WebApiStudentData.Controllers
 {
     public class UserFileController : ApiController
     {
-        // GET api/<controller>
         private DatabaseContext db = new DatabaseContext();
 
         // GET api/<controller>

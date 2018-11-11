@@ -159,18 +159,174 @@ namespace WebApiStudentData.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public int Post(dynamic json_Object, string UserName, string Password)
         {
+            User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object =
+                new User_Education_Character_Course_Collection();
+            int NumberOfCourseCharactersSaved;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                User_Education_Character_Course_Collection_Object.User_Education_Time_CollectionID =
+                    json_Object.User_Education_Time_CollectionID;
+                User_Education_Character_Course_Collection_Object.CourseID =
+                    json_Object.CourseID;
+
+                if (null != json_Object.CharacterValueCourse)
+                {
+                    User_Education_Character_Course_Collection_Object.CharacterValueCourse = json_Object.CharacterValueEducation;
+                }
+                else
+                {
+                    User_Education_Character_Course_Collection_Object.CharacterValueCourse = null;
+                }
+
+                if (null != json_Object.WhichCharacterScaleID)
+                {
+                    User_Education_Character_Course_Collection_Object.WhichCharacterScaleID = json_Object.WhichCharacterScaleID;
+                }
+                else
+                {
+                    User_Education_Character_Course_Collection_Object.WhichCharacterScaleID = null;
+                }
+
+                if (null != json_Object.AbsencePercentageCourse)
+                {
+                    User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = json_Object.AbsencePercentageEducation;
+                }
+                else
+                {
+                    User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = null;
+                }
+
+                db.User_Education_Character_Course_Collections.Add(User_Education_Character_Course_Collection_Object);
+                NumberOfCourseCharactersSaved = db.SaveChanges();
+
+                if (1 == NumberOfCourseCharactersSaved)
+                {
+                    return (User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID);
+                }
+                else
+                {
+                    return (Const.SaveOperationFailed);
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public int Put(int id, dynamic json_Object, string UserName, string Password)
         {
+            User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object =
+                new User_Education_Character_Course_Collection();
+            int NumberOfCourseCharactersSaved;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                User_Education_Character_Course_Collection_Object = db.User_Education_Character_Course_Collections.Find(id);
+
+                if (null != User_Education_Character_Course_Collection_Object)
+                {
+                    User_Education_Character_Course_Collection_Object.User_Education_Time_CollectionID =
+                    json_Object.User_Education_Time_CollectionID;
+                    User_Education_Character_Course_Collection_Object.CourseID =
+                        json_Object.CourseID;
+
+                    if (null != json_Object.CharacterValueCourse)
+                    {
+                        User_Education_Character_Course_Collection_Object.CharacterValueCourse = json_Object.CharacterValueEducation;
+                    }
+                    else
+                    {
+                        User_Education_Character_Course_Collection_Object.CharacterValueCourse = null;
+                    }
+
+                    if (null != json_Object.WhichCharacterScaleID)
+                    {
+                        User_Education_Character_Course_Collection_Object.WhichCharacterScaleID = json_Object.WhichCharacterScaleID;
+                    }
+                    else
+                    {
+                        User_Education_Character_Course_Collection_Object.WhichCharacterScaleID = null;
+                    }
+
+                    if (null != json_Object.AbsencePercentageCourse)
+                    {
+                        User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = json_Object.AbsencePercentageEducation;
+                    }
+                    else
+                    {
+                        User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = null;
+                    }
+
+                    NumberOfCourseCharactersSaved = db.SaveChanges();
+                    if (1 == NumberOfCourseCharactersSaved)
+                    {
+                        return (Const.UpdateOperationOk);
+                    }
+                    else
+                    {
+                        return (Const.UpdateOperationFailed);
+                    }
+                }
+                else
+                {
+                    return (Const.ObjectNotFound);
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public int Delete(int id, string UserName, string Password)
         {
+            User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object =
+                new User_Education_Character_Course_Collection();
+            int NumberOfCourseCharactersDeleted;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                User_Education_Character_Course_Collection_Object = db.User_Education_Character_Course_Collections.Find(id);
+                if (null != User_Education_Character_Course_Collection_Object)
+                {
+                    db.User_Education_Character_Course_Collections.Remove(User_Education_Character_Course_Collection_Object);
+                    NumberOfCourseCharactersDeleted = db.SaveChanges();
+                    if (1 == NumberOfCourseCharactersDeleted)
+                    {
+                        return (Const.DeleteOperationOk);
+                    }
+                    else
+                    {
+                        return (Const.DeleteOperationFailed);
+                    }
+                }
+                else
+                {
+                    return (Const.ObjectNotFound);
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
         }
     }
 }
