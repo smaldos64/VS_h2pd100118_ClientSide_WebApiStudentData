@@ -34,6 +34,7 @@
     <DefineConstants>TRACE;DEBUG;LocalServer</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\WebApiStudentData.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -194,7 +195,6 @@
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EducationLineController.cs" />
-    <Compile Include="Controllers\ErrorCodeAndStringController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReturnCodesAndStringsController.cs" />
     <Compile Include="Controllers\UserEducationCourseCharacterController.cs" />
@@ -224,6 +224,9 @@
     <Compile Include="ViewModels\VM_User_Education_Character_Course_Collection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\WebApiStudentData.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -277,9 +280,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
@@ -343,6 +344,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>copy $(SolutionDir)WebApiStudentData\bin\WebApiStudentData.xml $(ProjectDir)App_Data\WebApiStudentData.xml</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

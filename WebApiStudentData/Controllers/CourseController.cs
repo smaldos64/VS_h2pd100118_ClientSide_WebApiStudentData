@@ -16,7 +16,10 @@ namespace WebApiStudentData.Controllers
     public class CourseController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
-
+        /// <summary>
+        /// Returnerer info om alle Fag/Kurser 
+        /// </summary>
+        /// <returns></returns>
         // GET api/<controller>
         public List<Object> Get()
         {
@@ -37,6 +40,11 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
+        /// <summary>
+        /// Returnerer info om ét specifikt Fag/Kursus udfra Fag/Kursus ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET api/<controller>/5
         public object Get(int id)
         {
@@ -67,6 +75,14 @@ namespace WebApiStudentData.Controllers
             return (jSon_Object);
         }
 
+        /// <summary>
+        /// Gemmer et nyt Fag/Kursus. Ved kald af denne funktionalitet skal man angive
+        /// Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne funktionalitet.
+        /// </summary>
+        /// <param name="json_Object"></param>
+        /// <param name="UserName"></param>
+        /// <param name="Password"></param>
+        /// <returns></returns>
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {
@@ -106,6 +122,16 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Opdaterer ét Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
+        /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+        /// funktionalitet.
+        /// </summary>
+        /// <param name="json_Object"></param>
+        /// <param name="id"></param>
+        /// <param name="UserName"></param>
+        /// <param name="Password"></param>
+        /// <returns></returns>
         // PUT api/<controller>/5
         public int Put(dynamic json_Object, int id, string UserName, string Password)
         {
@@ -150,6 +176,15 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Sletter ét specifikt Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
+        /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+        /// funktionalitet.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="UserName"></param>
+        /// <param name="Password"></param>
+        /// <returns></returns>
         // DELETE api/<controller>/5
         public int Delete(int id, string UserName, string Password)
         {
