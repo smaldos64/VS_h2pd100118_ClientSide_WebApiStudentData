@@ -41,7 +41,7 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Returnerer info om ét specifikt Fag/Kursus udfra Fag/Kursus ID
+        /// Returnerer info om ét specifikt Fag/Kursus udfra ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

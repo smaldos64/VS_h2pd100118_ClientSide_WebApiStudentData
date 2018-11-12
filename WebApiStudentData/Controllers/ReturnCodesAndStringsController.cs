@@ -16,6 +16,12 @@ namespace WebApiStudentData.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        /// <summary>
+        /// Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
+        /// Alle return koder der har en værdi mindre end 0 signalerer en fejl.
+        /// Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
+        /// </summary>
+        /// <returns></returns>
         // GET api/<controller>
         public List<Object> Get()
         {
@@ -34,25 +40,25 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //// GET api/<controller>/5
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
+        //// POST api/<controller>
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT api/<controller>/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<controller>/5
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

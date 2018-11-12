@@ -14,6 +14,11 @@ namespace WebApiStudentData.Controllers
 
     public class ContactFormController : ApiController
     {
+        /// <summary>
+        /// Returnerer info om alle kontaktformularer gemt af en bruger specificeret ved UserName 
+        /// og Password.
+        /// </summary>
+        /// <returns>Liste af kontaktformularer</returns>
         // GET api/<controller>
         private DatabaseContext db = new DatabaseContext();
 
@@ -54,6 +59,11 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
+        /// <summary>
+        /// Returnerer info om én kontaktformular udfra ID gemt af en bruger specificeret ved UserName 
+        /// og Password.
+        /// </summary>
+        /// <returns>Én kontaktformular eller evt. fejlkode med værdi mindre end 0</returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
         {

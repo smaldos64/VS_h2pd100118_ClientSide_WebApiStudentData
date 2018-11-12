@@ -481,6 +481,20 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="F:WebApiStudentData.Controllers.ContactFormController.db">
+            <summary>
+            Returnerer info om alle kontaktformularer gemt af en bruger specificeret ved UserName 
+            og Password.
+            </summary>
+            <returns>Liste af kontaktformularer</returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.Int32,System.String,System.String)">
+            <summary>
+            Returnerer info om én kontaktformular udfra ID gemt af en bruger specificeret ved UserName 
+            og Password.
+            </summary>
+            <returns>Én kontaktformular eller evt. fejlkode med værdi mindre end 0</returns>
+        </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Get">
             <summary>
             Returnerer info om alle Fag/Kurser 
@@ -489,7 +503,7 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Get(System.Int32)">
             <summary>
-            Returnerer info om ét specifikt Fag/Kursus udfra Fag/Kursus ID
+            Returnerer info om ét specifikt Fag/Kursus udfra ID
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -525,6 +539,14 @@
             <param name="id"></param>
             <param name="UserName"></param>
             <param name="Password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.ReturnCodesAndStringsController.Get">
+            <summary>
+            Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
+            Alle return koder der har en værdi mindre end 0 signalerer en fejl.
+            Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
+            </summary>
             <returns></returns>
         </member>
     </members>
