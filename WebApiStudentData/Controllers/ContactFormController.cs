@@ -14,14 +14,17 @@ namespace WebApiStudentData.Controllers
 
     public class ContactFormController : ApiController
     {
+        private DatabaseContext db = new DatabaseContext();
+
         /// <summary>
         /// Returnerer info om alle kontaktformularer gemt af en bruger specificeret ved UserName 
         /// og Password.
         /// </summary>
-        /// <returns>Liste af kontaktformularer</returns>
-        // GET api/<controller>
-        private DatabaseContext db = new DatabaseContext();
-
+        /// <returns>Liste af kontaktformularer. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
         {
@@ -60,10 +63,14 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Returnerer info om én kontaktformular udfra ID gemt af en bruger specificeret ved UserName 
+        /// Returnerer info om én kontaktformular udfra id gemt af en bruger specificeret ved UserName 
         /// og Password.
         /// </summary>
-        /// <returns>Én kontaktformular eller evt. fejlkode med værdi mindre end 0</returns>
+        /// <returns>Én kontaktformular. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
         {
@@ -122,6 +129,22 @@ namespace WebApiStudentData.Controllers
             return (jSon_Object);
         }
 
+        /// <summary>
+        /// Gemmer kontaktformular hørende til bruger specificeret ved UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige.
+        /// </remarks>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
+        /// og ContactText.
+        /// </param>
+        /// <returns>
+        /// Id nummeret på den gemte kontaktformular. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {
@@ -157,6 +180,26 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Ændrer kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+        /// kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
+        /// </remarks>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
+        /// og ContactText.
+        /// </param>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// UpdateOperationOk (værdien 1) hvis kontaktformular er gemt ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // PUT api/<controller>/5
         public int Put(int id, dynamic json_Object, string UserName, string Password)
         {
@@ -204,6 +247,19 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Sletter kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+        /// kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
+        /// </remarks>
+        /// <returns>
+        /// DeleteOperationOk (værdien 3) hvis kontaktformular er slettet ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // DELETE api/<controller>/5
         public int Delete(int id, string UserName, string Password)
         {

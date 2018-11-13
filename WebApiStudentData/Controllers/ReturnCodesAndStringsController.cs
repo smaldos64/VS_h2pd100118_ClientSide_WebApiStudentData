@@ -18,10 +18,19 @@ namespace WebApiStudentData.Controllers
 
         /// <summary>
         /// Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
-        /// Alle return koder der har en værdi mindre end 0 signalerer en fejl.
-        /// Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>
+        /// <para>
+        /// Alle return koder der har en værdi mindre end 0 signalerer en fejl.
+        /// </para>
+        /// <para>
+        /// Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// <value><para>-14 : test1</para></value>
+        /// <value>-9 : test2</value>
+        /// </returns>
         // GET api/<controller>
         public List<Object> Get()
         {

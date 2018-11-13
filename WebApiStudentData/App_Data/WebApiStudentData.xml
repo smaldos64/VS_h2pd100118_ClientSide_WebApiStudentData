@@ -481,19 +481,82 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="F:WebApiStudentData.Controllers.ContactFormController.db">
+        <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.String,System.String)">
             <summary>
             Returnerer info om alle kontaktformularer gemt af en bruger specificeret ved UserName 
             og Password.
             </summary>
-            <returns>Liste af kontaktformularer</returns>
+            <returns>Liste af kontaktformularer. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.Int32,System.String,System.String)">
             <summary>
-            Returnerer info om én kontaktformular udfra ID gemt af en bruger specificeret ved UserName 
+            Returnerer info om én kontaktformular udfra id gemt af en bruger specificeret ved UserName 
             og Password.
             </summary>
-            <returns>Én kontaktformular eller evt. fejlkode med værdi mindre end 0</returns>
+            <returns>Én kontaktformular. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.ContactFormController.Post(System.Object,System.String,System.String)">
+            <summary>
+            Gemmer kontaktformular hørende til bruger specificeret ved UserName og Password.  
+            </summary>
+            <remarks>
+            UserName og Password skal være gemt i Web API'ets database for at være gyldige.
+            </remarks>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
+            og ContactText.
+            </param>
+            <returns>
+            Id nummeret på den gemte kontaktformular. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.ContactFormController.Put(System.Int32,System.Object,System.String,System.String)">
+            <summary>
+            Ændrer kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+            </summary>
+            <remarks>
+            UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+            kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
+            </remarks>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
+            og ContactText.
+            </param>
+            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            UpdateOperationOk (værdien 1) hvis kontaktformular er gemt ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.ContactFormController.Delete(System.Int32,System.String,System.String)">
+            <summary>
+            Sletter kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+            </summary>
+            <remarks>
+            UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+            kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
+            </remarks>
+            <returns>
+            DeleteOperationOk (værdien 3) hvis kontaktformular er slettet ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Get">
             <summary>
@@ -544,10 +607,19 @@
         <member name="M:WebApiStudentData.Controllers.ReturnCodesAndStringsController.Get">
             <summary>
             Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
-            Alle return koder der har en værdi mindre end 0 signalerer en fejl.
-            Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
             </summary>
-            <returns></returns>
+            <remarks>
+            <para>
+            Alle return koder der har en værdi mindre end 0 signalerer en fejl.
+            </para>
+            <para>
+            Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
+            </para>
+            </remarks>
+            <returns>
+            <value><para>-14 : test1</para></value>
+            <value>-9 : test2</value>
+            </returns>
         </member>
     </members>
 </doc>
