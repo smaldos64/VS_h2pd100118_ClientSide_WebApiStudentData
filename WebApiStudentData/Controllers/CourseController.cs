@@ -16,10 +16,13 @@ namespace WebApiStudentData.Controllers
     public class CourseController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
+
         /// <summary>
-        /// Returnerer info om alle Fag/Kurser 
+        /// Returnerer info om alle Fag/Kurser. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Returnerer en liste af alle Fag/Kurser med tilhørende Fag/Kursus ID.
+        /// </returns>
         // GET api/<controller>
         public List<Object> Get()
         {
@@ -44,7 +47,9 @@ namespace WebApiStudentData.Controllers
         /// Returnerer info om ét specifikt Fag/Kursus udfra ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// Returnerer Kursus/Fag navn udfra Kursus/Fag ID
+        /// </returns>
         // GET api/<controller>/5
         public object Get(int id)
         {

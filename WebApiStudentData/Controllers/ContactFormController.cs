@@ -20,6 +20,8 @@ namespace WebApiStudentData.Controllers
         /// Returnerer info om alle kontaktformularer gemt af en bruger specificeret ved UserName 
         /// og Password.
         /// </summary>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Liste af kontaktformularer. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
         /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
@@ -66,6 +68,9 @@ namespace WebApiStudentData.Controllers
         /// Returnerer info om én kontaktformular udfra id gemt af en bruger specificeret ved UserName 
         /// og Password.
         /// </summary>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Én kontaktformular. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
         /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
@@ -139,6 +144,8 @@ namespace WebApiStudentData.Controllers
         /// data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
         /// og ContactText.
         /// </param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// Id nummeret på den gemte kontaktformular. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -254,6 +261,9 @@ namespace WebApiStudentData.Controllers
         /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
         /// kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
         /// </remarks>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// DeleteOperationOk (værdien 3) hvis kontaktformular er slettet ok. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 

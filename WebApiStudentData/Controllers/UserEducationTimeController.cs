@@ -265,6 +265,7 @@ namespace WebApiStudentData.Controllers
         {
             User_Education_Time_Collection User_Education_Time_Collection_Object = 
                 new User_Education_Time_Collection();
+            WhichCharacterScale WhichCharacterScale_Object = new WhichCharacterScale();
             int NumberOfUserEducationsSaved;
 
             int UserID = 0;
@@ -278,22 +279,58 @@ namespace WebApiStudentData.Controllers
                 User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
                 User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
 
-                if (null != json_Object.CharacterValueEducation)
-                {
-                    User_Education_Time_Collection_Object.CharacterValueEducation = json_Object.CharacterValueEducation;
-                }
-                else
-                {
-                    User_Education_Time_Collection_Object.CharacterValueEducation = null;
-                }
-
                 if (null != json_Object.WhichCharacterScaleID)
                 {
+                    WhichCharacterScale_Object = db.WhichCharacterScales.Find(json_Object.WhichCharacterScaleID);
+                    if (null == WhichCharacterScale_Object)
+                    {
+                        return (Const.WrongCharacterScaleProvided);
+                    }
                     User_Education_Time_Collection_Object.WhichCharacterScaleID = json_Object.WhichCharacterScaleID;
                 }
                 else
                 {
                     User_Education_Time_Collection_Object.WhichCharacterScaleID = null;
+                }
+
+                if (null != json_Object.CharacterValueCourse)
+                {
+                    if (null == json_Object.WhichCharacterScaleID)
+                    {
+                        return (Const.CharacterProvidedButNoCharacterScaleProvided);
+                    }
+                    else
+                    {
+                        int WhichCharacterScale = WhichCharacterScale_Object.WhichCharacterScaleID;
+
+                        switch (WhichCharacterScale)
+                        {
+                            case (int)WhichCharacterScaleENUM.Character_7_ENUM:
+                                Character7Scale Character7Scale_Object = db.Character7Scales.Find(json_Object.CharacterValueEducation);
+                                if (null == Character7Scale_Object)
+                                {
+                                    return (Const.WrongCharacterProvided);
+                                }
+                                break;
+
+                            case (int)WhichCharacterScaleENUM.Character_13_ENUM:
+                                Character13Scale Character13Scale_Object = db.Character13Scales.Find(json_Object.CharacterValueEducation);
+                                if (null == Character13Scale_Object)
+                                {
+                                    return (Const.WrongCharacterProvided);
+                                }
+                                break;
+                        }
+                    }
+                    User_Education_Time_Collection_Object.CharacterValueEducation = json_Object.CharacterValueEducation;
+                }
+                else
+                {
+                    if (null != json_Object.WhichCharacterScaleID)
+                    {
+                        return (Const.NoCharacterProvidedButCharacterScaleProvided);
+                    }
+                    User_Education_Time_Collection_Object.CharacterValueEducation = null;
                 }
 
                 if (null != json_Object.AbsencePercentageEducation)
@@ -328,6 +365,7 @@ namespace WebApiStudentData.Controllers
         {
             User_Education_Time_Collection User_Education_Time_Collection_Object =
                 new User_Education_Time_Collection();
+            WhichCharacterScale WhichCharacterScale_Object = new WhichCharacterScale();
             int NumberOfUserEducationsSaved;
 
             int UserID = 0;
@@ -344,22 +382,58 @@ namespace WebApiStudentData.Controllers
                     User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
                     User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
 
-                    if (null != json_Object.CharacterValueEducation)
-                    {
-                        User_Education_Time_Collection_Object.CharacterValueEducation = json_Object.CharacterValueEducation;
-                    }
-                    else
-                    {
-                        User_Education_Time_Collection_Object.CharacterValueEducation = null;
-                    }
-
                     if (null != json_Object.WhichCharacterScaleID)
                     {
+                        WhichCharacterScale_Object = db.WhichCharacterScales.Find(json_Object.WhichCharacterScaleID);
+                        if (null == WhichCharacterScale_Object)
+                        {
+                            return (Const.WrongCharacterScaleProvided);
+                        }
                         User_Education_Time_Collection_Object.WhichCharacterScaleID = json_Object.WhichCharacterScaleID;
                     }
                     else
                     {
                         User_Education_Time_Collection_Object.WhichCharacterScaleID = null;
+                    }
+
+                    if (null != json_Object.CharacterValueCourse)
+                    {
+                        if (null == json_Object.WhichCharacterScaleID)
+                        {
+                            return (Const.CharacterProvidedButNoCharacterScaleProvided);
+                        }
+                        else
+                        {
+                            int WhichCharacterScale = WhichCharacterScale_Object.WhichCharacterScaleID;
+
+                            switch (WhichCharacterScale)
+                            {
+                                case (int)WhichCharacterScaleENUM.Character_7_ENUM:
+                                    Character7Scale Character7Scale_Object = db.Character7Scales.Find(json_Object.CharacterValueEducation);
+                                    if (null == Character7Scale_Object)
+                                    {
+                                        return (Const.WrongCharacterProvided);
+                                    }
+                                    break;
+
+                                case (int)WhichCharacterScaleENUM.Character_13_ENUM:
+                                    Character13Scale Character13Scale_Object = db.Character13Scales.Find(json_Object.CharacterValueEducation);
+                                    if (null == Character13Scale_Object)
+                                    {
+                                        return (Const.WrongCharacterProvided);
+                                    }
+                                    break;
+                            }
+                        }
+                        User_Education_Time_Collection_Object.CharacterValueEducation = json_Object.CharacterValueEducation;
+                    }
+                    else
+                    {
+                        if (null != json_Object.WhichCharacterScaleID)
+                        {
+                            return (Const.NoCharacterProvidedButCharacterScaleProvided);
+                        }
+                        User_Education_Time_Collection_Object.CharacterValueEducation = null;
                     }
 
                     if (null != json_Object.AbsencePercentageEducation)

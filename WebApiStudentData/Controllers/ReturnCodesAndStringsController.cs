@@ -19,17 +19,22 @@ namespace WebApiStudentData.Controllers
         /// <summary>
         /// Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
         /// </summary>
-        /// <remarks>
-        /// <para>
-        /// Alle return koder der har en værdi mindre end 0 signalerer en fejl.
-        /// </para>
-        /// <para>
-        /// Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
-        /// </para>
-        /// </remarks>
         /// <returns>
-        /// <value><para>-14 : test1</para></value>
-        /// <value>-9 : test2</value>
+        /// Oversigt over sammenhørende return koder og return strenge :
+        /// -10 (InformationNotProvided) : "Information er ikke gemt" -> 
+        ///  -9 (ObjectNotSavedByCurrentUserOriginally) : "Objekt er ikke gemt af nuværende bruger oprindeligt !!!" -> 
+        ///  -8 (UserNameAlreadyPresent) : "Brugernavn eksisterer allerede !!!" -> 
+        ///  -7 (FeatureNotImplemented) : "Feature er ikke implementeret/er ikke enabled !!!" -> 
+        ///  -6 (ObjectNotFound) : "objekt er ikke fundet !!!" -> 
+        ///  -5 (ObjectAlreadyPresent) : "objekt er allerede tilgængelig !!!" -> 
+        ///  -4 (SaveOperationFailed) : "Fejl under lagring af objekt !!!" -> 
+        ///  -3 (UpdateOperationFailed) : "Fejl under opdatering af objekt !!!" -> 
+        ///  -2 (DeleteOperationFailed) : "Fejl under sletning af objekt !!!" -> 
+        ///  -1 (UserNotFound) : "Bruger ikke fundet !!!"
+        ///   0 (OperationOkHigherValueThanHere) : "Returværdier større end denne værdi er ok returværdier" -> 
+        ///   1 (UpdateOperationOk) : "Objekt er opdateret korrekt" -> 
+        ///   2 (SaveOperationOk) : "Objekt er gemt korrekt" -> 
+        ///   3 (DeleteOperationOk) : "Objekt er slettet korrekt"
         /// </returns>
         // GET api/<controller>
         public List<Object> Get()

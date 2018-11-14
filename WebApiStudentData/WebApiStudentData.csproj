@@ -191,6 +191,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="ConstDeclarations\Const.cs" />
+    <Compile Include="Controllers\Character13ScaleController.cs" />
+    <Compile Include="Controllers\Character7ScaleController.cs" />
     <Compile Include="Controllers\ContactFormController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Controllers\UserEducationTimeController.cs" />
     <Compile Include="Controllers\UserFileController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Controllers\WhichCharacterScaleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

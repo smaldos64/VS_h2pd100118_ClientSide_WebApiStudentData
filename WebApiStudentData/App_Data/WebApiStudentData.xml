@@ -481,11 +481,35 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:WebApiStudentData.Controllers.Character13ScaleController.Get">
+            <summary>
+            Returnerer info om karakterværdier på 13 karakter skalaen. Brug denne info til at
+            angive en korrekt karakterværdi hvis 13 skalaen er valgt som karakterskala.
+            </summary>
+            <returns>
+            Returnerer en liste af tilgængelige karakterværdier på 13 skalaen med tilhørende 
+            karakterværdi ID. Gyldig karakterværdi i forhold til valgt karakterskala, skal 
+            angives alle steder, hvor der indsættes karakterer !!!
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.Character7ScaleController.Get">
+            <summary>
+            Returnerer info om karakterværdier på 7-trins skalaen. Brug denne info til at
+            angive en korrekt karakterværdi hvis 7-trins skalaen er valgt som karakterskala.
+            </summary>
+            <returns>
+            Returnerer en liste af tilgængelige karakterværdier på 7-trins skalaen med tilhørende 
+            karakterværdi ID. Gyldig karakterværdi i forhold til valgt karakterskala, skal angives 
+            alle steder, hvor der indsættes karakterer !!!
+            </returns>
+        </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.String,System.String)">
             <summary>
             Returnerer info om alle kontaktformularer gemt af en bruger specificeret ved UserName 
             og Password.
             </summary>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Liste af kontaktformularer. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
             Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
@@ -497,6 +521,9 @@
             Returnerer info om én kontaktformular udfra id gemt af en bruger specificeret ved UserName 
             og Password.
             </summary>
+            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Én kontaktformular. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
             Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
@@ -514,6 +541,8 @@
             data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
             og ContactText.
             </param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
             Id nummeret på den gemte kontaktformular. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -551,6 +580,9 @@
             UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
             kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
             </remarks>
+            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
             DeleteOperationOk (værdien 3) hvis kontaktformular er slettet ok. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -560,16 +592,20 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Get">
             <summary>
-            Returnerer info om alle Fag/Kurser 
+            Returnerer info om alle Fag/Kurser. 
             </summary>
-            <returns></returns>
+            <returns>
+            Returnerer en liste af alle Fag/Kurser med tilhørende Fag/Kursus ID.
+            </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Get(System.Int32)">
             <summary>
             Returnerer info om ét specifikt Fag/Kursus udfra ID
             </summary>
             <param name="id"></param>
-            <returns></returns>
+            <returns>
+            Returnerer Kursus/Fag navn udfra Kursus/Fag ID
+            </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Post(System.Object,System.String,System.String)">
             <summary>
@@ -608,17 +644,31 @@
             <summary>
             Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
             </summary>
-            <remarks>
-            <para>
-            Alle return koder der har en værdi mindre end 0 signalerer en fejl.
-            </para>
-            <para>
-            Alle return koder der har en værdi større end 0 signalerer, at operationen er gået godt.
-            </para>
-            </remarks>
             <returns>
-            <value><para>-14 : test1</para></value>
-            <value>-9 : test2</value>
+            Oversigt over sammenhørende return koder og return strenge :
+            -10 (InformationNotProvided) : "Information er ikke gemt" -> 
+             -9 (ObjectNotSavedByCurrentUserOriginally) : "Objekt er ikke gemt af nuværende bruger oprindeligt !!!" -> 
+             -8 (UserNameAlreadyPresent) : "Brugernavn eksisterer allerede !!!" -> 
+             -7 (FeatureNotImplemented) : "Feature er ikke implementeret/er ikke enabled !!!" -> 
+             -6 (ObjectNotFound) : "objekt er ikke fundet !!!" -> 
+             -5 (ObjectAlreadyPresent) : "objekt er allerede tilgængelig !!!" -> 
+             -4 (SaveOperationFailed) : "Fejl under lagring af objekt !!!" -> 
+             -3 (UpdateOperationFailed) : "Fejl under opdatering af objekt !!!" -> 
+             -2 (DeleteOperationFailed) : "Fejl under sletning af objekt !!!" -> 
+             -1 (UserNotFound) : "Bruger ikke fundet !!!"
+              0 (OperationOkHigherValueThanHere) : "Returværdier større end denne værdi er ok returværdier" -> 
+              1 (UpdateOperationOk) : "Objekt er opdateret korrekt" -> 
+              2 (SaveOperationOk) : "Objekt er gemt korrekt" -> 
+              3 (DeleteOperationOk) : "Objekt er slettet korrekt"
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.WhichCharacterScaleController.Get">
+            <summary>
+            Returnerer info om Karakterskalaer.
+            </summary>
+            <returns>
+            Returnerer en liste af tilgængelige karakterskalaer med tilhørende karakterskale ID. 
+            Karakterskale ID skal angives alle steder, hvor der indsættes karakterer !!!
             </returns>
         </member>
     </members>

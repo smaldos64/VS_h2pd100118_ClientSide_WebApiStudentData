@@ -5,12 +5,22 @@ using System.Web;
 
 namespace WebApiStudentData.ConstDeclarations
 {
+    public enum WhichCharacterScaleENUM
+    {
+        Character_7_ENUM = 1,
+        Character_13_ENUM = 2
+    }
+
     public class Const
     {
         public static readonly string PasswordHash = "P@@Sw0rd";
         public static readonly string SaltKey = "S@LT&KEY";
         public static readonly string VIKey = "@1B2c3D4e5F6g7H8";
 
+        public const int WrongCharacterScaleProvided = -14;
+        public const int WrongCharacterProvided = -13;
+        public const int NoCharacterProvidedButCharacterScaleProvided = -12;
+        public const int CharacterProvidedButNoCharacterScaleProvided = -11;
         public const int InformationNotProvided = -10;
         public const int ObjectNotSavedByCurrentUserOriginally = -9;
         public const int UserNameAlreadyPresent = -8;
