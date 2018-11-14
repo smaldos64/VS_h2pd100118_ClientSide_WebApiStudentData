@@ -17,6 +17,17 @@ namespace WebApiStudentData.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        /// <summary>
+        /// Returnerer info om alle Uddannelsesforløb gemt af en bruger specificeret ved UserName 
+        /// og Password.
+        /// </summary>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>Liste af Uddannelsesforløb. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
         {
@@ -129,7 +140,18 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
-
+        /// <summary>
+        /// Returnerer info om ét Uddannelsesforløb udfra id gemt af en bruger specificeret ved UserName 
+        /// og Password.
+        /// </summary>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>Ét Uddannelsesforløb. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
         {
@@ -260,6 +282,25 @@ namespace WebApiStudentData.Controllers
             return (jSon_Object);
         }
 
+        /// <summary>
+        /// Gemmer Uddannelsesforløb hørende til bruger specificeret ved UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige.
+        /// </remarks>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : StartDate, EndDate, EducationLineID.
+        /// Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueEducation og  
+        /// AbsencePercentageEducation
+        /// </param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// Id nummeret på det gemte Uddannelsesforløb. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {
@@ -360,6 +401,26 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Gemmer Uddannelsesforløb hørende til bruger specificeret ved id, UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+        /// Uddannelsesforløb med specificeret id, skal være gemt af nuværende bruger før. 
+        /// </remarks>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : StartDate, EndDate, EducationLineID.
+        /// Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueEducation og  
+        /// AbsencePercentageEducation
+        /// </param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// UpdateOperationOk (værdien 1) hvis Uddannelsesforløb er gemt ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // PUT api/<controller>/5
         public int Put(int id, dynamic json_Object, string UserName, string Password)
         {
@@ -466,6 +527,22 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Sletter Uddannelsesforløb hørende til bruger specificeret ved id, UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+        /// Uddannelsesforløb med specificeret id, skal være gemt af nuværende bruger før. 
+        /// </remarks>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// DeleteOperationOk (værdien 3) hvis Uddannelsesforløb er slettet ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // DELETE api/<controller>/5
         public int Delete(int id, string UserName, string Password)
         {

@@ -13,6 +13,17 @@ namespace WebApiStudentData.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        /// <summary>
+        /// Returnerer info om alle Brugerfiler gemt af en bruger specificeret ved UserName 
+        /// og Password.
+        /// </summary>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>Liste af Brugerfiler. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
         {
@@ -48,6 +59,18 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
+        /// <summary>
+        /// Returnerer info om én Brugerfil udfra id gemt af en bruger specificeret ved UserName 
+        /// og Password.
+        /// </summary>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>Én Brugerfil. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
         {
@@ -105,6 +128,23 @@ namespace WebApiStudentData.Controllers
             return (jSon_Object);
         }
 
+        /// <summary>
+        /// Gemmer Brugerfil hørende til bruger specificeret ved UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige.
+        /// </remarks>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : UserFileUrl og UserFileAlt. 
+        /// </param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// Id nummeret på den gemte Brugerfil. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {
@@ -139,6 +179,25 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Ændrer Brugerfil hørende til bruger specificeret ved id, UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+        /// Kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
+        /// </remarks>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : UserFileUrl og UserFileAlt.
+        /// </param>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// UpdateOperationOk (værdien 1) hvis Brugerfil er gemt ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // PUT api/<controller>/5
         public int Put(dynamic json_Object, int id, string UserName, string Password)
         {
@@ -186,6 +245,22 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Sletter Brugerfil hørende til bruger specificeret ved id, UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+        /// Kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
+        /// </remarks>
+        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// DeleteOperationOk (værdien 3) hvis Brugerfil er slettet ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // DELETE api/<controller>/5
         public int Delete(int id, string UserName, string Password)
         {

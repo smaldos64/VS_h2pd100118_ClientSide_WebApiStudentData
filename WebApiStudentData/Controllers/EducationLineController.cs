@@ -81,7 +81,7 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Gemmer en nyt Uddannelseslinje på et specificeret Uddannelssted. Ved kald af denne funktionalitet
+        /// Gemmer en ny Uddannelseslinje på et specificeret Uddannelssted. Ved kald af denne funktionalitet
         /// skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>
@@ -128,6 +128,22 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Opdaterer én Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID. 
+        /// Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere 
+        /// kendt af systemet kan udnytte denne funktionalitet.
+        /// </summary>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : EducationLineName og EducationID.
+        /// <param name="id"></param>
+        /// <param name="UserName"></param>
+        /// <param name="Password"></param>
+        /// <returns>
+        /// UpdateOperationOk (værdien 1) hvis Uddannelseslinje er gemt ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // PUT api/<controller>/5
         public int Put(int id, dynamic json_Object, string UserName, string Password)
         {
@@ -167,6 +183,20 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Sletter én specifik Uddannelseslinje på et specifikt Uddannelsessted udfra Uddannelseslinje ID. 
+        /// Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+        /// funktionalitet.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="UserName"></param>
+        /// <param name="Password"></param>
+        /// <returns>
+        /// DeleteOperationOk (værdien 3) hvis Uddannelseslinje er slettet ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // DELETE api/<controller>/5
         public int Delete(int id, string UserName, string Password)
         {

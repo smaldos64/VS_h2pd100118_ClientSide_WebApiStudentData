@@ -89,7 +89,7 @@ namespace WebApiStudentData.Controllers
         /// <param name="UserName"></param>
         /// <param name="Password"></param>
         /// <returns>
-        /// Id nummeret på det gemte Fag/Kursus. 
+        /// Id nummeret på det gemte Uddannelsessted. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
         /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
         /// her : <see cref="ReturnCodeAndReturnString"/>
@@ -138,7 +138,7 @@ namespace WebApiStudentData.Controllers
         /// <param name="UserName"></param>
         /// <param name="Password"></param>
         /// <returns>
-        /// UpdateOperationOk (værdien 1) hvis Kursus/Fag er gemt ok. 
+        /// UpdateOperationOk (værdien 1) hvis Uddannelsessted er opdateret ok. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
         /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
         /// her : <see cref="ReturnCodeAndReturnString"/>
