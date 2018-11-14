@@ -38,6 +38,10 @@ namespace WebApiStudentData.ConstDeclarations
 
         public static readonly ReturnCodeAndReturnString[] ReturnCodesAndReturnStrings =
         {
+            new ReturnCodeAndReturnString(ReturnCode : WrongCharacterScaleProvided, ReturnString : "Forkert ID for karakterskale angivet"),
+            new ReturnCodeAndReturnString(ReturnCode : WrongCharacterProvided, ReturnString : "Forkert karakterværdi i forhold til valgt karakterskala angivet"),
+            new ReturnCodeAndReturnString(ReturnCode : NoCharacterProvidedButCharacterScaleProvided, ReturnString : "Ingen karakterværdi angivet selvom karakterskala er angivet"),
+            new ReturnCodeAndReturnString(ReturnCode : CharacterProvidedButNoCharacterScaleProvided, ReturnString : "Ingen karakterskala angivet selvom karakterværdi er angivet"),
             new ReturnCodeAndReturnString(ReturnCode : InformationNotProvided, ReturnString : "Information er ikke gemt"),
             new ReturnCodeAndReturnString(ReturnCode : ObjectNotSavedByCurrentUserOriginally, ReturnString : "Objekt er ikke gemt af nuværende bruger oprindeligt !!!"),
             new ReturnCodeAndReturnString(ReturnCode : UserNameAlreadyPresent, ReturnString : "Brugernavn eksisterer allerede !!!"),

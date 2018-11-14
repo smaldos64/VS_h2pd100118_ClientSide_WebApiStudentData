@@ -84,10 +84,16 @@ namespace WebApiStudentData.Controllers
         /// Gemmer et nyt Fag/Kursus. Ved kald af denne funktionalitet skal man angive
         /// Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne funktionalitet.
         /// </summary>
-        /// <param name="json_Object"></param>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : CourseName
         /// <param name="UserName"></param>
         /// <param name="Password"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// Id nummeret på det gemte Fag/Kursus. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {
@@ -132,11 +138,17 @@ namespace WebApiStudentData.Controllers
         /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>
-        /// <param name="json_Object"></param>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : CourseName
         /// <param name="id"></param>
         /// <param name="UserName"></param>
         /// <param name="Password"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// UpdateOperationOk (værdien 1) hvis Kursus/Fag er gemt ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // PUT api/<controller>/5
         public int Put(dynamic json_Object, int id, string UserName, string Password)
         {
@@ -189,7 +201,12 @@ namespace WebApiStudentData.Controllers
         /// <param name="id"></param>
         /// <param name="UserName"></param>
         /// <param name="Password"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// DeleteOperationOk (værdien 3) hvis Fag/Kursus er slettet ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // DELETE api/<controller>/5
         public int Delete(int id, string UserName, string Password)
         {

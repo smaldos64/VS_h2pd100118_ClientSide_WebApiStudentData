@@ -607,28 +607,8 @@
             Returnerer Kursus/Fag navn udfra Kursus/Fag ID
             </returns>
         </member>
-        <member name="M:WebApiStudentData.Controllers.CourseController.Post(System.Object,System.String,System.String)">
-            <summary>
-            Gemmer et nyt Fag/Kursus. Ved kald af denne funktionalitet skal man angive
-            Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne funktionalitet.
-            </summary>
-            <param name="json_Object"></param>
-            <param name="UserName"></param>
-            <param name="Password"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebApiStudentData.Controllers.CourseController.Put(System.Object,System.Int32,System.String,System.String)">
-            <summary>
-            Opdaterer ét Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
-            angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
-            funktionalitet.
-            </summary>
-            <param name="json_Object"></param>
-            <param name="id"></param>
-            <param name="UserName"></param>
-            <param name="Password"></param>
-            <returns></returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.CourseController.Post(System.Object,System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.CourseController.Put(System.Object,System.Int32,System.String,System.String)" -->
         <member name="M:WebApiStudentData.Controllers.CourseController.Delete(System.Int32,System.String,System.String)">
             <summary>
             Sletter ét specifikt Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
@@ -638,7 +618,47 @@
             <param name="id"></param>
             <param name="UserName"></param>
             <param name="Password"></param>
-            <returns></returns>
+            <returns>
+            DeleteOperationOk (værdien 3) hvis Fag/Kursus er slettet ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.EducationController.Get">
+            <summary>
+            Returnerer info om alle Uddannelsessteder. 
+            </summary>
+            <returns>
+            Returnerer en liste af alle Uddannelsessteder med tilhørende Uddannelsessted ID.
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.EducationController.Get(System.Int32)">
+            <summary>
+            Returnerer info om ét specifikt Uddannelsessted udfra ID
+            </summary>
+            <param name="id"></param>
+            <returns>
+            Returnerer Uddannelsessted navn udfra Uddannelsessted ID
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationController.Post(System.Object,System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationController.Put(System.Int32,System.Object,System.String,System.String)" -->
+        <member name="M:WebApiStudentData.Controllers.EducationController.Delete(System.Int32,System.String,System.String)">
+            <summary>
+            Sletter ét specifikt Uddannelsessted udfra Uddannelsessted ID. Ved kald af denne funktionalitet skal man 
+            angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+            funktionalitet.
+            </summary>
+            <param name="id"></param>
+            <param name="UserName"></param>
+            <param name="Password"></param>
+            <returns>
+            DeleteOperationOk (værdien 3) hvis Fag/Kursus er slettet ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ReturnCodesAndStringsController.Get">
             <summary>
@@ -646,6 +666,10 @@
             </summary>
             <returns>
             Oversigt over sammenhørende return koder og return strenge :
+            -14 (WrongCharacterScaleProvided) : "Forkert ID for karakterskale angivet" -> 
+            -13 (WrongCharacterProvided) : "Forkert karakterværdi i forhold til valgt karakterskala angivet" -> 
+            -12 (NoCharacterProvidedButCharacterScaleProvided) : "Ingen karakterværdi angivet selvom karakterskala er angivet" -> 
+            -11 (CharacterProvidedButNoCharacterScaleProvided) : "Ingen karakterskala angivet selvom karakterværdi er angivet" -> 
             -10 (InformationNotProvided) : "Information er ikke gemt" -> 
              -9 (ObjectNotSavedByCurrentUserOriginally) : "Objekt er ikke gemt af nuværende bruger oprindeligt !!!" -> 
              -8 (UserNameAlreadyPresent) : "Brugernavn eksisterer allerede !!!" -> 

@@ -13,6 +13,13 @@ namespace WebApiStudentData.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        /// <summary>
+        /// Returnerer info om alle Uddannelseslinjer på alle Uddannelsessteder. 
+        /// </summary>
+        /// <returns>
+        /// Returnerer en liste af alle Uddannelseslinjer på alle Uddannelsessteder med tilhørende 
+        /// Uddannelsessted ID.
+        /// </returns>
         // GET api/<controller>
         public List<Object> Get()
         {
@@ -27,7 +34,7 @@ namespace WebApiStudentData.Controllers
                 {
                     EducationLineID = EducationLine_Object.EducationLineID,
                     EducationLineName = EducationLine_Object.EducationLineName,
-                    EducationPlace = EducationLine_Object.Education.EducationName
+                    EducationName = EducationLine_Object.Education.EducationName
                 };
 
                 jSonList.Add(ListItem);
@@ -35,6 +42,13 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
+        /// <summary>
+        /// Returnerer info om én specifik Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// Returnerer Uddannelseslinje navn og Uddannelsessted navn udfra Uddannelseslinje ID
+        /// </returns>
         // GET api/<controller>/5
         public Object Get(int id)
         {
@@ -66,6 +80,21 @@ namespace WebApiStudentData.Controllers
             return (jSon_Object);
         }
 
+        /// <summary>
+        /// Gemmer en nyt Uddannelseslinje på et specificeret Uddannelssted. Ved kald af denne funktionalitet
+        /// skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+        /// funktionalitet.
+        /// </summary>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : EducationLineName og EducationID
+        /// <param name="UserName"></param>
+        /// <param name="Password"></param>
+        /// <returns>
+        /// Id nummeret på den gemte Uddannelseslinje. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // POST api/<controller>
         public int Post(dynamic json_Object, string UserName, string Password)
         {

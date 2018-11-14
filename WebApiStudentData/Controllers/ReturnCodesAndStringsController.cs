@@ -21,6 +21,10 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <returns>
         /// Oversigt over sammenhørende return koder og return strenge :
+        /// -14 (WrongCharacterScaleProvided) : "Forkert ID for karakterskale angivet" -> 
+        /// -13 (WrongCharacterProvided) : "Forkert karakterværdi i forhold til valgt karakterskala angivet" -> 
+        /// -12 (NoCharacterProvidedButCharacterScaleProvided) : "Ingen karakterværdi angivet selvom karakterskala er angivet" -> 
+        /// -11 (CharacterProvidedButNoCharacterScaleProvided) : "Ingen karakterskala angivet selvom karakterværdi er angivet" -> 
         /// -10 (InformationNotProvided) : "Information er ikke gemt" -> 
         ///  -9 (ObjectNotSavedByCurrentUserOriginally) : "Objekt er ikke gemt af nuværende bruger oprindeligt !!!" -> 
         ///  -8 (UserNameAlreadyPresent) : "Brugernavn eksisterer allerede !!!" -> 
