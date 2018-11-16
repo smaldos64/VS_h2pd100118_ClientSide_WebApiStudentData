@@ -40,6 +40,13 @@ namespace WebApiStudentData.Models
 
         public virtual ICollection<User_Education_Character_Course_Collection> User_Education_Character_Course_Collection { get; set; }
 
-        //public virtual ICollection<Absence> Absences { get; set; }
+        public static int FindEducationTime_Collection_With_Specified_EducationLineID(int EducationLineID)
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            int NumberOfEducationLinesFound = db.User_Education_Time_Collections.Where(c => c.EducationLineID == EducationLineID).ToList().Count;
+
+            return (NumberOfEducationLinesFound);
+        }
     }
 }

@@ -27,12 +27,62 @@ namespace WebApiStudentData.Models
             modelBuilder.Entity<User_Education_Character_Course_Collection>()
                 .HasOptional(c => c.WhichCharacterScale)
                 .WithMany(u => u.User_Education_Character_Course_Collections)
-                .HasForeignKey(c => c.WhichCharacterScaleID);
+                .HasForeignKey(c => c.WhichCharacterScaleID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User_Education_Time_Collection>()
                 .HasOptional(c => c.WhichCharacterScale)
                 .WithMany(u => u.User_Education_Time_Collections)
-                .HasForeignKey(c => c.WhichCharacterScaleID);
+                .HasForeignKey(c => c.WhichCharacterScaleID)
+                .WillCascadeOnDelete(false);
+
+
+            //modelBuilder.Entity<EducationLine>()
+            //    .HasRequired<Education>(e => e.Education)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+
+            //modelBuilder.Entity<User_Education_Time_Collection>()
+            //    .HasOptional<EducationLine>(e => e.EducationLine)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<User_Education_Time_Collection>()
+            //    .HasRequired<WhichCharacterScale>(e => e.WhichCharacterScale)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User_Education_Time_Collection>()
+                .HasRequired<UserInfo>(e => e.UserInfo)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+
+            //modelBuilder.Entity<User_Education_Character_Course_Collection>()
+            //    .HasRequired<Course>(e => e.Course)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<User_Education_Character_Course_Collection>()
+            //    .HasRequired<WhichCharacterScale>(e => e.WhichCharacterScale)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<User_Education_Character_Course_Collection>()
+            //    .HasRequired<User_Education_Time_Collection>(e => e.User_Education_Time_Collection)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<ContactForm>()
+            //   .HasRequired<UserInfo>(e => e.UserInfo)
+            //   .WithMany()
+            //   .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<UserFile>()
+            //   .HasRequired<UserInfo>(e => e.UserInfo)
+            //   .WithMany()
+            //   .WillCascadeOnDelete(false);
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 

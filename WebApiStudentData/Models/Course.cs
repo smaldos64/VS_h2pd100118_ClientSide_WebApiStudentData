@@ -29,7 +29,7 @@ namespace WebApiStudentData.Models
                 if (Course_List[CourseCounter].CourseName.ToLower() == CourseName.ToLower())
                 {
                     CourseID = Course_List[CourseCounter].CourseID;
-                    break;
+                    return (Const.ObjectAlreadyPresent);
                 }
                 CourseCounter++;
             }

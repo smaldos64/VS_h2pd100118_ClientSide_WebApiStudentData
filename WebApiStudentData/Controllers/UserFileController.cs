@@ -20,9 +20,9 @@ namespace WebApiStudentData.Controllers
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Liste af Brugerfiler. 
-        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
@@ -52,7 +52,8 @@ namespace WebApiStudentData.Controllers
             {
                 var ListItem = new
                 {
-                    ErrorNumber = Const.UserNotFound
+                    ErrorNumber = Const.UserNotFound,
+                    ErrorText = Const.FindReturnString(Const.UserNotFound)
                 };
                 jSonList.Add(ListItem);
             }
@@ -67,9 +68,9 @@ namespace WebApiStudentData.Controllers
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Én Brugerfil. 
-        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
@@ -189,7 +190,7 @@ namespace WebApiStudentData.Controllers
         /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
         /// data til funktionen med følgende felter specificeret : UserFileUrl og UserFileAlt.
         /// </param>
-        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="id">Integer der specificerer id på Brugerfil.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
@@ -252,7 +253,7 @@ namespace WebApiStudentData.Controllers
         /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
         /// Kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
         /// </remarks>
-        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="id">Integer der specificerer id på Brugerfil.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>

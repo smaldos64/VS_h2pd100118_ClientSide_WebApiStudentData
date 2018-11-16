@@ -23,9 +23,9 @@ namespace WebApiStudentData.Controllers
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Liste af Kontaktformularer. 
-        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
@@ -56,7 +56,8 @@ namespace WebApiStudentData.Controllers
             {
                 var ListItem = new
                 {
-                    ErrorNumber = Const.UserNotFound
+                    ErrorNumber = Const.UserNotFound,
+                    ErrorText = Const.FindReturnString(Const.UserNotFound)
                 };
                 jSonList.Add(ListItem);
             }
@@ -72,9 +73,9 @@ namespace WebApiStudentData.Controllers
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Én Kontaktformular. 
-        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)

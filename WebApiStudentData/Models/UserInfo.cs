@@ -57,5 +57,21 @@ namespace WebApiStudentData.Models
                 return (Const.UserNotFound);
             }
         }
+
+        public static bool CheckForUserInDatabaseCreation(string UserName)
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            List<UserInfo> UserInfo_List = db.UserInfos.Where(u => u.UserName.ToLower() == UserName.ToLower()).ToList();
+
+            if (UserInfo_List.Count > 0)
+            {
+                return (true);
+            }
+            else
+            {
+                return (false);
+            }
+        }
     }
 }

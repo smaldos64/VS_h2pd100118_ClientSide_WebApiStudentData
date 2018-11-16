@@ -511,9 +511,9 @@
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Liste af Kontaktformularer. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.Int32,System.String,System.String)">
@@ -525,9 +525,9 @@
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Én Kontaktformular. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Post(System.Object,System.String,System.String)">
@@ -602,22 +602,54 @@
             <summary>
             Returnerer info om ét specifikt Fag/Kursus udfra ID
             </summary>
-            <param name="id"></param>
+            <param name="id">Fag/Kursus ID</param>
             <returns>
             Returnerer Kursus/Fag navn udfra Kursus/Fag ID
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.CourseController.Post(System.Object,System.String,System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.CourseController.Put(System.Object,System.Int32,System.String,System.String)" -->
+        <member name="M:WebApiStudentData.Controllers.CourseController.Post(System.Object,System.String,System.String)">
+            <summary>
+            Gemmer et nyt Fag/Kursus. Ved kald af denne funktionalitet skal man angive
+            Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne funktionalitet.
+            </summary>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : CourseName</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            Id nummeret på det gemte Fag/Kursus. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.CourseController.Put(System.Object,System.Int32,System.String,System.String)">
+            <summary>
+            Opdaterer ét Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
+            angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+            funktionalitet.
+            </summary>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : CourseName</param>
+            <param name="id">Fag/Kursus ID</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            UpdateOperationOk (værdien 1) hvis Kursus/Fag er gemt ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Delete(System.Int32,System.String,System.String)">
             <summary>
             Sletter ét specifikt Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
             angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
             funktionalitet.
             </summary>
-            <param name="id"></param>
-            <param name="UserName"></param>
-            <param name="Password"></param>
+            <param name="id">Fag/Kursus ID</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
             DeleteOperationOk (værdien 3) hvis Fag/Kursus er slettet ok. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -637,22 +669,54 @@
             <summary>
             Returnerer info om ét specifikt Uddannelsessted udfra ID
             </summary>
-            <param name="id"></param>
+            <param name="id">Uddannelsessted ID</param>
             <returns>
             Returnerer Uddannelsessted navn udfra Uddannelsessted ID
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationController.Post(System.Object,System.String,System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationController.Put(System.Int32,System.Object,System.String,System.String)" -->
+        <member name="M:WebApiStudentData.Controllers.EducationController.Post(System.Object,System.String,System.String)">
+            <summary>
+            Gemmer et nyt Uddannelsessted. Ved kald af denne funktionalitet skal man angive
+            Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne funktionalitet.
+            </summary>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : EducationName</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            Id nummeret på det gemte Uddannelsessted. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.EducationController.Put(System.Int32,System.Object,System.String,System.String)">
+            <summary>
+            Opdaterer ét Uddannelsessted udfra Uddannelsessted ID. Ved kald af denne funktionalitet skal man 
+            angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+            funktionalitet.
+            </summary>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : EducationName</param>
+            <param name="id">Uddannelsessted ID</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            UpdateOperationOk (værdien 1) hvis Uddannelsessted er opdateret ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
         <member name="M:WebApiStudentData.Controllers.EducationController.Delete(System.Int32,System.String,System.String)">
             <summary>
             Sletter ét specifikt Uddannelsessted udfra Uddannelsessted ID. Ved kald af denne funktionalitet skal man 
             angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
             funktionalitet.
             </summary>
-            <param name="id"></param>
-            <param name="UserName"></param>
-            <param name="Password"></param>
+            <param name="id">Uddannelsessted ID</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
             DeleteOperationOk (værdien 3) hvis Fag/Kursus er slettet ok. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -673,24 +737,56 @@
             <summary>
             Returnerer info om én specifik Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID
             </summary>
-            <param name="id"></param>
             <returns>
             Returnerer Uddannelseslinje navn og Uddannelsessted navn udfra Uddannelseslinje ID
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationLineController.Post(System.Object,System.String,System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationLineController.Put(System.Int32,System.Object,System.String,System.String)" -->
+        <member name="M:WebApiStudentData.Controllers.EducationLineController.Post(System.Object,System.String,System.String)">
+            <summary>
+            Gemmer en ny Uddannelseslinje på et specificeret Uddannelssted. Ved kald af denne funktionalitet
+            skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
+            funktionalitet.
+            </summary>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : EducationLineName og EducationID</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            Id nummeret på den gemte Uddannelseslinje. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.EducationLineController.Put(System.Int32,System.Object,System.String,System.String)">
+            <summary>
+            Opdaterer én Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID. 
+            Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere 
+            kendt af systemet kan udnytte denne funktionalitet.
+            </summary>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : EducationLineName og EducationID.</param>
+            <param name="id">Uddannelseslinje ID</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            UpdateOperationOk (værdien 1) hvis Uddannelseslinje er gemt ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
         <member name="M:WebApiStudentData.Controllers.EducationLineController.Delete(System.Int32,System.String,System.String)">
             <summary>
             Sletter én specifik Uddannelseslinje på et specifikt Uddannelsessted udfra Uddannelseslinje ID. 
             Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
             funktionalitet.
             </summary>
-            <param name="id"></param>
-            <param name="UserName"></param>
-            <param name="Password"></param>
+            <param name="id">Uddannelseslinje ID</param>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
-            DeleteOperationOk (værdien 3) hvis Fag/Kursus er slettet ok. 
+            DeleteOperationOk (værdien 3) hvis Uddannelseslinje er slettet ok. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
             Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
             her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
@@ -702,6 +798,7 @@
             </summary>
             <returns>
             Oversigt over sammenhørende return koder og return strenge :
+            -15 (SpecifiedContentStillInUseInTablesBelow) : "ID i denne tabel der ønsket slettet er stadigvæk i brug i underliggende tabeller. Slet i disse tabeller først !!!" -> 
             -14 (WrongCharacterScaleProvided) : "Forkert ID for karakterskale angivet" -> 
             -13 (WrongCharacterProvided) : "Forkert karakterværdi i forhold til valgt karakterskala angivet" -> 
             -12 (NoCharacterProvidedButCharacterScaleProvided) : "Ingen karakterværdi angivet selvom karakterskala er angivet" -> 
@@ -730,23 +827,23 @@
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Liste af Fag/Kursus forløb. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationCourseCharacterController.Get(System.Int32,System.String,System.String)">
             <summary>
-            Returnerer info om ét Fag/Kursus på ét specifikt Uddannelsesforløb udfra id gemt af en bruger 
+            Returnerer info om ét Fag/Kursus på ét specifikt Uddannelsesforløb udfra ID gemt af en bruger 
             specificeret ved UserName og Password.
             </summary>
-            <param name="id">Integer der specificerer id på Fag/Kursus.</param>
+            <param name="id">Integer der specificerer id på Bruger-Fag/Kursus samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Ét Fag/Kursus forløb. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationCourseCharacterController.Post(System.Object,System.String,System.String)">
@@ -783,6 +880,7 @@
             Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueCourse og  
             AbsencePercentageCourse
             </param>
+            <param name="id">Integer der specificerer id på Bruger-Fag/Kursus samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
@@ -800,7 +898,7 @@
             UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
             Uddannelsesforløb med specificeret id, skal være gemt af nuværende bruger før. 
             </remarks>
-            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="id">Integer der specificerer id på Bruger-Fag/Kursus samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
@@ -818,9 +916,9 @@
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Liste af Uddannelsesforløb. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationTimeController.Get(System.Int32,System.String,System.String)">
@@ -828,13 +926,13 @@
             Returnerer info om ét Uddannelsesforløb udfra id gemt af en bruger specificeret ved UserName 
             og Password.
             </summary>
-            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Ét Uddannelsesforløb. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationTimeController.Post(System.Object,System.String,System.String)">
@@ -871,6 +969,7 @@
             Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueEducation og  
             AbsencePercentageEducation
             </param>
+            <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
@@ -888,7 +987,7 @@
             UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
             Uddannelsesforløb med specificeret id, skal være gemt af nuværende bruger før. 
             </remarks>
-            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
@@ -906,9 +1005,9 @@
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Liste af Brugerfiler. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserFileController.Get(System.Int32,System.String,System.String)">
@@ -920,9 +1019,9 @@
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>Én Brugerfil. 
-            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserFileController.Post(System.Object,System.String,System.String)">
@@ -955,7 +1054,7 @@
             <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
             data til funktionen med følgende felter specificeret : UserFileUrl og UserFileAlt.
             </param>
-            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="id">Integer der specificerer id på Brugerfil.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
@@ -973,11 +1072,80 @@
             UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
             Kontaktformular med specificeret id, skal være gemt af nuværende bruger før. 
             </remarks>
-            <param name="id">Integer der specificerer id på kontaktformular.</param>
+            <param name="id">Integer der specificerer id på Brugerfil.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
             <returns>
             DeleteOperationOk (værdien 3) hvis Brugerfil er slettet ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.UserInfoController.Get">
+            <summary>
+            Returnerer info om alle Brugere. 
+            </summary>
+            <returns>
+            Returnerer en liste af alle Brugere tilknyttet Web API'et med deres Brugernavn, 
+            Password (krypteret) og tilhørende UserInfo ID.
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.UserInfoController.Get(System.String,System.String)">
+            <summary>
+            Returnerer UserInfo ID for specificeret Bruger. 
+            </summary>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            Returnerer UserInfo ID for én specifik Bruger angivet ved UserName og Password. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.UserInfoController.Post(System.String,System.String)">
+            <summary>
+            Opretter en Bruger specificeret ved UserName og Password. Denne funktion er ikke !!! 
+            tilgængelig i den publicerede version af Web API'et.
+            </summary>
+            <param name="UserName">Brugernavn for bruger der ønsker oprettet.</param>
+            <param name="Password">Password for bruger der ønsker oprettet.</param>
+            <returns>
+            UserInfo Id nummeret på den gemte Bruger. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.UserInfoController.Put(System.Object,System.String,System.String)">
+            <summary>
+            Ændrer Brugernavn og/eller Password for en eksisterende Bruger specificeret ved nuværende 
+            UserName og Password. De nye brugerinfo skal være angivet i parameteren json_Object.
+            </summary>
+            <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+            data til funktionen med følgende felter specificeret : UserName og Password. Og her 
+            skal det pointeres, at det er det nye Brugernavn og/eller Password, der skal være
+            angivet !!!
+            </param>
+            <param name="UserName">Nuværende Brugernavn for bruger der ønsker Brugernavn ændret.</param>
+            <param name="Password">Nuværende Password for bruger der ønsker Password ændret.</param>
+            <returns>
+            UpdateOperationOk (værdien 1) hvis Bruger er gemt ok. 
+            Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+            Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+            her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.UserInfoController.Delete(System.String,System.String)">
+            <summary>
+            Sletter Bruger specificeret ved UserName og Password. Denne funktion er ikke !!! 
+            tilgængelig i den publicerede version af Web API'et. 
+            </summary>
+            <param name="Password">Password for nuværende bruger.</param>
+            <param name="UserName">Brugernavn for nuværende bruger.</param>
+            <returns>
+            DeleteOperationOk (værdien 3) hvis Bruger er slettet ok. 
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
             Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
             her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>

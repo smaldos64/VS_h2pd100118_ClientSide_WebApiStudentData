@@ -24,9 +24,9 @@ namespace WebApiStudentData.Controllers
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Liste af Uddannelsesforløb. 
-        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
@@ -144,13 +144,13 @@ namespace WebApiStudentData.Controllers
         /// Returnerer info om ét Uddannelsesforløb udfra id gemt af en bruger specificeret ved UserName 
         /// og Password.
         /// </summary>
-        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>Ét Uddannelsesforløb. 
-        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
@@ -413,6 +413,7 @@ namespace WebApiStudentData.Controllers
         /// Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueEducation og  
         /// AbsencePercentageEducation
         /// </param>
+        /// <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
@@ -534,7 +535,7 @@ namespace WebApiStudentData.Controllers
         /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
         /// Uddannelsesforløb med specificeret id, skal være gemt af nuværende bruger før. 
         /// </remarks>
-        /// <param name="id">Integer der specificerer id på kontaktformular.</param>
+        /// <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>

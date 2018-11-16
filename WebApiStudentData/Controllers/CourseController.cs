@@ -46,7 +46,7 @@ namespace WebApiStudentData.Controllers
         /// <summary>
         /// Returnerer info om ét specifikt Fag/Kursus udfra ID
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Fag/Kursus ID</param>
         /// <returns>
         /// Returnerer Kursus/Fag navn udfra Kursus/Fag ID
         /// </returns>
@@ -85,9 +85,9 @@ namespace WebApiStudentData.Controllers
         /// Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne funktionalitet.
         /// </summary>
         /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
-        /// data til funktionen med følgende felter specificeret : CourseName
-        /// <param name="UserName"></param>
-        /// <param name="Password"></param>
+        /// data til funktionen med følgende felter specificeret : CourseName</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// Id nummeret på det gemte Fag/Kursus. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -139,10 +139,10 @@ namespace WebApiStudentData.Controllers
         /// funktionalitet.
         /// </summary>
         /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
-        /// data til funktionen med følgende felter specificeret : CourseName
-        /// <param name="id"></param>
-        /// <param name="UserName"></param>
-        /// <param name="Password"></param>
+        /// data til funktionen med følgende felter specificeret : CourseName</param>
+        /// <param name="id">Fag/Kursus ID</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// UpdateOperationOk (værdien 1) hvis Kursus/Fag er gemt ok. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -198,9 +198,9 @@ namespace WebApiStudentData.Controllers
         /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="UserName"></param>
-        /// <param name="Password"></param>
+        /// <param name="id">Fag/Kursus ID</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// DeleteOperationOk (værdien 3) hvis Fag/Kursus er slettet ok. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -223,15 +223,22 @@ namespace WebApiStudentData.Controllers
                 Course_Object = db.Courses.Find(id);
                 if (null != Course_Object)
                 {
-                    db.Courses.Remove(Course_Object);
-                    NumberOfCoursesDeleted = db.SaveChanges();
-                    if (1 == NumberOfCoursesDeleted)
+                    if (0 == User_Education_Character_Course_Collection.FindEducation_Course_Character_Collection_With_Specified_CourseID(id))
                     {
-                        return (Const.DeleteOperationOk);
+                        db.Courses.Remove(Course_Object);
+                        NumberOfCoursesDeleted = db.SaveChanges();
+                        if (1 == NumberOfCoursesDeleted)
+                        {
+                            return (Const.DeleteOperationOk);
+                        }
+                        else
+                        {
+                            return (Const.DeleteOperationFailed);
+                        }
                     }
                     else
                     {
-                        return (Const.DeleteOperationFailed);
+                        return (Const.SpecifiedContentStillInUseInTablesBelow);
                     }
                 }
                 else

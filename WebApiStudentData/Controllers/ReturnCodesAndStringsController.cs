@@ -21,6 +21,7 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <returns>
         /// Oversigt over sammenhørende return koder og return strenge :
+        /// -15 (SpecifiedContentStillInUseInTablesBelow) : "ID i denne tabel der ønsket slettet er stadigvæk i brug i underliggende tabeller. Slet i disse tabeller først !!!" -> 
         /// -14 (WrongCharacterScaleProvided) : "Forkert ID for karakterskale angivet" -> 
         /// -13 (WrongCharacterProvided) : "Forkert karakterværdi i forhold til valgt karakterskala angivet" -> 
         /// -12 (NoCharacterProvidedButCharacterScaleProvided) : "Ingen karakterværdi angivet selvom karakterskala er angivet" -> 

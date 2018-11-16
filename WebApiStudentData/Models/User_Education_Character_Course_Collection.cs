@@ -27,5 +27,14 @@ namespace WebApiStudentData.Models
         public int? CharacterValueCourse { get; set; }
 
         public float? AbsencePercentageCourse { get; set; }
+
+        public static int FindEducation_Course_Character_Collection_With_Specified_CourseID(int CourseID)
+        {
+            DatabaseContext db = new DatabaseContext();
+
+            int NumberOfCoursesFound = db.User_Education_Character_Course_Collections.Where(c => c.CourseID == CourseID).ToList().Count;
+
+            return (NumberOfCoursesFound);
+        }
     }
 }

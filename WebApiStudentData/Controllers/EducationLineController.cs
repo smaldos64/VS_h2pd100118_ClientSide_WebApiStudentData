@@ -45,7 +45,6 @@ namespace WebApiStudentData.Controllers
         /// <summary>
         /// Returnerer info om én specifik Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID
         /// </summary>
-        /// <param name="id"></param>
         /// <returns>
         /// Returnerer Uddannelseslinje navn og Uddannelsessted navn udfra Uddannelseslinje ID
         /// </returns>
@@ -86,9 +85,9 @@ namespace WebApiStudentData.Controllers
         /// funktionalitet.
         /// </summary>
         /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
-        /// data til funktionen med følgende felter specificeret : EducationLineName og EducationID
-        /// <param name="UserName"></param>
-        /// <param name="Password"></param>
+        /// data til funktionen med følgende felter specificeret : EducationLineName og EducationID</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// Id nummeret på den gemte Uddannelseslinje. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -134,10 +133,10 @@ namespace WebApiStudentData.Controllers
         /// kendt af systemet kan udnytte denne funktionalitet.
         /// </summary>
         /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
-        /// data til funktionen med følgende felter specificeret : EducationLineName og EducationID.
-        /// <param name="id"></param>
-        /// <param name="UserName"></param>
-        /// <param name="Password"></param>
+        /// data til funktionen med følgende felter specificeret : EducationLineName og EducationID.</param>
+        /// <param name="id">Uddannelseslinje ID</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// UpdateOperationOk (værdien 1) hvis Uddannelseslinje er gemt ok. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -188,9 +187,9 @@ namespace WebApiStudentData.Controllers
         /// Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="UserName"></param>
-        /// <param name="Password"></param>
+        /// <param name="id">Uddannelseslinje ID</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
         /// <returns>
         /// DeleteOperationOk (værdien 3) hvis Uddannelseslinje er slettet ok. 
         /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
@@ -212,15 +211,22 @@ namespace WebApiStudentData.Controllers
                 EducationLine_Object = db.EducationLines.Find(id);
                 if (null != EducationLine_Object)
                 {
-                    db.EducationLines.Remove(EducationLine_Object);
-                    NumberOfEducationLinesDeleted = db.SaveChanges();
-                    if (1 == NumberOfEducationLinesDeleted)
+                    if (0 == User_Education_Time_Collection.FindEducationTime_Collection_With_Specified_EducationLineID(id))
                     {
-                        return (Const.DeleteOperationOk);
+                        db.EducationLines.Remove(EducationLine_Object);
+                        NumberOfEducationLinesDeleted = db.SaveChanges();
+                        if (1 == NumberOfEducationLinesDeleted)
+                        {
+                            return (Const.DeleteOperationOk);
+                        }
+                        else
+                        {
+                            return (Const.DeleteOperationFailed);
+                        }
                     }
                     else
                     {
-                        return (Const.DeleteOperationFailed);
+                        return (Const.SpecifiedContentStillInUseInTablesBelow);
                     }
                 }
                 else

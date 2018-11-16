@@ -21,6 +21,13 @@ namespace WebApiStudentData.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        /// <summary>
+        /// Returnerer info om alle Brugere. 
+        /// </summary>
+        /// <returns>
+        /// Returnerer en liste af alle Brugere tilknyttet Web API'et med deres Brugernavn, 
+        /// Password (krypteret) og tilhørende UserInfo ID.
+        /// </returns>
         // GET api/values
         public List<Object> Get()
         {
@@ -54,6 +61,17 @@ namespace WebApiStudentData.Controllers
             return (jSonList);
         }
 
+        /// <summary>
+        /// Returnerer UserInfo ID for specificeret Bruger. 
+        /// </summary>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// Returnerer UserInfo ID for én specifik Bruger angivet ved UserName og Password. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // GET api/values/5
         public int Get(string UserName, string Password)
         {
@@ -71,34 +89,71 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Opretter en Bruger specificeret ved UserName og Password. Denne funktion er ikke !!! 
+        /// tilgængelig i den publicerede version af Web API'et.
+        /// </summary>
+        /// <param name="UserName">Brugernavn for bruger der ønsker oprettet.</param>
+        /// <param name="Password">Password for bruger der ønsker oprettet.</param>
+        /// <returns>
+        /// UserInfo Id nummeret på den gemte Bruger. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // POST api/values
-        public int Post(dynamic json_Object)
+        [HttpPost]
+        public int Post(string UserName, string Password)
         {
 #if (DEBUG)
             UserInfo UserInfo_Object = new UserInfo();
             int NumberOfUsersSaved;
 
-            string PlainText = json_Object.UserPassword;
+            string PlainText = Password;
 
-            UserInfo_Object.UserName = json_Object.UserName;
+            UserInfo_Object.UserName = UserName;
             UserInfo_Object.UserPassword = Crypto.Encrypt(PlainText);
 
-            db.UserInfos.Add(UserInfo_Object);
-            NumberOfUsersSaved = db.SaveChanges();
-
-            if (1 == NumberOfUsersSaved)
+            if (UserInfo.CheckForUserInDatabaseCreation(UserName))
             {
-                return (UserInfo_Object.UserInfoID);
+                return (Const.UserNameAlreadyPresent);
             }
             else
             {
-                return (Const.SaveOperationFailed);
+                db.UserInfos.Add(UserInfo_Object);
+                NumberOfUsersSaved = db.SaveChanges();
+
+                if (1 == NumberOfUsersSaved)
+                {
+                    return (UserInfo_Object.UserInfoID);
+                }
+                else
+                {
+                    return (Const.SaveOperationFailed);
+                }
             }
 #else
             return (Const.FeatureNotImplemented);
 #endif
         }
 
+        /// <summary>
+        /// Ændrer Brugernavn og/eller Password for en eksisterende Bruger specificeret ved nuværende 
+        /// UserName og Password. De nye brugerinfo skal være angivet i parameteren json_Object.
+        /// </summary>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : UserName og Password. Og her 
+        /// skal det pointeres, at det er det nye Brugernavn og/eller Password, der skal være
+        /// angivet !!!
+        /// </param>
+        /// <param name="UserName">Nuværende Brugernavn for bruger der ønsker Brugernavn ændret.</param>
+        /// <param name="Password">Nuværende Password for bruger der ønsker Password ændret.</param>
+        /// <returns>
+        /// UpdateOperationOk (værdien 1) hvis Bruger er gemt ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // PUT api/values/5
         public int Put(dynamic json_Object, string UserName, string Password)
         {
@@ -111,11 +166,11 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                if (Const.UserNotFound == UserInfo.CheckForUserInDatabase(UserID, json_Object.UserName))
+                if (Const.UserNotFound == UserInfo.CheckForUserInDatabase(UserID, (string)json_Object.UserName))
                 {
                     UserInfo_Object = db.UserInfos.Find(UserID);
                     UserInfo_Object.UserName = json_Object.UserName;
-                    string PlainText = json_Object.UserPassword;
+                    string PlainText = json_Object.Password;
                     UserInfo_Object.UserPassword = Crypto.Encrypt(PlainText);
 
                     NumberOfUsersSaved = db.SaveChanges();
@@ -139,9 +194,22 @@ namespace WebApiStudentData.Controllers
             }
         }
 
+        /// <summary>
+        /// Sletter Bruger specificeret ved UserName og Password. Denne funktion er ikke !!! 
+        /// tilgængelig i den publicerede version af Web API'et. 
+        /// </summary>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// DeleteOperationOk (værdien 3) hvis Bruger er slettet ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
         // DELETE api/values/5
         public int Delete(string UserName, string Password)
         {
+#if (DEBUG)
             int UserID = 0;
 
             UserID = UserInfo.FindUserInDatabase(UserName, Password);
@@ -154,6 +222,9 @@ namespace WebApiStudentData.Controllers
             {
                 return (Const.UserNotFound);
             }
+#else
+            return (Const.FeatureNotImplemented);
+#endif
         }
     }
 }
