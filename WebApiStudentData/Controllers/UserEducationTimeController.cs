@@ -315,131 +315,15 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                User_Education_Time_Collection_Object.UserInfoID = UserID;
-                User_Education_Time_Collection_Object.StartDate = json_Object.StartDate;
-                User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
-                User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
-
-                if (null != json_Object.WhichCharacterScaleID)
+                if ((null == json_Object.StartDate) ||
+                    (null == json_Object.EndDate) ||
+                    (null == json_Object.EducationLineID))
                 {
-                    WhichCharacterScale_Object = db.WhichCharacterScales.Find(json_Object.WhichCharacterScaleID);
-                    if (null == WhichCharacterScale_Object)
-                    {
-                        return (Const.WrongCharacterScaleProvided);
-                    }
-                    User_Education_Time_Collection_Object.WhichCharacterScaleID = json_Object.WhichCharacterScaleID;
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    User_Education_Time_Collection_Object.WhichCharacterScaleID = null;
-                }
-
-                if (null != json_Object.CharacterValueCourse)
-                {
-                    if (null == json_Object.WhichCharacterScaleID)
-                    {
-                        return (Const.CharacterProvidedButNoCharacterScaleProvided);
-                    }
-                    else
-                    {
-                        int WhichCharacterScale = WhichCharacterScale_Object.WhichCharacterScaleID;
-
-                        switch (WhichCharacterScale)
-                        {
-                            case (int)WhichCharacterScaleENUM.Character_7_ENUM:
-                                Character7Scale Character7Scale_Object = db.Character7Scales.Find(json_Object.CharacterValueEducation);
-                                if (null == Character7Scale_Object)
-                                {
-                                    return (Const.WrongCharacterProvided);
-                                }
-                                break;
-
-                            case (int)WhichCharacterScaleENUM.Character_13_ENUM:
-                                Character13Scale Character13Scale_Object = db.Character13Scales.Find(json_Object.CharacterValueEducation);
-                                if (null == Character13Scale_Object)
-                                {
-                                    return (Const.WrongCharacterProvided);
-                                }
-                                break;
-                        }
-                    }
-                    User_Education_Time_Collection_Object.CharacterValueEducation = json_Object.CharacterValueEducation;
-                }
-                else
-                {
-                    if (null != json_Object.WhichCharacterScaleID)
-                    {
-                        return (Const.NoCharacterProvidedButCharacterScaleProvided);
-                    }
-                    User_Education_Time_Collection_Object.CharacterValueEducation = null;
-                }
-
-                if (null != json_Object.AbsencePercentageEducation)
-                {
-                    User_Education_Time_Collection_Object.AbsencePercentageEducation = json_Object.AbsencePercentageEducation;
-                }
-                else
-                {
-                    User_Education_Time_Collection_Object.AbsencePercentageEducation = null;
-                }
-
-                db.User_Education_Time_Collections.Add(User_Education_Time_Collection_Object);
-                NumberOfUserEducationsSaved = db.SaveChanges();
-
-                if (1 == NumberOfUserEducationsSaved)
-                {
-                    return (User_Education_Time_Collection_Object.User_Education_Time_CollectionID);
-                }
-                else
-                {
-                    return (Const.SaveOperationFailed);
-                }
-            }
-            else
-            {
-                return (Const.UserNotFound);
-            }
-        }
-
-        /// <summary>
-        /// Gemmer Uddannelsesforløb hørende til bruger specificeret ved id, UserName og Password.  
-        /// </summary>
-        /// <remarks>
-        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
-        /// Uddannelsesforløb med specificeret id, skal være gemt af nuværende bruger før. 
-        /// </remarks>
-        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
-        /// data til funktionen med følgende felter specificeret : StartDate, EndDate, EducationLineID.
-        /// Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueEducation og  
-        /// AbsencePercentageEducation
-        /// </param>
-        /// <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
-        /// <param name="Password">Password for nuværende bruger.</param>
-        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>
-        /// UpdateOperationOk (værdien 1) hvis Uddannelsesforløb er gemt ok. 
-        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
-        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
-        /// her : <see cref="ReturnCodeAndReturnString"/>
-        /// </returns>
-        // PUT api/<controller>/5
-        public int Put(int id, dynamic json_Object, string UserName, string Password)
-        {
-            User_Education_Time_Collection User_Education_Time_Collection_Object =
-                new User_Education_Time_Collection();
-            WhichCharacterScale WhichCharacterScale_Object = new WhichCharacterScale();
-            int NumberOfUserEducationsSaved;
-
-            int UserID = 0;
-
-            UserID = UserInfo.FindUserInDatabase(UserName, Password);
-
-            if (Const.UserNotFound < UserID)
-            {
-                User_Education_Time_Collection_Object = db.User_Education_Time_Collections.Find(id);
-
-                if (null != User_Education_Time_Collection_Object)
-                {
+                    User_Education_Time_Collection_Object.UserInfoID = UserID;
                     User_Education_Time_Collection_Object.StartDate = json_Object.StartDate;
                     User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
                     User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
@@ -507,19 +391,153 @@ namespace WebApiStudentData.Controllers
                         User_Education_Time_Collection_Object.AbsencePercentageEducation = null;
                     }
 
+                    db.User_Education_Time_Collections.Add(User_Education_Time_Collection_Object);
                     NumberOfUserEducationsSaved = db.SaveChanges();
+
                     if (1 == NumberOfUserEducationsSaved)
                     {
-                        return (Const.UpdateOperationOk);
+                        return (User_Education_Time_Collection_Object.User_Education_Time_CollectionID);
                     }
                     else
                     {
-                        return (Const.UpdateOperationFailed);
+                        return (Const.SaveOperationFailed);
                     }
+                }
+            }
+            else
+            {
+                return (Const.UserNotFound);
+            }
+        }
+
+        /// <summary>
+        /// Gemmer Uddannelsesforløb hørende til bruger specificeret ved id, UserName og Password.  
+        /// </summary>
+        /// <remarks>
+        /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
+        /// Uddannelsesforløb med specificeret id, skal være gemt af nuværende bruger før. 
+        /// </remarks>
+        /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
+        /// data til funktionen med følgende felter specificeret : StartDate, EndDate, EducationLineID.
+        /// Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueEducation og  
+        /// AbsencePercentageEducation
+        /// </param>
+        /// <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
+        /// <param name="Password">Password for nuværende bruger.</param>
+        /// <param name="UserName">Brugernavn for nuværende bruger.</param>
+        /// <returns>
+        /// UpdateOperationOk (værdien 1) hvis Uddannelsesforløb er gemt ok. 
+        /// Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
+        /// Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
+        /// her : <see cref="ReturnCodeAndReturnString"/>
+        /// </returns>
+        // PUT api/<controller>/5
+        public int Put(int id, dynamic json_Object, string UserName, string Password)
+        {
+            User_Education_Time_Collection User_Education_Time_Collection_Object =
+                new User_Education_Time_Collection();
+            WhichCharacterScale WhichCharacterScale_Object = new WhichCharacterScale();
+            int NumberOfUserEducationsSaved;
+
+            int UserID = 0;
+
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
+            {
+                if ((null == json_Object.StartDate) ||
+                    (null == json_Object.EndDate) ||
+                    (null == json_Object.EducationLineID))
+                {
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    return (Const.ObjectNotFound);
+                    User_Education_Time_Collection_Object = db.User_Education_Time_Collections.Find(id);
+
+                    if (null != User_Education_Time_Collection_Object)
+                    {
+                        User_Education_Time_Collection_Object.StartDate = json_Object.StartDate;
+                        User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
+                        User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
+
+                        if (null != json_Object.WhichCharacterScaleID)
+                        {
+                            WhichCharacterScale_Object = db.WhichCharacterScales.Find(json_Object.WhichCharacterScaleID);
+                            if (null == WhichCharacterScale_Object)
+                            {
+                                return (Const.WrongCharacterScaleProvided);
+                            }
+                            User_Education_Time_Collection_Object.WhichCharacterScaleID = json_Object.WhichCharacterScaleID;
+                        }
+                        else
+                        {
+                            User_Education_Time_Collection_Object.WhichCharacterScaleID = null;
+                        }
+
+                        if (null != json_Object.CharacterValueCourse)
+                        {
+                            if (null == json_Object.WhichCharacterScaleID)
+                            {
+                                return (Const.CharacterProvidedButNoCharacterScaleProvided);
+                            }
+                            else
+                            {
+                                int WhichCharacterScale = WhichCharacterScale_Object.WhichCharacterScaleID;
+
+                                switch (WhichCharacterScale)
+                                {
+                                    case (int)WhichCharacterScaleENUM.Character_7_ENUM:
+                                        Character7Scale Character7Scale_Object = db.Character7Scales.Find(json_Object.CharacterValueEducation);
+                                        if (null == Character7Scale_Object)
+                                        {
+                                            return (Const.WrongCharacterProvided);
+                                        }
+                                        break;
+
+                                    case (int)WhichCharacterScaleENUM.Character_13_ENUM:
+                                        Character13Scale Character13Scale_Object = db.Character13Scales.Find(json_Object.CharacterValueEducation);
+                                        if (null == Character13Scale_Object)
+                                        {
+                                            return (Const.WrongCharacterProvided);
+                                        }
+                                        break;
+                                }
+                            }
+                            User_Education_Time_Collection_Object.CharacterValueEducation = json_Object.CharacterValueEducation;
+                        }
+                        else
+                        {
+                            if (null != json_Object.WhichCharacterScaleID)
+                            {
+                                return (Const.NoCharacterProvidedButCharacterScaleProvided);
+                            }
+                            User_Education_Time_Collection_Object.CharacterValueEducation = null;
+                        }
+
+                        if (null != json_Object.AbsencePercentageEducation)
+                        {
+                            User_Education_Time_Collection_Object.AbsencePercentageEducation = json_Object.AbsencePercentageEducation;
+                        }
+                        else
+                        {
+                            User_Education_Time_Collection_Object.AbsencePercentageEducation = null;
+                        }
+
+                        NumberOfUserEducationsSaved = db.SaveChanges();
+                        if (1 == NumberOfUserEducationsSaved)
+                        {
+                            return (Const.UpdateOperationOk);
+                        }
+                        else
+                        {
+                            return (Const.UpdateOperationFailed);
+                        }
+                    }
+                    else
+                    {
+                        return (Const.ObjectNotFound);
+                    }
                 }
             }
             else

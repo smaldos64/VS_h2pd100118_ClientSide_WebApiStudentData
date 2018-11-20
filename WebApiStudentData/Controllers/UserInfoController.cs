@@ -1,4 +1,4 @@
-﻿#define DEBUG
+﻿#undef DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -76,8 +76,10 @@ namespace WebApiStudentData.Controllers
         public int Get(string UserName, string Password)
         {
             object jSon_Object = new object();
-            UserInfo UserInfo_Object = db.UserInfos.FirstOrDefault(u => u.UserName.ToLower() == UserName.ToLower() &&
-                                       u.UserPassword.ToLower() == Password.ToLower());
+            string Password_Crypted = Crypto.Encrypt(Password);
+
+            UserInfo UserInfo_Object = db.UserInfos.FirstOrDefault(u => UserName.ToLower() == UserName.ToLower() &&
+                                       u.UserPassword == Password_Crypted);
 
             if (null != UserInfo_Object)
             {
@@ -166,26 +168,34 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                if (Const.UserNotFound == UserInfo.CheckForUserInDatabase(UserID, (string)json_Object.UserName))
+                if ((null == json_Object.UserName) ||
+                    (null == json_Object.Password))
                 {
-                    UserInfo_Object = db.UserInfos.Find(UserID);
-                    UserInfo_Object.UserName = json_Object.UserName;
-                    string PlainText = json_Object.Password;
-                    UserInfo_Object.UserPassword = Crypto.Encrypt(PlainText);
-
-                    NumberOfUsersSaved = db.SaveChanges();
-                    if (1 == NumberOfUsersSaved)
-                    {
-                        return (Const.UpdateOperationOk);
-                    }
-                    else
-                    {
-                        return (Const.UpdateOperationFailed);
-                    }
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    return (Const.ObjectAlreadyPresent);
+                    if (Const.UserNotFound == UserInfo.CheckForUserInDatabase(UserID, (string)json_Object.UserName))
+                    {
+                        UserInfo_Object = db.UserInfos.Find(UserID);
+                        UserInfo_Object.UserName = json_Object.UserName;
+                        string PlainText = json_Object.Password;
+                        UserInfo_Object.UserPassword = Crypto.Encrypt(PlainText);
+
+                        NumberOfUsersSaved = db.SaveChanges();
+                        if (1 == NumberOfUsersSaved)
+                        {
+                            return (Const.UpdateOperationOk);
+                        }
+                        else
+                        {
+                            return (Const.UpdateOperationFailed);
+                        }
+                    }
+                    else
+                    {
+                        return (Const.ObjectAlreadyPresent);
+                    }
                 }
             }
             else

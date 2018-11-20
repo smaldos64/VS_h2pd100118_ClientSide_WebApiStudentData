@@ -17,6 +17,7 @@ namespace WebApiStudentData.ConstDeclarations
         public static readonly string SaltKey = "S@LT&KEY";
         public static readonly string VIKey = "@1B2c3D4e5F6g7H8";
 
+        public const int WrongjSOnObjectParameters = -16;
         public const int SpecifiedContentStillInUseInTablesBelow = -15;
         public const int WrongCharacterScaleProvided = -14;
         public const int WrongCharacterProvided = -13;
@@ -39,6 +40,7 @@ namespace WebApiStudentData.ConstDeclarations
 
         public static readonly ReturnCodeAndReturnString[] ReturnCodesAndReturnStrings =
         {
+            new ReturnCodeAndReturnString(ReturnCode : WrongjSOnObjectParameters, ReturnString : "Én eller flere af de forventede parametre i det give jSon objekt mangler !!!"),
             new ReturnCodeAndReturnString(ReturnCode : SpecifiedContentStillInUseInTablesBelow, ReturnString : "ID i denne tabel der ønsket slettet er stadigvæk i brug i underliggende tabeller. Slet i disse tabeller først !!!"),
             new ReturnCodeAndReturnString(ReturnCode : WrongCharacterScaleProvided, ReturnString : "Forkert ID for karakterskale angivet"),
             new ReturnCodeAndReturnString(ReturnCode : WrongCharacterProvided, ReturnString : "Forkert karakterværdi i forhold til valgt karakterskala angivet"),

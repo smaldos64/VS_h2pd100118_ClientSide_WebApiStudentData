@@ -106,25 +106,32 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                if (Const.ObjectNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
+                if (null == json_Object.CourseName)
                 {
-                    Course_Object.CourseName = json_Object.CourseName;
-
-                    db.Courses.Add(Course_Object);
-                    NumberOfCoursesSaved = db.SaveChanges();
-
-                    if (1 == NumberOfCoursesSaved)
-                    {
-                        return (Course_Object.CourseID);
-                    }
-                    else
-                    {
-                        return (Const.SaveOperationFailed);
-                    }
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    return (Const.ObjectAlreadyPresent);
+                    if (Const.ObjectNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
+                    {
+                        Course_Object.CourseName = json_Object.CourseName;
+
+                        db.Courses.Add(Course_Object);
+                        NumberOfCoursesSaved = db.SaveChanges();
+
+                        if (1 == NumberOfCoursesSaved)
+                        {
+                            return (Course_Object.CourseID);
+                        }
+                        else
+                        {
+                            return (Const.SaveOperationFailed);
+                        }
+                    }
+                    else
+                    {
+                        return (Const.ObjectAlreadyPresent);
+                    }
                 }
             }
             else
@@ -161,30 +168,37 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                if (Const.ObjectNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
+                if (null == json_Object.CourseName)
                 {
-                    Course_Object = db.Courses.Find(id);
-                    if (null != Course_Object)
+                    return (Const.WrongjSOnObjectParameters);
+                }
+                else
+                {
+                    if (Const.ObjectNotFound == Course.CheckForCourseNameInCourse((string)json_Object.CourseName))
                     {
-                        Course_Object.CourseName = json_Object.CourseName;
-                        NumberOfCoursesSaved = db.SaveChanges();
-                        if (1 == NumberOfCoursesSaved)
+                        Course_Object = db.Courses.Find(id);
+                        if (null != Course_Object)
                         {
-                            return (Const.UpdateOperationOk);
+                            Course_Object.CourseName = json_Object.CourseName;
+                            NumberOfCoursesSaved = db.SaveChanges();
+                            if (1 == NumberOfCoursesSaved)
+                            {
+                                return (Const.UpdateOperationOk);
+                            }
+                            else
+                            {
+                                return (Const.UpdateOperationFailed);
+                            }
                         }
                         else
                         {
-                            return (Const.UpdateOperationFailed);
+                            return (Const.ObjectNotFound);
                         }
                     }
                     else
                     {
-                        return (Const.ObjectNotFound);
+                        return (Const.ObjectAlreadyPresent);
                     }
-                }
-                else
-                {
-                    return (Const.ObjectAlreadyPresent);
                 }
             }
             else

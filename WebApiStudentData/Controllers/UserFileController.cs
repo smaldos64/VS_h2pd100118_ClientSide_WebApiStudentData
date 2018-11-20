@@ -158,20 +158,28 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                UserFile_Object.UserFileID = UserID;
-                UserFile_Object.UserFileUrl = json_Object.UserFileUrl;
-                UserFile_Object.userFileAlt = json_Object.UserFileAlt;
-
-                db.UserFiles.Add(UserFile_Object);
-                NumberOfUserFilesSaved = db.SaveChanges();
-
-                if (1 == NumberOfUserFilesSaved)
+                if ((null == json_Object.UserFileUrl) ||
+                    (null == json_Object.UserFileAlt))
                 {
-                    return (UserFile_Object.UserFileID);
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    return (Const.SaveOperationFailed);
+                    UserFile_Object.UserFileID = UserID;
+                    UserFile_Object.UserFileUrl = json_Object.UserFileUrl;
+                    UserFile_Object.userFileAlt = json_Object.UserFileAlt;
+
+                    db.UserFiles.Add(UserFile_Object);
+                    NumberOfUserFilesSaved = db.SaveChanges();
+
+                    if (1 == NumberOfUserFilesSaved)
+                    {
+                        return (UserFile_Object.UserFileID);
+                    }
+                    else
+                    {
+                        return (Const.SaveOperationFailed);
+                    }
                 }
             }
             else
@@ -211,33 +219,41 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                if (Const.ObjectNotFound == UserFile.CheckForUserFileUrlInUserFile(UserID, (string)json_Object.UserFileUrl))
+                if ((null == json_Object.UserFileUrl) ||
+                    (null == json_Object.UserFileAlt))
                 {
-                    UserFile_Object = db.UserFiles.Find(id);
-                    if (null != UserFile_Object)
+                    return (Const.WrongjSOnObjectParameters);
+                }
+                else
+                {
+                    if (Const.ObjectNotFound == UserFile.CheckForUserFileUrlInUserFile(UserID, (string)json_Object.UserFileUrl))
                     {
-                        UserFile_Object.UserInfoID = UserID;
-                        UserFile_Object.UserFileUrl = json_Object.UserFileUrl;
-                        UserFile_Object.userFileAlt = json_Object.UserFileAtt;
-
-                        NumberOfUserFilesSaved = db.SaveChanges();
-                        if (1 == NumberOfUserFilesSaved)
+                        UserFile_Object = db.UserFiles.Find(id);
+                        if (null != UserFile_Object)
                         {
-                            return (Const.UpdateOperationOk);
+                            UserFile_Object.UserInfoID = UserID;
+                            UserFile_Object.UserFileUrl = json_Object.UserFileUrl;
+                            UserFile_Object.userFileAlt = json_Object.UserFileAtt;
+
+                            NumberOfUserFilesSaved = db.SaveChanges();
+                            if (1 == NumberOfUserFilesSaved)
+                            {
+                                return (Const.UpdateOperationOk);
+                            }
+                            else
+                            {
+                                return (Const.UpdateOperationFailed);
+                            }
                         }
                         else
                         {
-                            return (Const.UpdateOperationFailed);
+                            return (Const.ObjectNotFound);
                         }
                     }
                     else
                     {
-                        return (Const.ObjectNotFound);
+                        return (Const.ObjectAlreadyPresent);
                     }
-                }
-                else
-                {
-                    return (Const.ObjectAlreadyPresent);
                 }
             }
             else

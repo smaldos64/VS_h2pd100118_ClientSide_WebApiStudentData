@@ -794,10 +794,12 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.ReturnCodesAndStringsController.Get">
             <summary>
-            Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
+            Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et. 
             </summary>
             <returns>
-            Oversigt over sammenhørende return koder og return strenge :
+            <para>
+            Oversigt over sammenhørende return koder og return strenge : <br />
+            -16 (WrongjSOnObjectParameters) : "Én eller flere af de forventede parametre i det give jSon objekt mangler !!!" -> <br />
             -15 (SpecifiedContentStillInUseInTablesBelow) : "ID i denne tabel der ønsket slettet er stadigvæk i brug i underliggende tabeller. Slet i disse tabeller først !!!" -> 
             -14 (WrongCharacterScaleProvided) : "Forkert ID for karakterskale angivet" -> 
             -13 (WrongCharacterProvided) : "Forkert karakterværdi i forhold til valgt karakterskala angivet" -> 
@@ -817,6 +819,7 @@
               1 (UpdateOperationOk) : "Objekt er opdateret korrekt" -> 
               2 (SaveOperationOk) : "Objekt er gemt korrekt" -> 
               3 (DeleteOperationOk) : "Objekt er slettet korrekt"
+              </para>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationCourseCharacterController.Get(System.String,System.String)">
@@ -854,7 +857,8 @@
             UserName og Password skal være gemt i Web API'ets database for at være gyldige.
             </remarks>
             <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
-            data til funktionen med følgende felter specificeret : StartDate, EndDate, EducationLineID.
+            data til funktionen med følgende felter specificeret : User_Education_Time_CollectionID, 
+            CourseID.
             Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueCourse og  
             AbsencePercentageCourse
             </param>
@@ -876,7 +880,8 @@
             UserName og Password skal være gemt i Web API'ets database for at være gyldige.
             </remarks>
             <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
-            data til funktionen med følgende felter specificeret : StartDate, EndDate, EducationLineID.
+            data til funktionen med følgende felter specificeret : User_Education_Time_CollectionID,
+            CourseID.
             Optionalt kan følgende felter også angives : WhichCharacterScaleID, CharacterValueCourse og  
             AbsencePercentageCourse
             </param>

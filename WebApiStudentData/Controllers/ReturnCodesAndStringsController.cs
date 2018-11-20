@@ -17,10 +17,12 @@ namespace WebApiStudentData.Controllers
         private DatabaseContext db = new DatabaseContext();
 
         /// <summary>
-        /// Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et.
+        /// Returnerer en oversigt over alle return koder og return stringe fra WEB Api'et. 
         /// </summary>
         /// <returns>
-        /// Oversigt over sammenhørende return koder og return strenge :
+        /// <para>
+        /// Oversigt over sammenhørende return koder og return strenge : <br />
+        /// -16 (WrongjSOnObjectParameters) : "Én eller flere af de forventede parametre i det give jSon objekt mangler !!!" -> <br />
         /// -15 (SpecifiedContentStillInUseInTablesBelow) : "ID i denne tabel der ønsket slettet er stadigvæk i brug i underliggende tabeller. Slet i disse tabeller først !!!" -> 
         /// -14 (WrongCharacterScaleProvided) : "Forkert ID for karakterskale angivet" -> 
         /// -13 (WrongCharacterProvided) : "Forkert karakterværdi i forhold til valgt karakterskala angivet" -> 
@@ -40,6 +42,7 @@ namespace WebApiStudentData.Controllers
         ///   1 (UpdateOperationOk) : "Objekt er opdateret korrekt" -> 
         ///   2 (SaveOperationOk) : "Objekt er gemt korrekt" -> 
         ///   3 (DeleteOperationOk) : "Objekt er slettet korrekt"
+        ///   </para>
         /// </returns>
         // GET api/<controller>
         public List<Object> Get()
@@ -50,7 +53,7 @@ namespace WebApiStudentData.Controllers
             {
                 var ListItem = new
                 {
-                   ReturnNumber = ReturnCodeAndReturnString_Object.ReturnCode,
+                   ReturnCode = ReturnCodeAndReturnString_Object.ReturnCode,
                    ReturnString = ReturnCodeAndReturnString_Object.ReturnString
                 };
                 jSonList.Add(ListItem);

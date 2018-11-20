@@ -106,18 +106,25 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                Education_Object.EducationName = json_Object.EducationName;
-
-                db.Educations.Add(Education_Object);
-                NumberOfEducationsSaved = db.SaveChanges();
-
-                if (1 == NumberOfEducationsSaved)
+                if (null == json_Object.EducationName)
                 {
-                    return (Education_Object.EducationID);
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    return (Const.SaveOperationFailed);
+                    Education_Object.EducationName = json_Object.EducationName;
+
+                    db.Educations.Add(Education_Object);
+                    NumberOfEducationsSaved = db.SaveChanges();
+
+                    if (1 == NumberOfEducationsSaved)
+                    {
+                        return (Education_Object.EducationID);
+                    }
+                    else
+                    {
+                        return (Const.SaveOperationFailed);
+                    }
                 }
             }
             else
@@ -154,25 +161,32 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                Education_Object = db.Educations.Find(id);
-
-                if (null != Education_Object)
+                if (null == json_Object.EducationName) 
                 {
-                    Education_Object.EducationName = json_Object.EducationName;
-
-                    NumberOfEducationsSaved = db.SaveChanges();
-                    if (1 == NumberOfEducationsSaved)
-                    {
-                        return (Const.UpdateOperationOk);
-                    }
-                    else
-                    {
-                        return (Const.UpdateOperationFailed);
-                    }
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    return (Const.ObjectNotFound);
+                    Education_Object = db.Educations.Find(id);
+
+                    if (null != Education_Object)
+                    {
+                        Education_Object.EducationName = json_Object.EducationName;
+
+                        NumberOfEducationsSaved = db.SaveChanges();
+                        if (1 == NumberOfEducationsSaved)
+                        {
+                            return (Const.UpdateOperationOk);
+                        }
+                        else
+                        {
+                            return (Const.UpdateOperationFailed);
+                        }
+                    }
+                    else
+                    {
+                        return (Const.ObjectNotFound);
+                    }
                 }
             }
             else

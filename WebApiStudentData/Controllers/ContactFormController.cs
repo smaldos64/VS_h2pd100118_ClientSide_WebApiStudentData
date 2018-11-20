@@ -165,21 +165,30 @@ namespace WebApiStudentData.Controllers
 
             if (Const.UserNotFound < UserID)
             {
-                ContactForm_Object.ContactNameFrom = json_Object.ContactNameFrom;
-                ContactForm_Object.ContactNameEmail = json_Object.ContactNameEmail;
-                ContactForm_Object.ContactText = json_Object.ContactText;
-                ContactForm_Object.UserInfoID = UserID;
-
-                db.ContactForms.Add(ContactForm_Object);
-                NumberOfContactFormsSaved = db.SaveChanges();
-
-                if (1 == NumberOfContactFormsSaved)
+                if ((null == json_Object.ContactNameFrom) ||
+                    (null == json_Object.ContactNameEmail) ||
+                    (null == json_Object.ContactText))
                 {
-                    return (ContactForm_Object.ContactFormID);
+                    return (Const.WrongjSOnObjectParameters);
                 }
                 else
                 {
-                    return (Const.SaveOperationFailed);
+                    ContactForm_Object.ContactNameFrom = json_Object.ContactNameFrom;
+                    ContactForm_Object.ContactNameEmail = json_Object.ContactNameEmail;
+                    ContactForm_Object.ContactText = json_Object.ContactText;
+                    ContactForm_Object.UserInfoID = UserID;
+
+                    db.ContactForms.Add(ContactForm_Object);
+                    NumberOfContactFormsSaved = db.SaveChanges();
+
+                    if (1 == NumberOfContactFormsSaved)
+                    {
+                        return (ContactForm_Object.ContactFormID);
+                    }
+                    else
+                    {
+                        return (Const.SaveOperationFailed);
+                    }
                 }
             }
             else
@@ -225,18 +234,27 @@ namespace WebApiStudentData.Controllers
                 {
                     if (UserID == ContactForm_Object.UserInfoID)
                     {
-                        ContactForm_Object.ContactNameFrom = json_Object.ContactNameFrom;
-                        ContactForm_Object.ContactNameEmail = json_Object.ContactNameEmail;
-                        ContactForm_Object.ContactText = json_Object.ContactText;
-
-                        NumberOfContactFormsSaved = db.SaveChanges();
-                        if (1 == NumberOfContactFormsSaved)
+                        if ((null == json_Object.ContactNameFrom) ||
+                            (null == json_Object.ContactNameEmail) ||
+                            (null == json_Object.ContactText))
                         {
-                            return (Const.UpdateOperationOk);
+                            return (Const.WrongjSOnObjectParameters);
                         }
                         else
                         {
-                            return (Const.UpdateOperationFailed);
+                            ContactForm_Object.ContactNameFrom = json_Object.ContactNameFrom;
+                            ContactForm_Object.ContactNameEmail = json_Object.ContactNameEmail;
+                            ContactForm_Object.ContactText = json_Object.ContactText;
+
+                            NumberOfContactFormsSaved = db.SaveChanges();
+                            if (1 == NumberOfContactFormsSaved)
+                            {
+                                return (Const.UpdateOperationOk);
+                            }
+                            else
+                            {
+                                return (Const.UpdateOperationFailed);
+                            }
                         }
                     }
                     else
