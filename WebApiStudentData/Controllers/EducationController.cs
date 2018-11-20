@@ -21,6 +21,8 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <returns>
         /// Returnerer en liste af alle Uddannelsessteder med tilhørende Uddannelsessted ID.
+        /// Listen returneres som en liste af jSon objekter, hvor hver enkelt jSon element 
+        /// indeholder felterne : EducationID og EducationName.
         /// </returns>
         // GET api/<controller>
         public List<Object> Get()
@@ -44,12 +46,15 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Returnerer info om ét specifikt Uddannelsessted udfra ID
+        /// Returnerer info om ét specifikt Uddannelsessted ud fra id.
         /// </summary>
         /// <param name="id">Uddannelsessted ID</param>
         /// <returns>
-        /// Returnerer Uddannelsessted navn udfra Uddannelsessted ID
-        /// </returns>
+        /// Ét Uddannelsessted. Uddannelsesstedet returneres som et jSon objekt, 
+        /// som indeholder felterne : EducationID og EducationName.
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her
         // GET api/<controller>/5
         public Object Get(int id)
         {
@@ -134,7 +139,7 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Opdaterer ét Uddannelsessted udfra Uddannelsessted ID. Ved kald af denne funktionalitet skal man 
+        /// Opdaterer ét Uddannelsessted udfra id. Ved kald af denne funktionalitet skal man 
         /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>
@@ -196,7 +201,7 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Sletter ét specifikt Uddannelsessted udfra Uddannelsessted ID. Ved kald af denne funktionalitet skal man 
+        /// Sletter ét specifikt Uddannelsessted udfra id. Ved kald af denne funktionalitet skal man 
         /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>

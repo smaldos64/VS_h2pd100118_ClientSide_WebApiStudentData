@@ -23,9 +23,17 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Liste af Fag/Kursus forløb. 
-        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// <returns>
+        /// Liste af Fag/Kursus forløb. Listen returneres som en liste af jSon objekter, 
+        /// hvor hver enkelt jSon element indeholder felterne : User_Education_Character_Course_CollectionID,
+        /// CourseID, CourseName, WhichCharacterScaleIDCourse, WhichCharacterScaleNameCourse, 
+        /// CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+        /// EducationStartTime, EducationEndTime, CharacterValueEducation og 
+        /// AbsencePercentageForEducation. Flere af de nævnte felter "ID felter", kan have 
+        /// en værdi på -10 (InformationNotProvided), hvis disse felter ikke er udfyldt af
+        /// brugeren. Er det et tekst felt, vil feltet have værdien : "Information er ikke gemt"
+        /// Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+        /// hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>
@@ -55,7 +63,7 @@ namespace WebApiStudentData.Controllers
                                                     Const.InformationNotProvided,
                         WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
                                                     User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
-                                                    "Ikke Oplyst !!!",
+                                                    Const.FindReturnString(Const.InformationNotProvided),
                         CharacterValueCourse = (null != User_Education_Character_Course_Collection_Object.CharacterValueCourse) ?
                                                   User_Education_Character_Course_Collection_Object.CharacterValueCourse :
                                                   Const.InformationNotProvided,
@@ -96,9 +104,16 @@ namespace WebApiStudentData.Controllers
         /// <param name="id">Integer der specificerer id på Bruger-Fag/Kursus samling.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Ét Fag/Kursus forløb. 
-        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// <returns>Ét Fag/Kursus forløb. Fag/Kursus forløbet returneres som et jSon objekt, 
+        /// som indeholder felterne : User_Education_Character_Course_CollectionID,
+        /// CourseID, CourseName, WhichCharacterScaleIDCourse, WhichCharacterScaleNameCourse, 
+        /// CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+        /// EducationStartTime, EducationEndTime, CharacterValueEducation og 
+        /// AbsencePercentageForEducation. Flere af de nævnte felter "ID felter", kan have 
+        /// en værdi på -10 (InformationNotProvided), hvis disse felter ikke er udfyldt af
+        /// brugeren. Er det et tekst felt, vil feltet have værdien : "Information er ikke gemt"
+        /// Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+        /// hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>/5
@@ -130,7 +145,7 @@ namespace WebApiStudentData.Controllers
                                                     Const.InformationNotProvided,
                             WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
                                                     User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
-                                                    "Ikke Oplyst !!!",
+                                                    Const.FindReturnString(Const.InformationNotProvided),
                             CharacterValueCourse = (null != User_Education_Character_Course_Collection_Object.CharacterValueCourse) ?
                                                   User_Education_Character_Course_Collection_Object.CharacterValueCourse :
                                                   Const.InformationNotProvided,

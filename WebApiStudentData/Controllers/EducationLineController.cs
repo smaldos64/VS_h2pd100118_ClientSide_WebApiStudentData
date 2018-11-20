@@ -20,6 +20,11 @@ namespace WebApiStudentData.Controllers
         /// Returnerer en liste af alle Uddannelseslinjer på alle Uddannelsessteder med tilhørende 
         /// Uddannelsessted ID.
         /// </returns>
+        /// <returns>
+        /// Liste af alle Uddannelseslinjer på alle Uddannelsessteder. Listen returneres 
+        /// som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
+        /// EducationLineID, EducationLineName og EducationName.
+        /// </returns>
         // GET api/<controller>
         public List<Object> Get()
         {
@@ -45,8 +50,16 @@ namespace WebApiStudentData.Controllers
         /// <summary>
         /// Returnerer info om én specifik Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID
         /// </summary>
+        /// <param name="id">Uddannelseslinje ID</param>
         /// <returns>
         /// Returnerer Uddannelseslinje navn og Uddannelsessted navn udfra Uddannelseslinje ID
+        /// </returns>
+        /// /// <returns>
+        /// Én Uddannelseslinje på ét Uddannelsessted. Uddannelseslinjen returneres som et jSon objekt, 
+        /// som indeholder felterne : EducationLineID, EducationLineName og EducationName.
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>/5
         public Object Get(int id)
@@ -136,7 +149,7 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Opdaterer én Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID. 
+        /// Opdaterer én Uddannelseslinje på ét specifikt Uddannelsessted udfra id. 
         /// Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere 
         /// kendt af systemet kan udnytte denne funktionalitet.
         /// </summary>
@@ -199,9 +212,9 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Sletter én specifik Uddannelseslinje på et specifikt Uddannelsessted udfra Uddannelseslinje ID. 
-        /// Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
-        /// funktionalitet.
+        /// Sletter én specifik Uddannelseslinje på et specifikt Uddannelsessted udfra id. 
+        /// Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere kendt 
+        /// af systemet kan udnytte denne funktionalitet.
         /// </summary>
         /// <param name="id">Uddannelseslinje ID</param>
         /// <param name="Password">Password for nuværende bruger.</param>

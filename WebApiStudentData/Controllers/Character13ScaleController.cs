@@ -22,8 +22,10 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <returns>
         /// Returnerer en liste af tilgængelige karakterværdier på 13 skalaen med tilhørende 
-        /// karakterværdi ID. Gyldig karakterværdi i forhold til valgt karakterskala, skal 
-        /// angives alle steder, hvor der indsættes karakterer !!!
+        /// karakterværdi ID. Listen returneres som en liste jSon objekter, hvor hver enkelt 
+        /// jSon element indeholder felterne : Character13ScaleID og Character13ScaleValue. 
+        /// Gyldig karakterværdi i forhold til valgt karakterskala, skal angives alle steder, 
+        /// hvor der indsættes karakterer !!!
         /// </returns>
         // GET api/<controller>
         public List<Object> Get()

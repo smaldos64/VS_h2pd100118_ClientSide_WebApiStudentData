@@ -22,9 +22,12 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Liste af Kontaktformularer. 
+        /// <returns>
+        /// Liste af Kontaktformularer. Listen returneres som en liste af jSon objekter, 
+        /// hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
+        /// ContactNameEmail og ContactText.
         /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>
@@ -66,13 +69,16 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Returnerer info om én Kontaktformular udfra id gemt af en bruger specificeret ved UserName 
-        /// og Password.
+        /// Returnerer info om én Kontaktformular udfra id gemt af en bruger 
+        /// specificeret ved UserName og Password.
         /// </summary>
         /// <param name="id">Integer der specificerer id på kontaktformular.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Én Kontaktformular. 
+        /// <returns>
+        /// Én Kontaktformular. Kontaktformularen returneres som et jSon objekt, 
+        /// som indeholder felterne : ContactFormID, ContactNameFrom, ContactNameEmail og 
+        /// ContactText.
         /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
         /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
@@ -198,7 +204,8 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Ændrer Kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+        /// Ændrer Kontaktformular hørende til bruger specificeret ved id, UserName og 
+        /// Password.  
         /// </summary>
         /// <remarks>
         /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
@@ -274,7 +281,8 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Sletter Kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+        /// Sletter Kontaktformular hørende til bruger specificeret ved id, UserName og 
+        /// Password.  
         /// </summary>
         /// <remarks>
         /// UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 

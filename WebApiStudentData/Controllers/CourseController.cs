@@ -21,7 +21,9 @@ namespace WebApiStudentData.Controllers
         /// Returnerer info om alle Fag/Kurser. 
         /// </summary>
         /// <returns>
-        /// Returnerer en liste af alle Fag/Kurser med tilhørende Fag/Kursus ID.
+        /// Returnerer en liste af alle Fag/Kurser med tilhørende Fag/Kursus ID. Listen 
+        /// returneres som en liste af jSon objekter, hvor hver enkelt jSon element 
+        /// indeholder felterne : CourseID og CourseName.
         /// </returns>
         // GET api/<controller>
         public List<Object> Get()
@@ -44,11 +46,15 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Returnerer info om ét specifikt Fag/Kursus udfra ID
+        /// Returnerer info om ét specifikt Fag/Kursus udfra id.
         /// </summary>
         /// <param name="id">Fag/Kursus ID</param>
         /// <returns>
-        /// Returnerer Kursus/Fag navn udfra Kursus/Fag ID
+        /// Ét Kursus/Fag. Kurset/Faget returneres som et jSon element, som indeholder   
+        /// felterne : CourseID og CourseName.
+        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+        /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>/5
         public object Get(int id)
@@ -141,7 +147,7 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Opdaterer ét Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
+        /// Opdaterer ét Fag/Kursus udfra id. Ved kald af denne funktionalitet skal man 
         /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>
@@ -208,7 +214,7 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Sletter ét specifikt Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
+        /// Sletter ét specifikt Fag/Kursus udfra id. Ved kald af denne funktionalitet skal man 
         /// angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
         /// funktionalitet.
         /// </summary>
