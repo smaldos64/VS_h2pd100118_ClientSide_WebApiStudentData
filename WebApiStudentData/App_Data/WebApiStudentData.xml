@@ -488,8 +488,10 @@
             </summary>
             <returns>
             Returnerer en liste af tilgængelige karakterværdier på 13 skalaen med tilhørende 
-            karakterværdi ID. Gyldig karakterværdi i forhold til valgt karakterskala, skal 
-            angives alle steder, hvor der indsættes karakterer !!!
+            karakterværdi ID. Listen returneres som en liste jSon objekter, hvor hver enkelt 
+            jSon element indeholder felterne : Character13ScaleID og Character13ScaleValue. 
+            Gyldig karakterværdi i forhold til valgt karakterskala, skal angives alle steder, 
+            hvor der indsættes karakterer !!!
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.Character7ScaleController.Get">
@@ -499,8 +501,10 @@
             </summary>
             <returns>
             Returnerer en liste af tilgængelige karakterværdier på 7-trins skalaen med tilhørende 
-            karakterværdi ID. Gyldig karakterværdi i forhold til valgt karakterskala, skal angives 
-            alle steder, hvor der indsættes karakterer !!!
+            karakterværdi ID. Listen returneres som en liste jSon objekter, hvor hver enkelt 
+            jSon element indeholder felterne : Character7ScaleID og Character7ScaleValue. 
+            Gyldig karakterværdi i forhold til valgt karakterskala, skal angives alle steder,
+            hvor der indsættes karakterer !!!
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.String,System.String)">
@@ -510,21 +514,27 @@
             </summary>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Liste af Kontaktformularer. 
+            <returns>
+            Liste af Kontaktformularer. Listen returneres som en liste af jSon objekter, 
+            hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
+            ContactNameEmail og ContactText.
             Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
             eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.Int32,System.String,System.String)">
             <summary>
-            Returnerer info om én Kontaktformular udfra id gemt af en bruger specificeret ved UserName 
-            og Password.
+            Returnerer info om én Kontaktformular udfra id gemt af en bruger 
+            specificeret ved UserName og Password.
             </summary>
             <param name="id">Integer der specificerer id på kontaktformular.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Én Kontaktformular. 
+            <returns>
+            Én Kontaktformular. Kontaktformularen returneres som et jSon objekt, 
+            som indeholder felterne : ContactFormID, ContactNameFrom, ContactNameEmail og 
+            ContactText.
             Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
             mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
             eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
@@ -552,7 +562,8 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Put(System.Int32,System.Object,System.String,System.String)">
             <summary>
-            Ændrer Kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+            Ændrer Kontaktformular hørende til bruger specificeret ved id, UserName og 
+            Password.  
             </summary>
             <remarks>
             UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
@@ -574,7 +585,8 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Delete(System.Int32,System.String,System.String)">
             <summary>
-            Sletter Kontaktformular hørende til bruger specificeret ved id, UserName og Password.  
+            Sletter Kontaktformular hørende til bruger specificeret ved id, UserName og 
+            Password.  
             </summary>
             <remarks>
             UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
@@ -595,16 +607,22 @@
             Returnerer info om alle Fag/Kurser. 
             </summary>
             <returns>
-            Returnerer en liste af alle Fag/Kurser med tilhørende Fag/Kursus ID.
+            Returnerer en liste af alle Fag/Kurser med tilhørende Fag/Kursus ID. Listen 
+            returneres som en liste af jSon objekter, hvor hver enkelt jSon element 
+            indeholder felterne : CourseID og CourseName.
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Get(System.Int32)">
             <summary>
-            Returnerer info om ét specifikt Fag/Kursus udfra ID
+            Returnerer info om ét specifikt Fag/Kursus udfra id.
             </summary>
             <param name="id">Fag/Kursus ID</param>
             <returns>
-            Returnerer Kursus/Fag navn udfra Kursus/Fag ID
+            Ét Kursus/Fag. Kurset/Faget returneres som et jSon element, som indeholder   
+            felterne : CourseID og CourseName.
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Post(System.Object,System.String,System.String)">
@@ -625,7 +643,7 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Put(System.Object,System.Int32,System.String,System.String)">
             <summary>
-            Opdaterer ét Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
+            Opdaterer ét Fag/Kursus udfra id. Ved kald af denne funktionalitet skal man 
             angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
             funktionalitet.
             </summary>
@@ -643,7 +661,7 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.CourseController.Delete(System.Int32,System.String,System.String)">
             <summary>
-            Sletter ét specifikt Fag/Kursus udfra Fag/Kursus ID. Ved kald af denne funktionalitet skal man 
+            Sletter ét specifikt Fag/Kursus udfra id. Ved kald af denne funktionalitet skal man 
             angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
             funktionalitet.
             </summary>
@@ -663,17 +681,11 @@
             </summary>
             <returns>
             Returnerer en liste af alle Uddannelsessteder med tilhørende Uddannelsessted ID.
+            Listen returneres som en liste af jSon objekter, hvor hver enkelt jSon element 
+            indeholder felterne : EducationID og EducationName.
             </returns>
         </member>
-        <member name="M:WebApiStudentData.Controllers.EducationController.Get(System.Int32)">
-            <summary>
-            Returnerer info om ét specifikt Uddannelsessted udfra ID
-            </summary>
-            <param name="id">Uddannelsessted ID</param>
-            <returns>
-            Returnerer Uddannelsessted navn udfra Uddannelsessted ID
-            </returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationController.Get(System.Int32)" -->
         <member name="M:WebApiStudentData.Controllers.EducationController.Post(System.Object,System.String,System.String)">
             <summary>
             Gemmer et nyt Uddannelsessted. Ved kald af denne funktionalitet skal man angive
@@ -692,7 +704,7 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.EducationController.Put(System.Int32,System.Object,System.String,System.String)">
             <summary>
-            Opdaterer ét Uddannelsessted udfra Uddannelsessted ID. Ved kald af denne funktionalitet skal man 
+            Opdaterer ét Uddannelsessted udfra id. Ved kald af denne funktionalitet skal man 
             angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
             funktionalitet.
             </summary>
@@ -710,7 +722,7 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.EducationController.Delete(System.Int32,System.String,System.String)">
             <summary>
-            Sletter ét specifikt Uddannelsessted udfra Uddannelsessted ID. Ved kald af denne funktionalitet skal man 
+            Sletter ét specifikt Uddannelsessted udfra id. Ved kald af denne funktionalitet skal man 
             angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
             funktionalitet.
             </summary>
@@ -732,13 +744,26 @@
             Returnerer en liste af alle Uddannelseslinjer på alle Uddannelsessteder med tilhørende 
             Uddannelsessted ID.
             </returns>
+            <returns>
+            Liste af alle Uddannelseslinjer på alle Uddannelsessteder. Listen returneres 
+            som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
+            EducationLineID, EducationLineName og EducationName.
+            </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.EducationLineController.Get(System.Int32)">
             <summary>
             Returnerer info om én specifik Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID
             </summary>
+            <param name="id">Uddannelseslinje ID</param>
             <returns>
             Returnerer Uddannelseslinje navn og Uddannelsessted navn udfra Uddannelseslinje ID
+            </returns>
+            /// <returns>
+            Én Uddannelseslinje på ét Uddannelsessted. Uddannelseslinjen returneres som et jSon objekt, 
+            som indeholder felterne : EducationLineID, EducationLineName og EducationName.
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.EducationLineController.Post(System.Object,System.String,System.String)">
@@ -760,7 +785,7 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.EducationLineController.Put(System.Int32,System.Object,System.String,System.String)">
             <summary>
-            Opdaterer én Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID. 
+            Opdaterer én Uddannelseslinje på ét specifikt Uddannelsessted udfra id. 
             Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere 
             kendt af systemet kan udnytte denne funktionalitet.
             </summary>
@@ -778,9 +803,9 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.EducationLineController.Delete(System.Int32,System.String,System.String)">
             <summary>
-            Sletter én specifik Uddannelseslinje på et specifikt Uddannelsessted udfra Uddannelseslinje ID. 
-            Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere kendt af systemet kan udnytte denne 
-            funktionalitet.
+            Sletter én specifik Uddannelseslinje på et specifikt Uddannelsessted udfra id. 
+            Ved kald af denne funktionalitet skal man angive Brugernavn og Passsword. Kun brugere kendt 
+            af systemet kan udnytte denne funktionalitet.
             </summary>
             <param name="id">Uddannelseslinje ID</param>
             <param name="Password">Password for nuværende bruger.</param>
@@ -829,9 +854,17 @@
             </summary>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Liste af Fag/Kursus forløb. 
-            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            <returns>
+            Liste af Fag/Kursus forløb. Listen returneres som en liste af jSon objekter, 
+            hvor hver enkelt jSon element indeholder felterne : User_Education_Character_Course_CollectionID,
+            CourseID, CourseName, WhichCharacterScaleIDCourse, WhichCharacterScaleNameCourse, 
+            CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+            EducationStartTime, EducationEndTime, CharacterValueEducation og 
+            AbsencePercentageForEducation. Flere af de nævnte felter "ID felter", kan have 
+            en værdi på -10 (InformationNotProvided), hvis disse felter ikke er udfyldt af
+            brugeren. Er det et tekst felt, vil feltet have værdien : "Information er ikke gemt"
+            Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+            hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
             eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
@@ -843,9 +876,16 @@
             <param name="id">Integer der specificerer id på Bruger-Fag/Kursus samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Ét Fag/Kursus forløb. 
-            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            <returns>Ét Fag/Kursus forløb. Fag/Kursus forløbet returneres som et jSon objekt, 
+            som indeholder felterne : User_Education_Character_Course_CollectionID,
+            CourseID, CourseName, WhichCharacterScaleIDCourse, WhichCharacterScaleNameCourse, 
+            CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+            EducationStartTime, EducationEndTime, CharacterValueEducation og 
+            AbsencePercentageForEducation. Flere af de nævnte felter "ID felter", kan have 
+            en værdi på -10 (InformationNotProvided), hvis disse felter ikke er udfyldt af
+            brugeren. Er det et tekst felt, vil feltet have værdien : "Information er ikke gemt"
+            Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+            hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
             eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
@@ -920,10 +960,23 @@
             </summary>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Liste af Uddannelsesforløb. 
-            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
-            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            <returns>
+            Liste af Uddannelsesforløb. Listen returneres som en liste af jSon objekter, 
+            hvor hver enkelt jSon element indeholder felterne : User_Education_Time_CollectionID,
+            UserInfoID, UserName, EducationName, EducationLineName, 
+            CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+            WhichCharacterScaleIDEducation, WhichCharacterScaleNameEducation, 
+            CharacterValueEducation, EducationStartTime, EducationEndTime, CharacterValueEducation,  
+            AbsencePercentageForEducation og CourseCharacterList. Feltet CourseCharacterList indeholder 
+            en liste af Liste af Fag/Kursus forløb knyttet til de enkelte uddannelsesforløb. For en  
+            beskrivelse af feltet CourseCharacterList henvises til UserEducationCourseCharacter eller klik 
+            her : <see cref="T:WebApiStudentData.Controllers.UserEducationCourseCharacterController"/>.
+            Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+            hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+            "Information er ikke gemt".
+            Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+            hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>.
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationTimeController.Get(System.Int32,System.String,System.String)">
@@ -934,10 +987,22 @@
             <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Ét Uddannelsesforløb. 
-            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
-            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            <returns>Ét Uddannelsesforløb.Uddannelsesforløbet returneres som et jSon objekt, 
+            som indeholder felterne : User_Education_Time_CollectionID,
+            UserInfoID, UserName, EducationName, EducationLineName, 
+            CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+            WhichCharacterScaleIDEducation, WhichCharacterScaleNameEducation, 
+            CharacterValueEducation, EducationStartTime, EducationEndTime, CharacterValueEducation,  
+            AbsencePercentageForEducation og CourseCharacterList. Feltet CourseCharacterList indeholder 
+            en liste af Liste af Fag/Kursus forløb knyttet til de enkelte uddannelsesforløb. For en  
+            beskrivelse af feltet CourseCharacterList henvises til UserEducationCourseCharacter eller klik 
+            her : <see cref="T:WebApiStudentData.Controllers.UserEducationCourseCharacterController"/>.
+            Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+            hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+            "Information er ikke gemt".
+            Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+            hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>.
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationTimeController.Post(System.Object,System.String,System.String)">
@@ -1009,9 +1074,11 @@
             </summary>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Liste af Brugerfiler. 
+            <returns>
+            Liste af Brugerfiler. Listen returneres som en liste af jSon objekter, 
+            hvor hver enkelt jSon element indeholder felterne : UserFileID, UserFileUrl og UserFileAtt.
             Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+            mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
             eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
@@ -1023,7 +1090,9 @@
             <param name="id">Integer der specificerer id på kontaktformular.</param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
-            <returns>Én Brugerfil. 
+            <returns>
+            Én Brugerfil.  Brugerfilen returneres som et jSon objekt, som indeholder 
+            felterne : UserFileID, UserFileUrl og UserFileAtt.
             Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
             mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
             eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
@@ -1092,8 +1161,8 @@
             Returnerer info om alle Brugere. 
             </summary>
             <returns>
-            Returnerer en liste af alle Brugere tilknyttet Web API'et med deres Brugernavn, 
-            Password (krypteret) og tilhørende UserInfo ID.
+            Returnerer en liste af alle Brugere tilknyttet Web API'et. Listen returneres som en liste af jSon objekter, 
+            hvor hver enkelt jSon element indeholder felterne : UserInfoID, UserName og UserPassword. 
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.UserInfoController.Get(System.String,System.String)">
@@ -1161,7 +1230,8 @@
             Returnerer info om Karakterskalaer.
             </summary>
             <returns>
-            Returnerer en liste af tilgængelige karakterskalaer med tilhørende karakterskale ID. 
+            Returnerer en liste af tilgængelige karakterskalaer. Listen returneres som en liste af jSon objekter, 
+            hvor hver enkelt jSon element indeholder felterne : WhichCharacterScaleID og WhichCharacterScaleName. 
             Karakterskale ID skal angives alle steder, hvor der indsættes karakterer !!!
             </returns>
         </member>

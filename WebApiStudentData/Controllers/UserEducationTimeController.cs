@@ -23,10 +23,23 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Liste af Uddannelsesforløb. 
-        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
-        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
+        /// <returns>
+        /// Liste af Uddannelsesforløb. Listen returneres som en liste af jSon objekter, 
+        /// hvor hver enkelt jSon element indeholder felterne : User_Education_Time_CollectionID,
+        /// UserInfoID, UserName, EducationName, EducationLineName, 
+        /// CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+        /// WhichCharacterScaleIDEducation, WhichCharacterScaleNameEducation, 
+        /// CharacterValueEducation, EducationStartTime, EducationEndTime, CharacterValueEducation,  
+        /// AbsencePercentageForEducation og CourseCharacterList. Feltet CourseCharacterList indeholder 
+        /// en liste af Liste af Fag/Kursus forløb knyttet til de enkelte uddannelsesforløb. For en  
+        /// beskrivelse af feltet CourseCharacterList henvises til UserEducationCourseCharacter eller klik 
+        /// her : <see cref="UserEducationCourseCharacterController"/>.
+        /// Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+        /// hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+        /// "Information er ikke gemt".
+        /// Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+        /// hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>.
         /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
@@ -45,17 +58,17 @@ namespace WebApiStudentData.Controllers
                 {
                     var ListItem = new
                     {
-                        EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
+                        User_Education_Time_CollectionID = User_Education_Time_Object.User_Education_Time_CollectionID,
                         UserInfoID = User_Education_Time_Object.UserInfoID,
                         UserName = User_Education_Time_Object.UserInfo.UserName,
-                        EducationPlace = User_Education_Time_Object.EducationLine.Education.EducationName,
-                        EducationLine = User_Education_Time_Object.EducationLine.EducationLineName,
+                        EducationName = User_Education_Time_Object.EducationLine.Education.EducationName,
+                        EducationLineName = User_Education_Time_Object.EducationLine.EducationLineName,
                         WhichCharacterScaleIDEducation = (null != User_Education_Time_Object.WhichCharacterScaleID) ?
                                                     User_Education_Time_Object.WhichCharacterScaleID :
                                                     Const.InformationNotProvided,
                         WhichCharacterScaleNameEducation = (null != User_Education_Time_Object.WhichCharacterScaleID) ?
                                                     User_Education_Time_Object.WhichCharacterScale.WhichCharacterScaleName :
-                                                    "Ikke Oplyst !!!",
+                                                    Const.FindReturnString(Const.InformationNotProvided),
                         CharacterValueEducation = (null != User_Education_Time_Object.CharacterValueEducation) ?
                                                   User_Education_Time_Object.CharacterValueEducation :
                                                   Const.InformationNotProvided,
@@ -65,33 +78,11 @@ namespace WebApiStudentData.Controllers
                                                         User_Education_Time_Object.AbsencePercentageEducation :
                                                         Const.InformationNotProvided,
                         CourseCharacterList = new List<VM_User_Education_Character_Course_Collection>()
-                        //CourseCharacterList = new List<User_Education_Character_Course_Collection>()
                     };
 
                     foreach (User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object in
                         User_Education_Time_Object.User_Education_Character_Course_Collection)
                     {
-                        //var ListItemCourseCharacter = new
-                        //{
-                        //    User_Education_Character_Course_CollectionID =
-                        //        User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID,
-                        //    CourseID = User_Education_Character_Course_Collection_Object.CourseID,
-                        //    CourseName = User_Education_Character_Course_Collection_Object.Course.CourseName,
-                        //    WhichCharacterScaleIDCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                        //                            User_Education_Character_Course_Collection_Object.WhichCharacterScaleID :
-                        //                            Const.InformationNotProvided,
-                        //    WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                        //                            User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
-                        //                            "Ikke Oplyst !!!",
-                        //    CharacterValueCourse = (null != User_Education_Character_Course_Collection_Object.CharacterValueCourse) ?
-                        //                          User_Education_Character_Course_Collection_Object.CharacterValueCourse :
-                        //                          Const.InformationNotProvided,
-                        //    AbsencePercentageCourse = (null != User_Education_Character_Course_Collection_Object.AbsencePercentageCourse) ?
-                        //                                User_Education_Character_Course_Collection_Object.AbsencePercentageCourse :
-                        //                                Const.InformationNotProvided,
-                            
-                        //};
-
                         VM_User_Education_Character_Course_Collection VM_User_Education_Character_Course_Collection_Object =
                             new VM_User_Education_Character_Course_Collection();
                         VM_User_Education_Character_Course_Collection_Object.User_Education_Character_Course_Collection_Object =
@@ -110,7 +101,7 @@ namespace WebApiStudentData.Controllers
                                                     Const.InformationNotProvided;
                         VM_User_Education_Character_Course_Collection_Object.WhichCharacterScaleName = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
                                                     User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
-                                                    "Ikke Oplyst !!!";
+                                                    Const.FindReturnString(Const.InformationNotProvided);
                         VM_User_Education_Character_Course_Collection_Object.User_Education_Character_Course_Collection_Object.CharacterValueCourse =
                             (null != User_Education_Time_Object.CharacterValueEducation) ?
                                                   User_Education_Time_Object.CharacterValueEducation :
@@ -147,10 +138,22 @@ namespace WebApiStudentData.Controllers
         /// <param name="id">Integer der specificerer id på Bruger-Uddannnelsesforløb samling.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Ét Uddannelsesforløb. 
-        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
-        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
+        /// <returns>Ét Uddannelsesforløb.Uddannelsesforløbet returneres som et jSon objekt, 
+        /// som indeholder felterne : User_Education_Time_CollectionID,
+        /// UserInfoID, UserName, EducationName, EducationLineName, 
+        /// CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
+        /// WhichCharacterScaleIDEducation, WhichCharacterScaleNameEducation, 
+        /// CharacterValueEducation, EducationStartTime, EducationEndTime, CharacterValueEducation,  
+        /// AbsencePercentageForEducation og CourseCharacterList. Feltet CourseCharacterList indeholder 
+        /// en liste af Liste af Fag/Kursus forløb knyttet til de enkelte uddannelsesforløb. For en  
+        /// beskrivelse af feltet CourseCharacterList henvises til UserEducationCourseCharacter eller klik 
+        /// her : <see cref="UserEducationCourseCharacterController"/>.
+        /// Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+        /// hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+        /// "Information er ikke gemt".
+        /// Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+        /// hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>.
         /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
@@ -171,17 +174,17 @@ namespace WebApiStudentData.Controllers
 
                         var ListItem = new
                         {
-                            EducationID = User_Education_Time_Object.User_Education_Time_CollectionID,
+                            User_Education_Time_CollectionID = User_Education_Time_Object.User_Education_Time_CollectionID,
                             UserInfoID = User_Education_Time_Object.UserInfoID,
                             UserName = User_Education_Time_Object.UserInfo.UserName,
-                            EducationPlace = User_Education_Time_Object.EducationLine.Education.EducationName,
+                            EducationName = User_Education_Time_Object.EducationLine.Education.EducationName,
                             EducationLine = User_Education_Time_Object.EducationLine.EducationLineName,
                             WhichCharacterScaleIDEducation = (null != User_Education_Time_Object.WhichCharacterScaleID) ?
                                                     User_Education_Time_Object.WhichCharacterScaleID :
                                                     Const.InformationNotProvided,
                             WhichCharacterScaleNameEducation = (null != User_Education_Time_Object.WhichCharacterScaleID) ?
                                                     User_Education_Time_Object.WhichCharacterScale.WhichCharacterScaleName :
-                                                    "Ikke Oplyst !!!",
+                                                    Const.FindReturnString(Const.InformationNotProvided),
                             CharacterValueEducation = (null != User_Education_Time_Object.CharacterValueEducation) ?
                                                   User_Education_Time_Object.CharacterValueEducation :
                                                   Const.InformationNotProvided,
@@ -196,27 +199,6 @@ namespace WebApiStudentData.Controllers
                         foreach (User_Education_Character_Course_Collection User_Education_Character_Course_Collection_Object in
                             User_Education_Time_Object.User_Education_Character_Course_Collection)
                         {
-                            //var ListItemCourseCharacter = new
-                            //{
-                            //    User_Education_Character_Course_CollectionID =
-                            //        User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID,
-                            //    CourseID = User_Education_Character_Course_Collection_Object.CourseID,
-                            //    CourseName = User_Education_Character_Course_Collection_Object.Course.CourseName,
-                            //    WhichCharacterScaleIDCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                            //                            User_Education_Character_Course_Collection_Object.WhichCharacterScaleID :
-                            //                            Const.InformationNotProvided,
-                            //    WhichCharacterScaleNameCourse = (null != User_Education_Character_Course_Collection_Object.WhichCharacterScaleID) ?
-                            //                            User_Education_Character_Course_Collection_Object.WhichCharacterScale.WhichCharacterScaleName :
-                            //                            "Ikke Oplyst !!!",
-                            //    CharacterValueCourse = (null != User_Education_Time_Object.CharacterValueEducation) ?
-                            //                          User_Education_Time_Object.CharacterValueEducation :
-                            //                          Const.InformationNotProvided,
-                            //    AbsencePercentageCourse = (null != User_Education_Character_Course_Collection_Object.AbsencePercentageCourse) ?
-                            //                                User_Education_Character_Course_Collection_Object.AbsencePercentageCourse :
-                            //                                Const.InformationNotProvided,
-
-                            //};
-
                             VM_User_Education_Character_Course_Collection VM_User_Education_Character_Course_Collection_Object =
                                 new VM_User_Education_Character_Course_Collection();
                             VM_User_Education_Character_Course_Collection_Object.User_Education_Character_Course_Collection_Object =
@@ -246,7 +228,6 @@ namespace WebApiStudentData.Controllers
                                                             Const.InformationNotProvided;
 
                             ListItem.CourseCharacterList.Add(VM_User_Education_Character_Course_Collection_Object);
-
                         }
                         jSon_Object = ListItem;
                     }

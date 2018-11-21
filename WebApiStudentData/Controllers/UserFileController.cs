@@ -4,11 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApiStudentData.ConstDeclarations;
 using WebApiStudentData.Models;
 
 namespace WebApiStudentData.Controllers
 {
+    [EnableCors(origins: "*", headers: "Content-Type", methods: "GET,POST,PUT,DELETE,OPTIONS")]
+
     public class UserFileController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
@@ -19,9 +22,11 @@ namespace WebApiStudentData.Controllers
         /// </summary>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Liste af Brugerfiler. 
+        /// <returns>
+        /// Liste af Brugerfiler. Listen returneres som en liste af jSon objekter, 
+        /// hvor hver enkelt jSon element indeholder felterne : UserFileID, UserFileUrl og UserFileAtt.
         /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>
@@ -67,7 +72,9 @@ namespace WebApiStudentData.Controllers
         /// <param name="id">Integer der specificerer id på kontaktformular.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
-        /// <returns>Én Brugerfil. 
+        /// <returns>
+        /// Én Brugerfil.  Brugerfilen returneres som et jSon objekt, som indeholder 
+        /// felterne : UserFileID, UserFileUrl og UserFileAtt.
         /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
         /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her : <see cref="ReturnCodeAndReturnString"/>

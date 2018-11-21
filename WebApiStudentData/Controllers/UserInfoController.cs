@@ -25,8 +25,8 @@ namespace WebApiStudentData.Controllers
         /// Returnerer info om alle Brugere. 
         /// </summary>
         /// <returns>
-        /// Returnerer en liste af alle Brugere tilknyttet Web API'et med deres Brugernavn, 
-        /// Password (krypteret) og tilhørende UserInfo ID.
+        /// Returnerer en liste af alle Brugere tilknyttet Web API'et. Listen returneres som en liste af jSon objekter, 
+        /// hvor hver enkelt jSon element indeholder felterne : UserInfoID, UserName og UserPassword. 
         /// </returns>
         // GET api/values
         public List<Object> Get()

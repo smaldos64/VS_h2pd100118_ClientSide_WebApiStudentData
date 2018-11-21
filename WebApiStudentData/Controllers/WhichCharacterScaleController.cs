@@ -20,7 +20,8 @@ namespace WebApiStudentData.Controllers
         /// Returnerer info om Karakterskalaer.
         /// </summary>
         /// <returns>
-        /// Returnerer en liste af tilgængelige karakterskalaer med tilhørende karakterskale ID. 
+        /// Returnerer en liste af tilgængelige karakterskalaer. Listen returneres som en liste af jSon objekter, 
+        /// hvor hver enkelt jSon element indeholder felterne : WhichCharacterScaleID og WhichCharacterScaleName. 
         /// Karakterskale ID skal angives alle steder, hvor der indsættes karakterer !!!
         /// </returns>
         // GET api/<controller>
