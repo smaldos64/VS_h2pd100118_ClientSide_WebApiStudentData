@@ -55,6 +55,7 @@ namespace WebApiStudentData.Controllers
         /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
         /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her
+        /// </returns>
         // GET api/<controller>/5
         public Object Get(int id)
         {

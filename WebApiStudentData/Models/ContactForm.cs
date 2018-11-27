@@ -23,5 +23,12 @@ namespace WebApiStudentData.Models
 
         [Required]
         public string ContactText { get; set; }
+
+        public string ContactNamePhoneNumber { get; set; }
+
+        public string ContactSubject { get; set; }
+
+        [DataType(DataType.EmailAddress, ErrorMessage = "Email address is not valid")]
+        public string ContactEmailRecipient { get; set; }
     }
 }

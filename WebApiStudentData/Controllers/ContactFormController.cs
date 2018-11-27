@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApiStudentData.Models;
 using WebApiStudentData.ConstDeclarations;
+using WebApiStudentData.Tools;
 using System.Web.Http.Cors;
 
 namespace WebApiStudentData.Controllers
@@ -25,10 +26,14 @@ namespace WebApiStudentData.Controllers
         /// <returns>
         /// Liste af Kontaktformularer. Listen returneres som en liste af jSon objekter, 
         /// hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
-        /// ContactNameEmail og ContactText.
-        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
-        /// eller klik her : <see cref="ReturnCodesAndStringsController"/>
+        /// ContactNameEmail, ContactText, ContactNamePhoneNumber, ContactSubject og 
+        /// ContactEmailRecipient. 
+        /// Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+        /// hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+        /// "Information er ikke gemt".
+        /// Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+        /// hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>.
         /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
@@ -50,7 +55,16 @@ namespace WebApiStudentData.Controllers
                         ContactFormID = ContactForm_Object.ContactFormID,
                         ContactNameFrom = ContactForm_Object.ContactNameFrom,
                         ContactNameEmail = ContactForm_Object.ContactNameEmail,
-                        ContactText = ContactForm_Object.ContactText
+                        ContactText = ContactForm_Object.ContactText,
+                        ContactNamePhoneNumber = (null != ContactForm_Object.ContactNamePhoneNumber) ?
+                                                    ContactForm_Object.ContactNamePhoneNumber :
+                                                    Const.FindReturnString(Const.InformationNotProvided),
+                        ContactSubject = (null != ContactForm_Object.ContactSubject) ?
+                                                    ContactForm_Object.ContactSubject :
+                                                    Const.FindReturnString(Const.InformationNotProvided),
+                        ContactEmailRecipient = (null != ContactForm_Object.ContactEmailRecipient) ?
+                                                    ContactForm_Object.ContactEmailRecipient :
+                                                    Const.FindReturnString(Const.InformationNotProvided),
                     };
                     jSonList.Add(ListItem);
                 }
@@ -149,7 +163,9 @@ namespace WebApiStudentData.Controllers
         /// </remarks>
         /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
         /// data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail, 
-        /// og ContactText.
+        /// ContactText. Herudover kan jSon_Objektet indeholde felterne : ContactNamePhoneNumber, 
+        /// ContactSubject og ContactEmailRecipient. Hvis ikke feltet ContactFormEmailRecipient er 
+        /// specificeret, vil kontaktformularen "kun" blive gemt i databasen og ikke sendt på mail.
         /// </param>
         /// <param name="Password">Password for nuværende bruger.</param>
         /// <param name="UserName">Brugernavn for nuværende bruger.</param>
@@ -184,11 +200,50 @@ namespace WebApiStudentData.Controllers
                     ContactForm_Object.ContactText = json_Object.ContactText;
                     ContactForm_Object.UserInfoID = UserID;
 
+                    if (null != json_Object.ContactNamePhoneNumber)
+                    {
+                        ContactForm_Object.ContactNamePhoneNumber = json_Object.ContactNamePhoneNumber;
+                    }
+                    else
+                    {
+                        ContactForm_Object.ContactNamePhoneNumber = null;
+                    }
+
+                    if (null != json_Object.ContactSubject)
+                    {
+                        ContactForm_Object.ContactSubject = json_Object.ContactSubject;
+                    }
+                    else
+                    {
+                        ContactForm_Object.ContactSubject = null;
+                    }
+
+                    if (null != json_Object.ContactEmailRecipient)
+                    {
+                        ContactForm_Object.ContactEmailRecipient = json_Object.ContactEmailRecipient;
+                    }
+                    else
+                    {
+                        ContactForm_Object.ContactEmailRecipient = null;
+                    }
+
                     db.ContactForms.Add(ContactForm_Object);
                     NumberOfContactFormsSaved = db.SaveChanges();
 
                     if (1 == NumberOfContactFormsSaved)
                     {
+                        if (null != ContactForm_Object.ContactEmailRecipient)
+                        {
+                            string MailBody = MailTools.PackMail(ContactForm_Object.ContactSubject,
+                                                                 ContactForm_Object.ContactText,
+                                                                 ContactForm_Object.ContactNameEmail,
+                                                                 ContactForm_Object.ContactNamePhoneNumber);
+
+                            Mail.SendMail(ContactForm_Object.ContactNameEmail,
+                                          ContactForm_Object.ContactEmailRecipient,
+                                          ContactForm_Object.ContactSubject,
+                                          MailBody);
+                        }
                         return (ContactForm_Object.ContactFormID);
                     }
                     else
@@ -213,7 +268,9 @@ namespace WebApiStudentData.Controllers
         /// </remarks>
         /// <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
         /// data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
-        /// og ContactText.
+        /// og ContactText. Herudover kan jSon_Objektet indeholde felterne : ContactNamePhoneNumber, 
+        /// ContactSubject og ContactEmailRecipient. Hvis ikke feltet ContactFormEmailRecipient er 
+        /// specificeret, vil den ændrede kontaktformular "kun" blive gemt i databasen og ikke sendt på mail.
         /// </param>
         /// <param name="id">Integer der specificerer id på kontaktformular.</param>
         /// <param name="Password">Password for nuværende bruger.</param>
@@ -253,9 +310,48 @@ namespace WebApiStudentData.Controllers
                             ContactForm_Object.ContactNameEmail = json_Object.ContactNameEmail;
                             ContactForm_Object.ContactText = json_Object.ContactText;
 
+                            if (null != json_Object.ContactNamePhoneNumber)
+                            {
+                                ContactForm_Object.ContactNamePhoneNumber = json_Object.ContactNamePhoneNumber;
+                            }
+                            else
+                            {
+                                ContactForm_Object.ContactNamePhoneNumber = null;
+                            }
+
+                            if (null != json_Object.ContactSubject)
+                            {
+                                ContactForm_Object.ContactSubject = json_Object.ContactSubject;
+                            }
+                            else
+                            {
+                                ContactForm_Object.ContactSubject = null;
+                            }
+
+                            if (null != json_Object.ContactEmailRecipient)
+                            {
+                                ContactForm_Object.ContactEmailRecipient = json_Object.ContactEmailRecipient;
+                            }
+                            else
+                            {
+                                ContactForm_Object.ContactEmailRecipient = null;
+                            }
+
                             NumberOfContactFormsSaved = db.SaveChanges();
                             if (1 == NumberOfContactFormsSaved)
                             {
+                                if (null != ContactForm_Object.ContactEmailRecipient)
+                                {
+                                    string MailBody = MailTools.PackMail(ContactForm_Object.ContactSubject,
+                                                                         ContactForm_Object.ContactText,
+                                                                         ContactForm_Object.ContactNameEmail,
+                                                                         ContactForm_Object.ContactNamePhoneNumber);
+
+                                    Mail.SendMail(ContactForm_Object.ContactNameEmail,
+                                                  ContactForm_Object.ContactEmailRecipient,
+                                                  ContactForm_Object.ContactSubject,
+                                                  MailBody);
+                                }
                                 return (Const.UpdateOperationOk);
                             }
                             else

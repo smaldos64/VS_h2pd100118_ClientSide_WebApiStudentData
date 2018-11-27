@@ -517,10 +517,14 @@
             <returns>
             Liste af Kontaktformularer. Listen returneres som en liste af jSon objekter, 
             hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
-            ContactNameEmail og ContactText.
-            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
-            eller klik her : <see cref="T:WebApiStudentData.Controllers.ReturnCodesAndStringsController"/>
+            ContactNameEmail, ContactText, ContactNamePhoneNumber, ContactSubject og 
+            ContactEmailRecipient. 
+            Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+            hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+            "Information er ikke gemt".
+            Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+            hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>.
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.Int32,System.String,System.String)">
@@ -549,7 +553,9 @@
             </remarks>
             <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
             data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail, 
-            og ContactText.
+            ContactText. Herudover kan jSon_Objektet indeholde felterne : ContactNamePhoneNumber, 
+            ContactSubject og ContactEmailRecipient. Hvis ikke feltet ContactFormEmailRecipient er 
+            specificeret, vil kontaktformularen "kun" blive gemt i databasen og ikke sendt på mail.
             </param>
             <param name="Password">Password for nuværende bruger.</param>
             <param name="UserName">Brugernavn for nuværende bruger.</param>
@@ -571,7 +577,9 @@
             </remarks>
             <param name="json_Object">json_Objekt er et objekt i jSon format. Det skal indeholde 
             data til funktionen med følgende felter specificeret : ContactNameFrom, ContactNameEmail 
-            og ContactText.
+            og ContactText. Herudover kan jSon_Objektet indeholde felterne : ContactNamePhoneNumber, 
+            ContactSubject og ContactEmailRecipient. Hvis ikke feltet ContactFormEmailRecipient er 
+            specificeret, vil den ændrede kontaktformular "kun" blive gemt i databasen og ikke sendt på mail.
             </param>
             <param name="id">Integer der specificerer id på kontaktformular.</param>
             <param name="Password">Password for nuværende bruger.</param>
@@ -685,7 +693,19 @@
             indeholder felterne : EducationID og EducationName.
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:WebApiStudentData.Controllers.EducationController.Get(System.Int32)" -->
+        <member name="M:WebApiStudentData.Controllers.EducationController.Get(System.Int32)">
+            <summary>
+            Returnerer info om ét specifikt Uddannelsessted ud fra id.
+            </summary>
+            <param name="id">Uddannelsessted ID</param>
+            <returns>
+            Ét Uddannelsessted. Uddannelsesstedet returneres som et jSon objekt, 
+            som indeholder felterne : EducationID og EducationName.
+            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
+            mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her
+            </returns>
+        </member>
         <member name="M:WebApiStudentData.Controllers.EducationController.Post(System.Object,System.String,System.String)">
             <summary>
             Gemmer et nyt Uddannelsessted. Ved kald af denne funktionalitet skal man angive
