@@ -520,7 +520,7 @@
             ContactNameEmail og ContactText.
             Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
             mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
-            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            eller klik her : <see cref="T:WebApiStudentData.Controllers.ReturnCodesAndStringsController"/>
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Get(System.Int32,System.String,System.String)">

@@ -28,7 +28,7 @@ namespace WebApiStudentData.Controllers
         /// ContactNameEmail og ContactText.
         /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
         /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
-        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
+        /// eller klik her : <see cref="ReturnCodesAndStringsController"/>
         /// </returns>
         // GET api/<controller>
         public List<Object> Get(string UserName, string Password)
