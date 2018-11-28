@@ -64,7 +64,7 @@ namespace WebApiStudentData.Controllers
                                                     Const.FindReturnString(Const.InformationNotProvided),
                         ContactEmailRecipient = (null != ContactForm_Object.ContactEmailRecipient) ?
                                                     ContactForm_Object.ContactEmailRecipient :
-                                                    Const.FindReturnString(Const.InformationNotProvided),
+                                                    Const.FindReturnString(Const.InformationNotProvided)
                     };
                     jSonList.Add(ListItem);
                 }
@@ -92,10 +92,13 @@ namespace WebApiStudentData.Controllers
         /// <returns>
         /// Én Kontaktformular. Kontaktformularen returneres som et jSon objekt, 
         /// som indeholder felterne : ContactFormID, ContactNameFrom, ContactNameEmail og 
-        /// ContactText.
-        /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-        /// mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
-        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
+        /// ContactText, ContactNamePhoneNumber, ContactSubject og ContactEmailRecipient. 
+        /// Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+        /// hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+        /// "Information er ikke gemt".
+        /// Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+        /// hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+        /// eller klik her : <see cref="ReturnCodeAndReturnString"/>.
         /// </returns>
         // GET api/<controller>/5
         public object Get(int id, string UserName, string Password)
@@ -119,7 +122,16 @@ namespace WebApiStudentData.Controllers
                             ContactFormID = ContactForm_Object.ContactFormID,
                             ContactNameFrom = ContactForm_Object.ContactNameFrom,
                             ContactNameEmail = ContactForm_Object.ContactNameEmail,
-                            ContactText = ContactForm_Object.ContactText
+                            ContactText = ContactForm_Object.ContactText,
+                            ContactNamePhoneNumber = (null != ContactForm_Object.ContactNamePhoneNumber) ?
+                                                    ContactForm_Object.ContactNamePhoneNumber :
+                                                    Const.FindReturnString(Const.InformationNotProvided),
+                            ContactSubject = (null != ContactForm_Object.ContactSubject) ?
+                                                    ContactForm_Object.ContactSubject :
+                                                    Const.FindReturnString(Const.InformationNotProvided),
+                            ContactEmailRecipient = (null != ContactForm_Object.ContactEmailRecipient) ?
+                                                    ContactForm_Object.ContactEmailRecipient :
+                                                    Const.FindReturnString(Const.InformationNotProvided)
                         };
                         jSon_Object = ListItem;
                     }

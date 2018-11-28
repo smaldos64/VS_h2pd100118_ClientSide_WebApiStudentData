@@ -538,10 +538,13 @@
             <returns>
             Én Kontaktformular. Kontaktformularen returneres som et jSon objekt, 
             som indeholder felterne : ContactFormID, ContactNameFrom, ContactNameEmail og 
-            ContactText.
-            Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
-            mindre end 0, hvis noget gik galt. Se en oversigt over return koder i ReturnCodesAndStrings 
-            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            ContactText, ContactNamePhoneNumber, ContactSubject og ContactEmailRecipient. 
+            Flere af de nævnte felter "ID felter", kan have en værdi på -10 (InformationNotProvided), 
+            hvis disse felter ikke er udfyldt af brugeren. Er det et tekst felt, vil feltet have værdien : 
+            "Information er ikke gemt".
+            Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
+            hvor ErrorNumber har en værdi mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
+            eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>.
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ContactFormController.Post(System.Object,System.String,System.String)">
