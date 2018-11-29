@@ -25,7 +25,7 @@ namespace WebApiStudentData.Controllers
         /// </returns>
         /// <returns>
         /// Liste af alle Uddannelseslinjer på alle Uddannelsessteder. Listen returneres 
-        /// som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
+        /// som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : 
         /// EducationLineID, EducationLineName og EducationName.
         /// </returns>
         // GET api/<controller>
@@ -51,36 +51,41 @@ namespace WebApiStudentData.Controllers
         }
 
         /// <summary>
-        /// Returnerer info om én specifik Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID
+        /// Returnerer info om specifikke Uddannelseslinjer på ét specifikt Uddannelsessted udfra Uddannelsessted ID
         /// </summary>
-        /// <param name="id">Uddannelseslinje ID</param>
+        /// <param name="id">Uddannelsessted ID</param>
         /// <returns>
         /// Returnerer Uddannelseslinje navn og Uddannelsessted navn udfra Uddannelseslinje ID
         /// </returns>
         /// /// <returns>
-        /// Én Uddannelseslinje på ét Uddannelsessted. Uddannelseslinjen returneres som et jSon objekt, 
-        /// som indeholder felterne : EducationLineID, EducationLineName og EducationName.
+        /// Én liste af Uddannelseslinjer på ét Uddannelsessted. Listen returneres 
+        /// som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : 
+        /// EducationLineID, EducationLineName og EducationName.
         /// Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
         /// mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
         /// eller klik her : <see cref="ReturnCodeAndReturnString"/>
         /// </returns>
         // GET api/<controller>/5
-        public Object Get(int id)
+        public List<Object> Get(int id)
         {
-            object jSon_Object = new object();
-            EducationLine EducationLine_Object = new EducationLine();
+            List<object> jSonList = new List<object>();
+            List<EducationLine> EducationLine_List = new List<EducationLine>();
 
-            EducationLine_Object = db.EducationLines.Find(id);
+            EducationLine_List = db.EducationLines.Where(e => e.EducationID == id).ToList();
 
-            if (null != EducationLine_Object)
+            if (EducationLine_List.Count > 0)
             {
-                var ListItem = new
+                foreach (EducationLine EducationLine_Object in EducationLine_List)
                 {
-                    EducationLineID = EducationLine_Object.EducationLineID,
-                    EducationLineName = EducationLine_Object.EducationLineName,
-                    EducationName = EducationLine_Object.Education.EducationName
-                };
-                jSon_Object = ListItem;
+                    var ListItem = new
+                    {
+                        EducationLineID = EducationLine_Object.EducationLineID,
+                        EducationLineName = EducationLine_Object.EducationLineName,
+                        EducationName = EducationLine_Object.Education.EducationName
+                    };
+
+                    jSonList.Add(ListItem);
+                }
             }
             else
             {
@@ -89,10 +94,10 @@ namespace WebApiStudentData.Controllers
                     ErrorCode = Const.ObjectNotFound,
                     ErrorText = Const.FindReturnString(Const.ObjectNotFound)
                 };
-                jSon_Object = ListItem;
+                jSonList.Add(ListItem);
             }
 
-            return (jSon_Object);
+            return (jSonList);
         }
 
         /// <summary>
@@ -137,7 +142,7 @@ namespace WebApiStudentData.Controllers
 
                     if (1 == NumberOfEducationLinesSaved)
                     {
-                        return (EducationLine_Object.EducationID);
+                        return (EducationLine_Object.EducationLineID);
                     }
                     else
                     {

@@ -769,21 +769,22 @@
             </returns>
             <returns>
             Liste af alle Uddannelseslinjer på alle Uddannelsessteder. Listen returneres 
-            som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : ContactFormID, ContactNameFrom,
+            som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : 
             EducationLineID, EducationLineName og EducationName.
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.EducationLineController.Get(System.Int32)">
             <summary>
-            Returnerer info om én specifik Uddannelseslinje på ét specifikt Uddannelsessted udfra Uddannelseslinje ID
+            Returnerer info om specifikke Uddannelseslinjer på ét specifikt Uddannelsessted udfra Uddannelsessted ID
             </summary>
-            <param name="id">Uddannelseslinje ID</param>
+            <param name="id">Uddannelsessted ID</param>
             <returns>
             Returnerer Uddannelseslinje navn og Uddannelsessted navn udfra Uddannelseslinje ID
             </returns>
             /// <returns>
-            Én Uddannelseslinje på ét Uddannelsessted. Uddannelseslinjen returneres som et jSon objekt, 
-            som indeholder felterne : EducationLineID, EducationLineName og EducationName.
+            Én liste af Uddannelseslinjer på ét Uddannelsessted. Listen returneres 
+            som en liste af jSon objekter, hvor hver enkelt jSon element indeholder felterne : 
+            EducationLineID, EducationLineName og EducationName.
             Eller et json Objekt med felterne ErrorNumber og ErrorText hvor ErrorNumber har en værdi 
             mindre end 0. Se en oversigt over return koder i ReturnCodesAndStrings 
             eller klik her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
