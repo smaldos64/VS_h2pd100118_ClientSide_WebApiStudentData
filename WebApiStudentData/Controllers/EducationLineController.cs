@@ -134,19 +134,26 @@ namespace WebApiStudentData.Controllers
                 }
                 else
                 {
-                    EducationLine_Object.EducationLineName = json_Object.EducationLineName;
-                    EducationLine_Object.EducationID = json_Object.EducationID;
-
-                    db.EducationLines.Add(EducationLine_Object);
-                    NumberOfEducationLinesSaved = db.SaveChanges();
-
-                    if (1 == NumberOfEducationLinesSaved)
+                    if (Const.ObjectNotFound == EducationLine.CheckForEducationLineNameInEducationLine((string)json_Object.EducationLineName, (int)json_Object.EducationID))
                     {
-                        return (EducationLine_Object.EducationLineID);
+                        EducationLine_Object.EducationLineName = json_Object.EducationLineName;
+                        EducationLine_Object.EducationID = json_Object.EducationID;
+
+                        db.EducationLines.Add(EducationLine_Object);
+                        NumberOfEducationLinesSaved = db.SaveChanges();
+
+                        if (1 == NumberOfEducationLinesSaved)
+                        {
+                            return (EducationLine_Object.EducationLineID);
+                        }
+                        else
+                        {
+                            return (Const.SaveOperationFailed);
+                        }
                     }
                     else
                     {
-                        return (Const.SaveOperationFailed);
+                        return (Const.ObjectAlreadyPresent);
                     }
                 }
             }
@@ -191,25 +198,32 @@ namespace WebApiStudentData.Controllers
                 }
                 else
                 {
-                    EducationLine_Object = db.EducationLines.Find(id);
-                    if (null != EducationLine_Object)
+                    if (Const.ObjectNotFound == EducationLine.CheckForEducationLineNameInEducationLine((string)json_Object.EducationLineName, (int)json_Object.EducationID))
                     {
-                        EducationLine_Object.EducationLineName = json_Object.EducationName;
-                        EducationLine_Object.EducationID = json_Object.EducationID;
-
-                        NumberOfEducationLinesSaved = db.SaveChanges();
-                        if (1 == NumberOfEducationLinesSaved)
+                        EducationLine_Object = db.EducationLines.Find(id);
+                        if (null != EducationLine_Object)
                         {
-                            return (Const.UpdateOperationOk);
+                            EducationLine_Object.EducationLineName = json_Object.EducationName;
+                            EducationLine_Object.EducationID = json_Object.EducationID;
+
+                            NumberOfEducationLinesSaved = db.SaveChanges();
+                            if (1 == NumberOfEducationLinesSaved)
+                            {
+                                return (Const.UpdateOperationOk);
+                            }
+                            else
+                            {
+                                return (Const.UpdateOperationFailed);
+                            }
                         }
                         else
                         {
-                            return (Const.UpdateOperationFailed);
+                            return (Const.ObjectNotFound);
                         }
                     }
                     else
                     {
-                        return (Const.ObjectNotFound);
+                        return (Const.ObjectAlreadyPresent);
                     }
                 }
             }

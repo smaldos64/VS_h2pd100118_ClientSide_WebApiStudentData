@@ -118,18 +118,25 @@ namespace WebApiStudentData.Controllers
                 }
                 else
                 {
-                    Education_Object.EducationName = json_Object.EducationName;
-
-                    db.Educations.Add(Education_Object);
-                    NumberOfEducationsSaved = db.SaveChanges();
-
-                    if (1 == NumberOfEducationsSaved)
+                    if (Const.ObjectNotFound == Education.CheckForEducationNameInEducation((string)json_Object.EducationName))
                     {
-                        return (Education_Object.EducationID);
+                        Education_Object.EducationName = json_Object.EducationName;
+
+                        db.Educations.Add(Education_Object);
+                        NumberOfEducationsSaved = db.SaveChanges();
+
+                        if (1 == NumberOfEducationsSaved)
+                        {
+                            return (Education_Object.EducationID);
+                        }
+                        else
+                        {
+                            return (Const.SaveOperationFailed);
+                        }
                     }
                     else
                     {
-                        return (Const.SaveOperationFailed);
+                        return (Const.ObjectAlreadyPresent);
                     }
                 }
             }
@@ -173,25 +180,32 @@ namespace WebApiStudentData.Controllers
                 }
                 else
                 {
-                    Education_Object = db.Educations.Find(id);
-
-                    if (null != Education_Object)
+                    if (Const.ObjectNotFound == Education.CheckForEducationNameInEducation((string)json_Object.EducationName))
                     {
-                        Education_Object.EducationName = json_Object.EducationName;
+                        Education_Object = db.Educations.Find(id);
 
-                        NumberOfEducationsSaved = db.SaveChanges();
-                        if (1 == NumberOfEducationsSaved)
+                        if (null != Education_Object)
                         {
-                            return (Const.UpdateOperationOk);
+                            Education_Object.EducationName = json_Object.EducationName;
+
+                            NumberOfEducationsSaved = db.SaveChanges();
+                            if (1 == NumberOfEducationsSaved)
+                            {
+                                return (Const.UpdateOperationOk);
+                            }
+                            else
+                            {
+                                return (Const.UpdateOperationFailed);
+                            }
                         }
                         else
                         {
-                            return (Const.UpdateOperationFailed);
+                            return (Const.ObjectNotFound);
                         }
                     }
                     else
                     {
-                        return (Const.ObjectNotFound);
+                        return (Const.ObjectAlreadyPresent);
                     }
                 }
             }
