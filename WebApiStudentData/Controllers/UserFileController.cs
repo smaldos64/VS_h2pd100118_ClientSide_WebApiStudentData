@@ -172,7 +172,7 @@ namespace WebApiStudentData.Controllers
                 }
                 else
                 {
-                    UserFile_Object.UserFileID = UserID;
+                    UserFile_Object.UserInfoID = UserID;
                     UserFile_Object.UserFileUrl = json_Object.UserFileUrl;
                     UserFile_Object.userFileAlt = json_Object.UserFileAlt;
 
@@ -240,7 +240,7 @@ namespace WebApiStudentData.Controllers
                         {
                             UserFile_Object.UserInfoID = UserID;
                             UserFile_Object.UserFileUrl = json_Object.UserFileUrl;
-                            UserFile_Object.userFileAlt = json_Object.UserFileAtt;
+                            UserFile_Object.userFileAlt = json_Object.UserFileAlt;
 
                             NumberOfUserFilesSaved = db.SaveChanges();
                             if (1 == NumberOfUserFilesSaved)

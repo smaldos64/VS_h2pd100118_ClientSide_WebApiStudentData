@@ -203,7 +203,7 @@ namespace WebApiStudentData.Controllers
                         EducationLine_Object = db.EducationLines.Find(id);
                         if (null != EducationLine_Object)
                         {
-                            EducationLine_Object.EducationLineName = json_Object.EducationName;
+                            EducationLine_Object.EducationLineName = json_Object.EducationLineName;
                             EducationLine_Object.EducationID = json_Object.EducationID;
 
                             NumberOfEducationLinesSaved = db.SaveChanges();
