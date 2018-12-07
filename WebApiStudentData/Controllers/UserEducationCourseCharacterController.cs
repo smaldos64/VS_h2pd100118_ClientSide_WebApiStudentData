@@ -245,7 +245,7 @@ namespace WebApiStudentData.Controllers
 
                     if (null != json_Object.WhichCharacterScaleID)
                     {
-                        WhichCharacterScale_Object = db.WhichCharacterScales.Find(json_Object.WhichCharacterScaleID);
+                        WhichCharacterScale_Object = db.WhichCharacterScales.Find((int)json_Object.WhichCharacterScaleID);
                         if (null == WhichCharacterScale_Object)
                         {
                             return (Const.WrongCharacterScaleProvided);
@@ -270,7 +270,7 @@ namespace WebApiStudentData.Controllers
                             switch (WhichCharacterScale)
                             {
                                 case (int)WhichCharacterScaleENUM.Character_7_ENUM:
-                                    Character7Scale Character7Scale_Object = db.Character7Scales.Find(json_Object.CharacterValueCourse);
+                                    Character7Scale Character7Scale_Object = db.Character7Scales.Find((int)json_Object.CharacterValueCourse);
                                     if (null == Character7Scale_Object)
                                     {
                                         return (Const.WrongCharacterProvided);
@@ -278,7 +278,7 @@ namespace WebApiStudentData.Controllers
                                     break;
 
                                 case (int)WhichCharacterScaleENUM.Character_13_ENUM:
-                                    Character13Scale Character13Scale_Object = db.Character13Scales.Find(json_Object.CharacterValueCourse);
+                                    Character13Scale Character13Scale_Object = db.Character13Scales.Find((int)json_Object.CharacterValueCourse);
                                     if (null == Character13Scale_Object)
                                     {
                                         return (Const.WrongCharacterProvided);
@@ -379,7 +379,7 @@ namespace WebApiStudentData.Controllers
 
                         if (null != json_Object.WhichCharacterScaleID)
                         {
-                            WhichCharacterScale_Object = db.WhichCharacterScales.Find(json_Object.WhichCharacterScaleID);
+                            WhichCharacterScale_Object = db.WhichCharacterScales.Find((int)json_Object.WhichCharacterScaleID);
                             if (null == WhichCharacterScale_Object)
                             {
                                 return (Const.WrongCharacterScaleProvided);
@@ -404,7 +404,7 @@ namespace WebApiStudentData.Controllers
                                 switch (WhichCharacterScale)
                                 {
                                     case (int)WhichCharacterScaleENUM.Character_7_ENUM:
-                                        Character7Scale Character7Scale_Object = db.Character7Scales.Find(json_Object.CharacterValueCourse);
+                                        Character7Scale Character7Scale_Object = db.Character7Scales.Find((int)json_Object.CharacterValueCourse);
                                         if (null == Character7Scale_Object)
                                         {
                                             return (Const.WrongCharacterProvided);
@@ -412,7 +412,7 @@ namespace WebApiStudentData.Controllers
                                         break;
 
                                     case (int)WhichCharacterScaleENUM.Character_13_ENUM:
-                                        Character13Scale Character13Scale_Object = db.Character13Scales.Find(json_Object.CharacterValueCourse);
+                                        Character13Scale Character13Scale_Object = db.Character13Scales.Find((int)json_Object.CharacterValueCourse);
                                         if (null == Character13Scale_Object)
                                         {
                                             return (Const.WrongCharacterProvided);
