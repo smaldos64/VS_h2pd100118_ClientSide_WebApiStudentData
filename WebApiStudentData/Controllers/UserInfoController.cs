@@ -171,7 +171,7 @@ namespace WebApiStudentData.Controllers
                 if ((null == json_Object.UserName) ||
                     (null == json_Object.Password))
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {

@@ -203,7 +203,7 @@ namespace WebApiStudentData.Controllers
                     (null == json_Object.ContactNameEmail) ||
                     (null == json_Object.ContactText))
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {
@@ -314,7 +314,7 @@ namespace WebApiStudentData.Controllers
                             (null == json_Object.ContactNameEmail) ||
                             (null == json_Object.ContactText))
                         {
-                            return (Const.WrongjSOnObjectParameters);
+                            return (Const.WrongjSonObjectParameters);
                         }
                         else
                         {

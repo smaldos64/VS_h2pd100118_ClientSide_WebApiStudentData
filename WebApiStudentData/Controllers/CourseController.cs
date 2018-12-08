@@ -114,7 +114,7 @@ namespace WebApiStudentData.Controllers
             {
                 if (null == json_Object.CourseName)
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {
@@ -176,7 +176,7 @@ namespace WebApiStudentData.Controllers
             {
                 if (null == json_Object.CourseName)
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {

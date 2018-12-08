@@ -168,7 +168,7 @@ namespace WebApiStudentData.Controllers
                 if ((null == json_Object.UserFileUrl) ||
                     (null == json_Object.UserFileAlt))
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {
@@ -229,7 +229,7 @@ namespace WebApiStudentData.Controllers
                 if ((null == json_Object.UserFileUrl) ||
                     (null == json_Object.UserFileAlt))
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {

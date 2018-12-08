@@ -300,7 +300,7 @@ namespace WebApiStudentData.Controllers
                     (null == json_Object.EndDate) ||
                     (null == json_Object.EducationLineID))
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {
@@ -347,11 +347,12 @@ namespace WebApiStudentData.Controllers
                         else
                         {
                             int WhichCharacterScale = WhichCharacterScale_Object.WhichCharacterScaleID;
+                            int CharacterValueEducation = json_Object.CharacterValueEducation;
 
                             switch (WhichCharacterScale)
                             {
                                 case (int)WhichCharacterScaleENUM.Character_7_ENUM:
-                                    Character7Scale Character7Scale_Object = db.Character7Scales.Find((int)json_Object.CharacterValueEducation);
+                                    Character7Scale Character7Scale_Object = db.Character7Scales.FirstOrDefault(c => c.Character7ScaleValue == CharacterValueEducation);
                                     if (null == Character7Scale_Object)
                                     {
                                         return (Const.WrongCharacterProvided);
@@ -359,7 +360,7 @@ namespace WebApiStudentData.Controllers
                                     break;
 
                                 case (int)WhichCharacterScaleENUM.Character_13_ENUM:
-                                    Character13Scale Character13Scale_Object = db.Character13Scales.Find((int)json_Object.CharacterValueEducation);
+                                    Character13Scale Character13Scale_Object = db.Character13Scales.FirstOrDefault(c => c.Character13ScaleValue == CharacterValueEducation);
                                     if (null == Character13Scale_Object)
                                     {
                                         return (Const.WrongCharacterProvided);
@@ -445,7 +446,7 @@ namespace WebApiStudentData.Controllers
                     (null == json_Object.EndDate) ||
                     (null == json_Object.EducationLineID))
                 {
-                    return (Const.WrongjSOnObjectParameters);
+                    return (Const.WrongjSonObjectParameters);
                 }
                 else
                 {
@@ -498,11 +499,12 @@ namespace WebApiStudentData.Controllers
                             else
                             {
                                 int WhichCharacterScale = WhichCharacterScale_Object.WhichCharacterScaleID;
+                                int CharacterValueEducation = json_Object.CharacterValueEducation;
 
                                 switch (WhichCharacterScale)
                                 {
                                     case (int)WhichCharacterScaleENUM.Character_7_ENUM:
-                                        Character7Scale Character7Scale_Object = db.Character7Scales.Find((int)json_Object.CharacterValueEducation);
+                                        Character7Scale Character7Scale_Object = db.Character7Scales.FirstOrDefault(c => c.Character7ScaleValue == CharacterValueEducation);
                                         if (null == Character7Scale_Object)
                                         {
                                             return (Const.WrongCharacterProvided);
@@ -510,7 +512,7 @@ namespace WebApiStudentData.Controllers
                                         break;
 
                                     case (int)WhichCharacterScaleENUM.Character_13_ENUM:
-                                        Character13Scale Character13Scale_Object = db.Character13Scales.Find((int)json_Object.CharacterValueEducation);
+                                        Character13Scale Character13Scale_Object = db.Character13Scales.FirstOrDefault(c => c.Character13ScaleValue == CharacterValueEducation);
                                         if (null == Character13Scale_Object)
                                         {
                                             return (Const.WrongCharacterProvided);
