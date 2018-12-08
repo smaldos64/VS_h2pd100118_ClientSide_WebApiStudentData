@@ -309,6 +309,21 @@ namespace WebApiStudentData.Controllers
                     User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
                     User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
 
+                    List<User_Education_Time_Collection> User_Education_Time_Present_Collection_List = db.User_Education_Time_Collections.Where(u => u.UserInfoID == UserID && u.EducationLineID == User_Education_Time_Collection_Object.EducationLineID).ToList();
+
+                    int ListCounter = 0;
+
+                    for (ListCounter = 0; ListCounter < User_Education_Time_Present_Collection_List.Count; ListCounter++)
+                    {
+                        if ((User_Education_Time_Collection_Object.StartDate == 
+                            User_Education_Time_Present_Collection_List[ListCounter].StartDate) &&
+                            (User_Education_Time_Collection_Object.EndDate ==
+                            User_Education_Time_Present_Collection_List[ListCounter].EndDate))
+                        {
+                            return (Const.UserAlreadySignedUpForEducation);
+                        }
+                    }
+
                     if (null != json_Object.WhichCharacterScaleID)
                     {
                         WhichCharacterScale_Object = db.WhichCharacterScales.Find((int)json_Object.WhichCharacterScaleID);
@@ -441,6 +456,24 @@ namespace WebApiStudentData.Controllers
                         User_Education_Time_Collection_Object.StartDate = json_Object.StartDate;
                         User_Education_Time_Collection_Object.EndDate = json_Object.EndDate;
                         User_Education_Time_Collection_Object.EducationLineID = json_Object.EducationLineID;
+
+                        List<User_Education_Time_Collection> User_Education_Time_Present_Collection_List = db.User_Education_Time_Collections.Where(u => u.UserInfoID == UserID && u.EducationLineID == User_Education_Time_Collection_Object.EducationLineID).ToList();
+
+                        int ListCounter = 0;
+
+                        for (ListCounter = 0; ListCounter < User_Education_Time_Present_Collection_List.Count; ListCounter++)
+                        {
+                            if (id != User_Education_Time_Present_Collection_List[ListCounter].User_Education_Time_CollectionID)
+                            {
+                                if ((User_Education_Time_Collection_Object.StartDate ==
+                                    User_Education_Time_Present_Collection_List[ListCounter].StartDate) &&
+                                    (User_Education_Time_Collection_Object.EndDate ==
+                                    User_Education_Time_Present_Collection_List[ListCounter].EndDate))
+                                {
+                                    return (Const.UserAlreadySignedUpForEducation);
+                                }
+                            }
+                        }
 
                         if (null != json_Object.WhichCharacterScaleID)
                         {
