@@ -299,7 +299,7 @@ namespace WebApiStudentData.Controllers
 
                     if (null != json_Object.AbsencePercentageCourse)
                     {
-                        User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = json_Object.AbsencePercentageEducation;
+                        User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = json_Object.AbsencePercentageCourse;
                     }
                     else
                     {
@@ -433,7 +433,7 @@ namespace WebApiStudentData.Controllers
 
                         if (null != json_Object.AbsencePercentageCourse)
                         {
-                            User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = json_Object.AbsencePercentageEducation;
+                            User_Education_Character_Course_Collection_Object.AbsencePercentageCourse = json_Object.AbsencePercentageCourse;
                         }
                         else
                         {

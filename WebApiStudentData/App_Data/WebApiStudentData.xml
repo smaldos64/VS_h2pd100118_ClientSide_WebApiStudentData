@@ -1052,7 +1052,7 @@
         </member>
         <member name="M:WebApiStudentData.Controllers.UserEducationTimeController.Put(System.Int32,System.Object,System.String,System.String)">
             <summary>
-            Gemmer Uddannelsesforløb hørende til bruger specificeret ved id, UserName og Password.  
+            Opdaterer Uddannelsesforløb hørende til bruger specificeret ved id, UserName og Password.  
             </summary>
             <remarks>
             UserName og Password skal være gemt i Web API'ets database for at være gyldige. Og 
