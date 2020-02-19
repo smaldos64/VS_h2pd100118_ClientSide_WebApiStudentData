@@ -144,6 +144,7 @@ namespace WebApiStudentData.Controllers
 
                         if (1 == NumberOfEducationLinesSaved)
                         {
+                            LogData.LogDataToDatabase(UserName, DataBaseOperation.SaveData_Enum, ModelDatabaseNumber.EducationLine_Enum);
                             return (EducationLine_Object.EducationLineID);
                         }
                         else
@@ -209,6 +210,7 @@ namespace WebApiStudentData.Controllers
                             NumberOfEducationLinesSaved = db.SaveChanges();
                             if (1 == NumberOfEducationLinesSaved)
                             {
+                                LogData.LogDataToDatabase(UserName, DataBaseOperation.UpdateData_Enum, ModelDatabaseNumber.EducationLine_Enum);
                                 return (Const.UpdateOperationOk);
                             }
                             else
@@ -268,6 +270,7 @@ namespace WebApiStudentData.Controllers
                         NumberOfEducationLinesDeleted = db.SaveChanges();
                         if (1 == NumberOfEducationLinesDeleted)
                         {
+                            LogData.LogDataToDatabase(UserName, DataBaseOperation.DeleteData_Enum, ModelDatabaseNumber.EducationLine_Enum);
                             return (Const.DeleteOperationOk);
                         }
                         else

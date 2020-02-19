@@ -29,7 +29,7 @@ namespace WebApiStudentData.Controllers
         /// CourseID, CourseName, WhichCharacterScaleIDCourse, WhichCharacterScaleNameCourse, 
         /// CharacterValueCourse, AbsencePercentageCourse, EducationLine, EducationName, 
         /// EducationStartTime, EducationEndTime, CharacterValueEducation og 
-        /// AbsencePercentageForEducation. Flere af de nævnte felter "ID felter", kan have 
+        /// AbsencePercentageForEducation. Flere af de nævnte "ID felter", kan have 
         /// en værdi på -10 (InformationNotProvided), hvis disse felter ikke er udfyldt af
         /// brugeren. Er det et tekst felt, vil feltet have værdien : "Information er ikke gemt"
         /// Ved fejl vil der returneres et json Objekt med felterne ErrorNumber og ErrorText, 
@@ -326,6 +326,7 @@ namespace WebApiStudentData.Controllers
 
                     if (1 == NumberOfCourseCharactersSaved)
                     {
+                        LogData.LogDataToDatabase(UserName, DataBaseOperation.SaveData_Enum, ModelDatabaseNumber.User_Education_Character_Course_Collection_Enum);
                         return (User_Education_Character_Course_Collection_Object.User_Education_Character_Course_CollectionID);
                     }
                     else
@@ -464,6 +465,7 @@ namespace WebApiStudentData.Controllers
                         NumberOfCourseCharactersSaved = db.SaveChanges();
                         if (1 == NumberOfCourseCharactersSaved)
                         {
+                            LogData.LogDataToDatabase(UserName, DataBaseOperation.UpdateData_Enum, ModelDatabaseNumber.User_Education_Character_Course_Collection_Enum);
                             return (Const.UpdateOperationOk);
                         }
                         else
@@ -524,6 +526,7 @@ namespace WebApiStudentData.Controllers
                     NumberOfCourseCharactersDeleted = db.SaveChanges();
                     if (1 == NumberOfCourseCharactersDeleted)
                     {
+                        LogData.LogDataToDatabase(UserName, DataBaseOperation.DeleteData_Enum, ModelDatabaseNumber.User_Education_Character_Course_Collection_Enum);
                         return (Const.DeleteOperationOk);
                     }
                     else

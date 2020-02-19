@@ -1,4 +1,4 @@
-﻿#undef DEBUG
+﻿#define DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -127,6 +127,7 @@ namespace WebApiStudentData.Controllers
 
                 if (1 == NumberOfUsersSaved)
                 {
+                    LogData.LogDataToDatabase(UserName, DataBaseOperation.SaveData_Enum, ModelDatabaseNumber.UserInfo_Enum);
                     return (UserInfo_Object.UserInfoID);
                 }
                 else
@@ -185,6 +186,7 @@ namespace WebApiStudentData.Controllers
                         NumberOfUsersSaved = db.SaveChanges();
                         if (1 == NumberOfUsersSaved)
                         {
+                            LogData.LogDataToDatabase(UserName, DataBaseOperation.UpdateData_Enum, ModelDatabaseNumber.UserInfo_Enum);
                             return (Const.UpdateOperationOk);
                         }
                         else
@@ -221,16 +223,30 @@ namespace WebApiStudentData.Controllers
         {
 #if (DEBUG)
             int UserID = 0;
+            int NumberOfUsersDeleted;
+            UserFile UserFile_Object;
 
             UserID = UserInfo.FindUserInDatabase(UserName, Password);
 
             if (Const.UserNotFound < UserID)
             {
-                return (Const.FeatureNotImplemented);
+                return (Const.UserNotFound);
             }
             else
             {
-                return (Const.UserNotFound);
+                UserFile_Object = db.UserFiles.Find(UserID);
+                db.UserFiles.Remove(UserFile_Object);
+                NumberOfUsersDeleted = db.SaveChanges();
+                if (1 == NumberOfUsersDeleted)
+                {
+                    LogData.LogDataToDatabase(UserName, DataBaseOperation.DeleteData_Enum, ModelDatabaseNumber.UserInfo_Enum);
+                    return (Const.DeleteOperationOk);
+                }
+                else
+                {
+                    return (Const.DeleteOperationFailed);
+                }
+                //return (Const.UserNotFound);
             }
 #else
             return (Const.FeatureNotImplemented);

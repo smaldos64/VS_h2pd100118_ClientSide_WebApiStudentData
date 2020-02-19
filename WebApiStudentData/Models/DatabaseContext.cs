@@ -101,6 +101,10 @@ namespace WebApiStudentData.Models
         public virtual DbSet<UserFile> UserFiles { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
         public virtual DbSet<WhichCharacterScale> WhichCharacterScales { get; set; }
+        public virtual DbSet<LogData> LogDatas { get; set; }
+
+        public virtual DbSet<TestStudent> TestStudents { get; set; }
+        public virtual DbSet<TestCourse> TestCourses { get; set; }
     }
 
     //public class MyEntity

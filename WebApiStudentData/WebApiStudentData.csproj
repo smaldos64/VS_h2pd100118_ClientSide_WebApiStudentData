@@ -199,6 +199,7 @@
     <Compile Include="Controllers\EducationLineController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReturnCodesAndStringsController.cs" />
+    <Compile Include="Controllers\TestStudentController.cs" />
     <Compile Include="Controllers\UserEducationCourseCharacterController.cs" />
     <Compile Include="Controllers\UserEducationTimeController.cs" />
     <Compile Include="Controllers\UserFileController.cs" />
@@ -206,6 +207,10 @@
     <Compile Include="Controllers\WhichCharacterScaleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909301918017_Test.cs" />
+    <Compile Include="Migrations\201909301918017_Test.Designer.cs">
+      <DependentUpon>201909301918017_Test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absence.cs" />
@@ -216,6 +221,9 @@
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\Education.cs" />
     <Compile Include="Models\EducationLine.cs" />
+    <Compile Include="Models\LogData.cs" />
+    <Compile Include="Models\TestCourse.cs" />
+    <Compile Include="Models\TestStudent.cs" />
     <Compile Include="Models\UserFile.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\User_Education_Character_Course_Collection.cs" />
@@ -286,7 +294,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909301918017_Test.resx">
+      <DependentUpon>201909301918017_Test.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
@@ -342,6 +354,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap-theme_1min_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

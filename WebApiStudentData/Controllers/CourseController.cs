@@ -127,6 +127,7 @@ namespace WebApiStudentData.Controllers
 
                         if (1 == NumberOfCoursesSaved)
                         {
+                            LogData.LogDataToDatabase(UserName, DataBaseOperation.SaveData_Enum, ModelDatabaseNumber.Course_Enum);
                             return (Course_Object.CourseID);
                         }
                         else
@@ -189,6 +190,7 @@ namespace WebApiStudentData.Controllers
                             NumberOfCoursesSaved = db.SaveChanges();
                             if (1 == NumberOfCoursesSaved)
                             {
+                                LogData.LogDataToDatabase(UserName, DataBaseOperation.UpdateData_Enum, ModelDatabaseNumber.Course_Enum);
                                 return (Const.UpdateOperationOk);
                             }
                             else
@@ -249,6 +251,7 @@ namespace WebApiStudentData.Controllers
                         NumberOfCoursesDeleted = db.SaveChanges();
                         if (1 == NumberOfCoursesDeleted)
                         {
+                            LogData.LogDataToDatabase(UserName, DataBaseOperation.DeleteData_Enum, ModelDatabaseNumber.Course_Enum);
                             return (Const.DeleteOperationOk);
                         }
                         else

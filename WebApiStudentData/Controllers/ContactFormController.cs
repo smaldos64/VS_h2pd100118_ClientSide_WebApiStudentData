@@ -256,6 +256,7 @@ namespace WebApiStudentData.Controllers
                                           ContactForm_Object.ContactSubject,
                                           MailBody);
                         }
+                        LogData.LogDataToDatabase(UserName, DataBaseOperation.SaveData_Enum, ModelDatabaseNumber.ContactForm_Enum);
                         return (ContactForm_Object.ContactFormID);
                     }
                     else
@@ -364,6 +365,7 @@ namespace WebApiStudentData.Controllers
                                                   ContactForm_Object.ContactSubject,
                                                   MailBody);
                                 }
+                                LogData.LogDataToDatabase(UserName, DataBaseOperation.UpdateData_Enum, ModelDatabaseNumber.ContactForm_Enum);
                                 return (Const.UpdateOperationOk);
                             }
                             else
@@ -424,6 +426,7 @@ namespace WebApiStudentData.Controllers
                     NumberOfContactFormsDeleted = db.SaveChanges();
                     if (1 == NumberOfContactFormsDeleted)
                     {
+                        LogData.LogDataToDatabase(UserName, DataBaseOperation.DeleteData_Enum, ModelDatabaseNumber.ContactForm_Enum);
                         return (Const.DeleteOperationOk);
                     }
                     else

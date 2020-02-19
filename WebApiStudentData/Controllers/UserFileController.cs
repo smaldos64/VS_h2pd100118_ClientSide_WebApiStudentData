@@ -181,6 +181,7 @@ namespace WebApiStudentData.Controllers
 
                     if (1 == NumberOfUserFilesSaved)
                     {
+                        LogData.LogDataToDatabase(UserName, DataBaseOperation.SaveData_Enum, ModelDatabaseNumber.UserFile_Enum);
                         return (UserFile_Object.UserFileID);
                     }
                     else
@@ -245,6 +246,7 @@ namespace WebApiStudentData.Controllers
                             NumberOfUserFilesSaved = db.SaveChanges();
                             if (1 == NumberOfUserFilesSaved)
                             {
+                                LogData.LogDataToDatabase(UserName, DataBaseOperation.UpdateData_Enum, ModelDatabaseNumber.UserFile_Enum);
                                 return (Const.UpdateOperationOk);
                             }
                             else
@@ -304,6 +306,7 @@ namespace WebApiStudentData.Controllers
                     NumberOfUserFilesDeleted = db.SaveChanges();
                     if (1 == NumberOfUserFilesDeleted)
                     {
+                        LogData.LogDataToDatabase(UserName, DataBaseOperation.DeleteData_Enum, ModelDatabaseNumber.UserFile_Enum);
                         return (Const.DeleteOperationOk);
                     }
                     else
