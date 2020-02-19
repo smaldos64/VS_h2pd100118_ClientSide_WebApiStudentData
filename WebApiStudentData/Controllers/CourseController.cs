@@ -26,21 +26,34 @@ namespace WebApiStudentData.Controllers
         /// indeholder felterne : CourseID og CourseName.
         /// </returns>
         // GET api/<controller>
-        public List<Object> Get()
+        public List<Object> Get(string UserName, string Password)
         {
             List<object> jSonList = new List<object>();
             List<Course> Course_List = new List<Course>();
 
-            Course_List = db.Courses.ToList();
+            int UserID = 0;
 
-            foreach (Course Course_Object in Course_List)
+            UserID = UserInfo.FindUserInDatabase(UserName, Password);
+
+            if (Const.UserNotFound < UserID)
             {
-                var ListItem = new
+                LogData.LogDataToDatabase(UserName, DataBaseOperation.ReadData_Enum, ModelDatabaseNumber.Course_Enum);
+                
+                Course_List = db.Courses.ToList();
+
+                foreach (Course Course_Object in Course_List)
                 {
-                    CourseID = Course_Object.CourseID,
-                    CourseName = Course_Object.CourseName
-                };
-                jSonList.Add(ListItem);
+                    var ListItem = new
+                    {
+                        CourseID = Course_Object.CourseID,
+                        CourseName = Course_Object.CourseName
+                    };
+                    jSonList.Add(ListItem);
+                }
+            }
+            else
+            {
+                jSonList.Add(Const.UserNotFound);
             }
             return (jSonList);
         }

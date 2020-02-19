@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using WebApiStudentData.Models;
+
 namespace WebApiStudentData.ConstDeclarations
 {
     public enum WhichCharacterScaleENUM
@@ -13,6 +15,66 @@ namespace WebApiStudentData.ConstDeclarations
 
     public class Const
     {
+        public static readonly DataBaseOperationInfo[] DataBaseOperationInfoArray =
+        {
+            new DataBaseOperationInfo(ThisDataBaseOperation: DataBaseOperation.SaveData_Enum, ThisDataBaseOperationString: "Gemme Data"),
+            new DataBaseOperationInfo(ThisDataBaseOperation: DataBaseOperation.DeleteData_Enum, ThisDataBaseOperationString: "Slette Data"),
+            new DataBaseOperationInfo(ThisDataBaseOperation: DataBaseOperation.UpdateData_Enum, ThisDataBaseOperationString: "Opdatere Data"),
+            new DataBaseOperationInfo(ThisDataBaseOperation: DataBaseOperation.ReadData_Enum, ThisDataBaseOperationString: "Læse Data"),
+        };
+        public static string FindDataBaseOperationString(DataBaseOperation CurrentDataBaseOperation)
+        {
+            int ReturnStringCounter = 0;
+
+            do
+            {
+                if (DataBaseOperationInfoArray[ReturnStringCounter].ThisDataBaseOperation == CurrentDataBaseOperation)
+                {
+                    return (DataBaseOperationInfoArray[ReturnStringCounter].ThisDataBaseOperationString);
+                }
+                else
+                {
+                    ReturnStringCounter++;
+                }
+            } while (ReturnStringCounter < DataBaseOperationInfoArray.Length);
+
+            return ("Ingen string fundet der hører til søgt nummer !!!");
+        }
+
+        public static readonly TableOperationInfo[] TableOperationInfoArray =
+        {
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.Absence_Enum, ThisModelDatabaseNumberString: "Absence Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.Character7Scale_Enum, ThisModelDatabaseNumberString: "Character7Scale Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.Character13Scale_Enum, ThisModelDatabaseNumberString: "Character13Scale Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.ContactForm_Enum, ThisModelDatabaseNumberString: "Contactform Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.Course_Enum, ThisModelDatabaseNumberString: "Course Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.EducationLine_Enum, ThisModelDatabaseNumberString: "EducationLine Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.Education_Enum, ThisModelDatabaseNumberString: "Education Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.UserFile_Enum, ThisModelDatabaseNumberString: "UserFile Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.UserInfo_Enum, ThisModelDatabaseNumberString: "UserInfo Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.User_Education_Character_Course_Collection_Enum, ThisModelDatabaseNumberString: "User_Education_Character_Course_Collection Tabel"),
+            new TableOperationInfo(ThisModelDatabaseNumber: ModelDatabaseNumber.User_Eductaion_Time_Collection_Enum, ThisModelDatabaseNumberString: "User_Eductaion_Time_Collection Tabel")
+        };
+
+        public static string FindTableOperationString(ModelDatabaseNumber CurrentModelDatabaseNumber)
+        {
+            int ReturnStringCounter = 0;
+
+            do
+            {
+                if (TableOperationInfoArray[ReturnStringCounter].ThisModelDatabaseNumber == CurrentModelDatabaseNumber)
+                {
+                    return (TableOperationInfoArray[ReturnStringCounter].ThisModelDatabaseNumberString);
+                }
+                else
+                {
+                    ReturnStringCounter++;
+                }
+            } while (ReturnStringCounter < TableOperationInfoArray.Length);
+
+            return ("Ingen string fundet der hører til søgt nummer !!!");
+        }
+
         public static readonly string PasswordHash = "P@@Sw0rd";
         public static readonly string SaltKey = "S@LT&KEY";
         public static readonly string VIKey = "@1B2c3D4e5F6g7H8";

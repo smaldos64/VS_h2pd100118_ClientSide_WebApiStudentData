@@ -613,7 +613,7 @@
             her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
             </returns>
         </member>
-        <member name="M:WebApiStudentData.Controllers.CourseController.Get">
+        <member name="M:WebApiStudentData.Controllers.CourseController.Get(System.String,System.String)">
             <summary>
             Returnerer info om alle Fag/Kurser. 
             </summary>
@@ -839,6 +839,17 @@
             Eller en retur kode med en værdi mindre end 0, hvis noget gik galt. 
             Se en oversigt over return koder i ReturnCodesAndStrings eller klik 
             her : <see cref="T:WebApiStudentData.ConstDeclarations.ReturnCodeAndReturnString"/>
+            </returns>
+        </member>
+        <member name="M:WebApiStudentData.Controllers.LogDataController.Get">
+            <summary>
+            Returnerer info om alle/de fleste Database operationer. 
+            </summary>
+            <returns>
+            Returnerer en liste af alle/de fleste Database operationer med tilhørende UserName. Listen 
+            returneres som en liste af jSon objekter, hvor hver enkelt jSon element 
+            indeholder felterne : LogDataID, LogDataDateTime, LogDataUserName, ThisDataBaseOperation og
+            ThisModelDatabaseNumber.
             </returns>
         </member>
         <member name="M:WebApiStudentData.Controllers.ReturnCodesAndStringsController.Get">

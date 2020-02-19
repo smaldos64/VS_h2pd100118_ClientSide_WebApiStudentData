@@ -10,7 +10,8 @@ namespace WebApiStudentData.Models
     {
         SaveData_Enum,
         UpdateData_Enum,
-        DeleteData_Enum
+        DeleteData_Enum,
+        ReadData_Enum
     }
 
     public enum ModelDatabaseNumber
@@ -26,6 +27,32 @@ namespace WebApiStudentData.Models
         User_Eductaion_Time_Collection_Enum,
         UserFile_Enum,
         UserInfo_Enum
+    }
+
+    public class DataBaseOperationInfo
+    {
+        public DataBaseOperation ThisDataBaseOperation;
+        public string ThisDataBaseOperationString;
+
+        public DataBaseOperationInfo(DataBaseOperation ThisDataBaseOperation,
+                                     string ThisDataBaseOperationString)
+        {
+            this.ThisDataBaseOperation = ThisDataBaseOperation;
+            this.ThisDataBaseOperationString = ThisDataBaseOperationString;
+        }
+    }
+
+    public class TableOperationInfo
+    {
+        public ModelDatabaseNumber ThisModelDatabaseNumber;
+        public string ThisModelDatabaseNumberString;
+
+        public TableOperationInfo(ModelDatabaseNumber ThisModelDatabaseNumber,
+                                  string ThisModelDatabaseNumberString)
+        {
+            this.ThisModelDatabaseNumber = ThisModelDatabaseNumber;
+            this.ThisModelDatabaseNumberString = ThisModelDatabaseNumberString;
+        }
     }
 
     public class LogData

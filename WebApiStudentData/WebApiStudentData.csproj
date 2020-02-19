@@ -198,6 +198,7 @@
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EducationLineController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogDataController.cs" />
     <Compile Include="Controllers\ReturnCodesAndStringsController.cs" />
     <Compile Include="Controllers\TestStudentController.cs" />
     <Compile Include="Controllers\UserEducationCourseCharacterController.cs" />
